@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocFinder.Domain", "DocFind
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocFinder.Service", "DocFinder.Service\DocFinder.Service.csproj", "{9B8BF37E-2B6C-46A8-8262-DE2AED46E2E2}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DocFinder.Database", "DocFinder.Database\DocFinder.Database.sqlproj", "{D2306FE5-78BE-4F5E-B719-04A421E0EE63}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,12 @@ Global
 		{9B8BF37E-2B6C-46A8-8262-DE2AED46E2E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B8BF37E-2B6C-46A8-8262-DE2AED46E2E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B8BF37E-2B6C-46A8-8262-DE2AED46E2E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2306FE5-78BE-4F5E-B719-04A421E0EE63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2306FE5-78BE-4F5E-B719-04A421E0EE63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2306FE5-78BE-4F5E-B719-04A421E0EE63}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{D2306FE5-78BE-4F5E-B719-04A421E0EE63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2306FE5-78BE-4F5E-B719-04A421E0EE63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2306FE5-78BE-4F5E-B719-04A421E0EE63}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
