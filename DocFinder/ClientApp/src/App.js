@@ -8,6 +8,7 @@ import { LoginComponent } from './components/Login';
 import { Search } from './components/Search';
 import { DoctorLogin } from './components/DoctorLogin';
 import { PatientLogin } from './components/PatientLogin';
+import { Footer } from './components/Footer';
 
 import './custom.css'
 
@@ -15,8 +16,9 @@ export default class App extends Component {
   static displayName = App.name;
 
   render () {
-    return (
-      <Layout>
+      return (
+          <>
+        <Layout>
         <Route exact path='/' component={Home} />
         <Route path='/counter' component={Counter} />
         <Route path='/fetch-data' component={FetchData} />
@@ -24,7 +26,8 @@ export default class App extends Component {
         <Route path='/Search' component={Search} />
         <Route exact  path='/Login/Patient' component={PatientLogin} />
         <Route exact  path='/Login/Doctor' component={DoctorLogin} />
-      </Layout>
+        </Layout>
+        </>
     );
   }
 }

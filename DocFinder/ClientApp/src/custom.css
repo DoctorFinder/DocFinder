@@ -12,3 +12,13 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+.container {
+    flex: 1; /* same as flex-grow: 1; */
+}
+
+.flex-styles {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
