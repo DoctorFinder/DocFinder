@@ -38,18 +38,18 @@ a:hover {
     padding-bottom: 0.625rem;
 }
 
-.ft-social {
+.zz-socialist {
     padding: 0 1.875rem 1.25rem;
 }
 
-.ft-social-list {
+.zz-socialist-list {
     display: flex;
     justify-content: center;
     border-top: 1px #777 solid;
     padding-top: 1.25rem;
 }
 
-.ft-social-list li {
+.zz-socialist-list li {
     margin: 0.5rem;
     font-size: 1.25rem;
 }
