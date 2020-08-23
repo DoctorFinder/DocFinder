@@ -1,5 +1,5 @@
 ﻿import React from 'react'
-
+//import Modal from 'bootstrap/Modal';
 
 
 export function DoctorLogin() {
@@ -7,8 +7,12 @@ export function DoctorLogin() {
 
     return (
 
-        <div>
-            <h3>Congrats you are succesfully redirected to Doctor Login Page</h3>
-        </div>
+        <div>This is doctor login</div>
+//        <Modal> 
+  //      <Modal.Header> </Modal.Header>
+    //    <Modal.body> </Modal.body>
+     //   </Modal>
+
+
     )
 }
