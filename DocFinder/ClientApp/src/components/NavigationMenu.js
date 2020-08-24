@@ -13,26 +13,26 @@ export function Navigation() {
             <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
                 <Nav className="justify-content-end" as="ul">
                     <Nav.Item as="li">
-                            <Nav.Link as={Link} to="/">About Us</Nav.Link>
+                            <Nav.Link as={Link} to="/AboutUs">About Us</Nav.Link>
                         </Nav.Item>
                         <Nav.Item as="li">
-                            <Nav.Link as={Link} to="/">Services</Nav.Link>
+                            <Nav.Link as={Link} to="/Services">Services</Nav.Link>
                         </Nav.Item>
                     <NavDropdown title="Become a member" id="basic-nav-dropdown">
-                            <NavDropdown.Item as={Link} to="/Login/Patient">How to list yourself</NavDropdown.Item>
-                            <NavDropdown.Item as={Link} to="/Login/Doctor">Hospitals</NavDropdown.Item>
-                            <NavDropdown.Item as={Link} to="/Login/Patient">Physician Health Care Profession</NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/List/yourself">How to list yourself</NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/List/Hospitals">Hospitals</NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/List/physicians">Physician Health Care Profession</NavDropdown.Item>
                         </NavDropdown>
                         <NavDropdown title="Find" id="basic-nav-dropdown">
-                            <NavDropdown.Item as={Link} to="/Login/Patient">Hospital</NavDropdown.Item>
-                            <NavDropdown.Item as={Link} to="/Login/Doctor">Health Care Professional</NavDropdown.Item>
-                            <NavDropdown.Item as={Link} to="/Login/Patient">Clinical Trials</NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/Find/Hospitals">Hospital</NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/Find/Doctors">Health Care Professional</NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/Find/Trials">Clinical Trials</NavDropdown.Item>
                         </NavDropdown>
                         <NavDropdown title="Others" id="basic-nav-dropdown">
-                            <NavDropdown.Item as={Link} to="/Login/Patient">Help</NavDropdown.Item>                            
-                            <NavDropdown.Item as={Link} to="/Login/Doctor">Email</NavDropdown.Item>
-                            <NavDropdown.Item as={Link} to="/Login/Patient">Legal</NavDropdown.Item>
-                            <NavDropdown.Item as={Link} to="/Login/Patient">Home</NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/Help">Help</NavDropdown.Item>                            
+                            <NavDropdown.Item as={Link} to="/Email">Email</NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/Legal">Legal</NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/">Home</NavDropdown.Item>
                         </NavDropdown>
                 </Nav>
                 </Navbar.Collapse>
