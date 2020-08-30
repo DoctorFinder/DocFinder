@@ -16,5 +16,9 @@ namespace DocFinder.Domain
         public string Password { get; set; }
 
         public int PhoneNumber { get; set; }
+
+        public string LicenseNumber { get; set; }
+
+        public int  YearsOfExperience { get; set; }
     }
 }

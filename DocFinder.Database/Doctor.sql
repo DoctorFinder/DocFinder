@@ -5,5 +5,7 @@
     [LastName] VARCHAR(50) NOT NULL, 
     [Email] VARCHAR(50) NOT NULL, 
     [Password] VARCHAR(50) NOT NULL, 
-    [PhoneNumber] INT NOT NULL
+    [PhoneNumber] INT NOT NULL,
+    [LicenseNumber] VARCHAR(50) NOT NULL,
+    [YearsOfExperience] INT NOT NULL Default(0)
 )

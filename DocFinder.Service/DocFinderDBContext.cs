@@ -14,5 +14,7 @@ namespace DocFinder.Service
 
         }
         public DbSet<Doctor> Doctors { get; set; }
+
+        public DbSet<Specialities> Specialities { get; set; }
     }
 }

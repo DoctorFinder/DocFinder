@@ -1,13 +1,20 @@
-﻿import React from 'react'
+﻿import React, { useState } from "react";
+import { Route } from 'react-router-dom';
+import { DoctorPersonalForm} from './DoctorPersonalForm';
+import { DoctorProfessionalForm} from './DoctorProfessionalForm';
+import { DoctorImageForm } from './DoctorImageForm';
+import "react-datepicker/dist/react-datepicker.css";
 
 
+export function ListYourselfComponent(props) {
 
-export function ListYourselfComponent() {
-
+    
     return (
-
         <div>
-            <h3>Congrats you are succesfully redirected to List Yourself Component  Page</h3>
+            <Route exact path={`${props.match.path}`} component={DoctorPersonalForm} />
+            <Route path={`${props.match.path}/Professional`} component={DoctorProfessionalForm} />
+            <Route path={`${props.match.path}/Image`} component={DoctorImageForm} />
         </div>
-    )
+        
+        );
 }

@@ -45,6 +45,7 @@ namespace DocFinder
             services.AddControllersWithViews();
 
             services.AddScoped<IDoctorService, DoctorService>();
+            services.AddScoped<ISpecialityService, SpecialityService>();
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
