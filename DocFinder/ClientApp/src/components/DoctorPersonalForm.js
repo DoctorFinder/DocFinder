@@ -39,7 +39,7 @@ export function DoctorPersonalForm(props) {
             (
                     <Form noValidate >
       <Form.Group>
-                            <Form.Label>First Name</Form.Label>
+                            <Form.Label>First Name 1</Form.Label>
                             <Form.Control type="text" name="firstName" placeholder="First Name" value={values.firstName} onChange={handleChange} isInvalid={!!errors.firstName} />
                             <Form.Control.Feedback type="invalid" >
                                 {errors.firstName}
