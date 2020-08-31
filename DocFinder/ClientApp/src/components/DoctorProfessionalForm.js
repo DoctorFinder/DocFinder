@@ -9,6 +9,7 @@ export function DoctorProfessionalForm(props) {
 
     useEffect(() => {
         getSpecialitiesList();
+        getLanguagesList();
         let lastIdx = props.match.url.lastIndexOf("/");
         let linkRoute = props.match.url.substring(0, lastIdx);
         setlinkToImagePath(linkRoute + "/Image");
@@ -18,6 +19,15 @@ export function DoctorProfessionalForm(props) {
     function getSpecialitiesList() {
         fetch("Speciality").then((response) => response.json())
             .then((data) => {setSpecialitiesDropdown(data);});
+    }
+
+    function getLanguagesList() {
+        fetch("Language").then((response) => response.json())
+            .then((data) => { setLanguagesDropdown(data); });
+    }
+
+    function setLanguagesDropdown(data) {
+        console.log(data);
     }
 
 

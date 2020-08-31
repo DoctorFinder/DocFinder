@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[Languages]
+(
+	[Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	Language VARCHAR(50) NOT NULL,
+	[Code] VARCHAR(10) NOT NULL
+)
