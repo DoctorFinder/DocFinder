@@ -31,7 +31,11 @@ export function ListYourselfComponent(props) {
     }
 
     const emptyImageFormData = {
-        address: "",
+        address1: "",
+        address2: "",
+        city:"",
+        state: "",
+        zipcode:"",
         phoneNumber: ""
     }
 
@@ -60,8 +64,6 @@ export function ListYourselfComponent(props) {
 
     function saveProfessionalFormData(values) {
         setProfessionalFormStatus(true);
-        console.log(values);
-        debugger;
         setdefaultProfessionalFormData(values);
         let lastIndexOfPath = location.pathname.lastIndexOf("/");
         let imagePath = location.pathname.substring(0, lastIndexOfPath + 1) + "Image";
