@@ -84,7 +84,7 @@ namespace DocFinder
 
             app.UseSpa(spa =>
             {
-                spa.Options.SourcePath = "ClientApp";
+                spa.Options.SourcePath = "ClientApp";                
 
                 if (env.IsDevelopment())
                 {
