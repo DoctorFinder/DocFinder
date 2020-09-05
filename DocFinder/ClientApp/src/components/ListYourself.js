@@ -1,13 +1,15 @@
-﻿import React, {useState}from "react";
+﻿import React, {useState,useEffect}from "react";
 import { Route, useLocation, useHistory } from "react-router-dom";
 import { DoctorPersonalForm } from "./DoctorPersonalForm";
 import { DoctorProfessionalForm } from "./DoctorProfessionalForm";
 import { DoctorImageForm } from "./DoctorImageForm";
 import "react-datepicker/dist/react-datepicker.css";
+import "../Styles/Spinner.css";
 
 
 
 export function ListYourselfComponent(props) {
+
 
     const emptyPersonalFormData = {
         firstName: "",
@@ -39,6 +41,7 @@ export function ListYourselfComponent(props) {
         phoneNumber: ""
     }
 
+    const [isRequestProcessing, setRequestProcessingStatus] = useState(false);
     const [isPersonalFormCompleted, setPersonalFormStatus] = useState(false);
     const [isProfessionalFormCompleted, setProfessionalFormStatus] = useState(false);
     const [defaultPersonalFormData, setdefaultPersonalFormData] = useState(emptyPersonalFormData);
@@ -52,6 +55,7 @@ export function ListYourselfComponent(props) {
     function savePersonalFormData(values) {
         setPersonalFormStatus(true);
         setdefaultPersonalFormData(values);
+        console.log(values);
         history.push(location.pathname + "/Professional");
     }
 
@@ -81,12 +85,69 @@ export function ListYourselfComponent(props) {
         setdefaultImageFormData(values);
         console.log("parent component called from Image component");
         console.log(values);
+        const doctor = {
+            FirstName: defaultPersonalFormData.firstName,
+            MiddleName: defaultPersonalFormData.middleName,
+            LastName: defaultPersonalFormData.lastName,
+            Email: defaultPersonalFormData.emailAddress,
+            Password: defaultPersonalFormData.password,
+            DateOfBirth: defaultPersonalFormData.dateOfBirth,
+            Gender: defaultPersonalFormData.gender,
+            Degree: defaultProfessionalFormData.degree,
+            Education: defaultProfessionalFormData.education,
+            YearsInPractice: defaultProfessionalFormData.experience,
+            Hospitals: defaultProfessionalFormData.hospitals,
+            License: defaultProfessionalFormData.license,
+            Specialities: defaultProfessionalFormData.specialities,
+            Languages: defaultProfessionalFormData.languages,
+            Address1: values.address1,
+            Address2: values.address2,
+            City: values.city,
+            State: values.state,
+            Zipcode: values.zipcode,
+            PhoneNumber: values.phoneNumber
+        }
+        console.log(doctor);
+        setRequestProcessingStatus(true);
+
+        submitDoctorRegistrationForm(doctor);
+    }
+
+    function submitDoctorRegistrationForm(doctor) {
+
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(doctor)
+        };
+        fetch('Doctor', requestOptions)
+            .then(async response => {
+                const data = await response.json();
+
+                if (!response.ok) {
+                    const error = (data && data.message) || response.status;
+                    return Promise.reject(error);
+                }
+                setRequestProcessingStatus(false);
+            })
+            .catch(error => {
+                setRequestProcessingStatus(false);
+                console.error('There was an error!', error);
+            });
+    }
+     
+    useEffect(() => {
+      //  submitDoctorRegistrationForm();
+    }, []);
+
+    function resetRegistrationForm() {
+
     }
 
 
-
   return (
-    <div>
+      <div>
+          <fieldset disabled={isRequestProcessing}>
       <Route exact path={`${props.match.path}`}>
               <DoctorPersonalForm savePersonalFormData={savePersonalFormData} defaultPersonalFormData={defaultPersonalFormData} />
       </Route>
@@ -94,8 +155,10 @@ export function ListYourselfComponent(props) {
               <DoctorProfessionalForm getPersonalForm={getPersonalForm} saveProfessionalFormData={saveProfessionalFormData} defaultProfessionalFormData={defaultProfessionalFormData} isPersonalFormCompleted={isPersonalFormCompleted} />
       </Route>
       <Route path={`${props.match.path}/Image`}>
-              <DoctorImageForm getProfessionalForm={getProfessionalForm} saveImageFormData={saveImageFormData} defaultImageFormData={defaultImageFormData} isProfessionalFormCompleted={isProfessionalFormCompleted} />
-      </Route>
+              <DoctorImageForm isRequestProcessing= {isRequestProcessing} getProfessionalForm={getProfessionalForm} saveImageFormData={saveImageFormData} defaultImageFormData={defaultImageFormData} isProfessionalFormCompleted={isProfessionalFormCompleted} />
+              </Route>
+          </fieldset>
+          {isRequestProcessing && <div className="spinner" />}
     </div>
   );
 }

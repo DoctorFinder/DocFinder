@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import DatePicker from "react-datepicker";
+import errors from "../Config/errorMessages";
 import "react-datepicker/dist/react-datepicker.css";
 
 Yup.addMethod(Yup.string, "checkForNumbers", function(
@@ -16,31 +17,31 @@ Yup.addMethod(Yup.string, "checkForNumbers", function(
 
 const schema = Yup.object({
   firstName: Yup.string()
-    .max(30).trim()
-    .required()
+        .max(30, errors.tooLong.replace("{0}", "First Name").replace("{1}", "30")).trim()
+        .required(errors.required.replace("{0}","First Name"))
     .checkForNumbers(),
   middleName: Yup.string()
-    .max(30).trim()
-    .required()
+      .max(30, errors.tooLong.replace("{0}", "Middle Name").replace("{1}", "30")).trim()
+      .required(errors.required.replace("{0}", "Middle Name"))
     .checkForNumbers(),
   lastName: Yup.string()
-    .max(30).trim()
-    .required()
+      .max(30, errors.tooLong.replace("{0}", "Last Name").replace("{1}", "30")).trim()
+      .required(errors.required.replace("{0}", "Last Name"))
     .checkForNumbers(),
   emailAddress: Yup.string()
-    .required()
+      .required(errors.required.replace("{0}", "Email Address"))
     .email(),
-  password: Yup.string().required().trim(),
+    password: Yup.string().required(errors.required.replace("{0}", "Password")).trim(),
   //  password: Yup.string().required().matches(
   //    "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$",
   //  "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
   //),
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password"), null], "Passwords must match")
-    .required().trim(),
+      .oneOf([Yup.ref("password"), null], "Passwords must match")
+      .required().trim(),
   dateOfBirth: Yup.date()
     .max(new Date("2020-9-3"))
-    .required()
+      .required(errors.required.replace("{0}", "Date Of Birth"))
 });
 
 export function DoctorPersonalForm(props) {
@@ -83,9 +84,8 @@ export function DoctorPersonalForm(props) {
                     }}
                   />
                 </Col>
-              </Row>
-              {errors.firstName &&
-                touched.firstName && <div>{errors.firstName}</div>}
+                              </Row>
+                              {errors.firstName && touched.firstName && <div>{errors.firstName}</div>} 
             </Form.Group>
             <Form.Group>
               <Row md={4}>

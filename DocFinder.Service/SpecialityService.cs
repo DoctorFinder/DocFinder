@@ -19,7 +19,13 @@ namespace DocFinder.Service
         public IQueryable<Specialities> GetSpecialities()
         {
 
-            return this.db.Specialities.Take(6);
+            return this.db.Specialities;
+        }
+
+        public Specialities GetSpecialitiesByName(string speciality)
+        {
+
+            return this.db.Specialities.SingleOrDefault(spl => spl.Speciality == speciality);
         }
     }
 }

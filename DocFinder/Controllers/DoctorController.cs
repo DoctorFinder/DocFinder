@@ -1,6 +1,9 @@
-﻿using DocFinder.Domain;
+﻿using AutoMapper;
+using DocFinder.Domain;
+using DocFinder.Domain.DTO;
 using DocFinder.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,22 +16,43 @@ namespace DocFinder.Controllers
     public class DoctorController : ControllerBase
     {
         private IDoctorService _doctorService { get; set; }
-        public DoctorController(IDoctorService doctorService)
+
+        private IDoctorLanguageService _doctorLanguageService { get; set; }
+
+        private IDoctorSpecialityService _doctorSpecialityService { get; set; }
+
+        private readonly IMapper _mapper;
+        public DoctorController(IDoctorService doctorService, IDoctorSpecialityService doctorSpecialityService,IDoctorLanguageService doctorLanguageService, IMapper mapper)
         {
             this._doctorService = doctorService;
+            this._doctorLanguageService = doctorLanguageService;
+            this._doctorSpecialityService = doctorSpecialityService;
+            this._mapper = mapper;
         }
 
         [HttpPost]
-        public void Post(Doctor doctor)
+        public ActionResult<string> Post (DoctorForCreationDTO doctor)
         {
+            var doctorToAdd = _mapper.Map<Doctor>(doctor);
+            List<DoctorLanguages> doctorLanguages = _mapper.Map<IEnumerable<DoctorLanguages>>(doctor.Languages).ToList();
+            List<DoctorSpecialities> doctorSpecialities = _mapper.Map<IEnumerable<DoctorSpecialities>>(doctor.Specialities).ToList();
 
-            this._doctorService.RegisterDoctor(doctor);
+             var doctorId = this._doctorService.RegisterDoctor(doctorToAdd);
 
+            doctorLanguages = doctorLanguages.Select(doclan => { doclan.DoctorId = doctorId; return doclan; }).ToList();
+            doctorSpecialities = doctorSpecialities.Select(docspl => { docspl.DoctorId = doctorId; return docspl; }).ToList();
+
+            this._doctorSpecialityService.AddDoctorSpecialities(doctorSpecialities);
+            this._doctorLanguageService.AddDoctorLanguages(doctorLanguages);
+
+            return "str";             
         }
 
-        public void Get(string doctorId)
-        {
 
+        [HttpGet]
+        public string Get()
+        {
+            return "Test return bro";
         }
-    }
+    } 
 }

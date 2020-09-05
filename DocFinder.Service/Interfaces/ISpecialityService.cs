@@ -10,5 +10,7 @@ namespace DocFinder.Service.Interfaces
     {
 
         public IQueryable<Specialities> GetSpecialities();
+
+        public Specialities GetSpecialitiesByName(string speciality);
     }
 }

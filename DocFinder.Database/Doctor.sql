@@ -1,11 +1,23 @@
 ﻿CREATE TABLE [dbo].[Doctor]
 (
-	[Id] INT NOT NULL PRIMARY KEY, 
-    [FirstName] VARCHAR(50) NOT NULL, 
-    [LastName] VARCHAR(50) NOT NULL, 
+	[Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY, 
+    [FirstName] VARCHAR(30) NOT NULL,
+    [MiddleName] VARCHAR(30) NOT NULL, 
+    [LastName] VARCHAR(30) NOT NULL,
+    [DateOfBirth] Date NOT NULL,
+    [Gender] VARCHAR(10) NOT NULL,
     [Email] VARCHAR(50) NOT NULL, 
-    [Password] VARCHAR(50) NOT NULL, 
-    [PhoneNumber] INT NOT NULL,
-    [LicenseNumber] VARCHAR(50) NOT NULL,
-    [YearsOfExperience] INT NOT NULL Default(0)
+    [Password] VARCHAR(20) NOT NULL,
+    [Education] VARCHAR(30) NOT NULL,
+    [YearsInPractice] int  NOT NULL,
+    [Degree] VARCHAR(30) NOT NULL,
+    [Hospitals] VARCHAR(30) NOT NULL, 
+    [License] VARCHAR(30) NOT NULL,
+    [Address1] VARCHAR(50) NOT NULL,
+    [Address2] VARCHAR(50) NOT NULL,
+    [City] VARCHAR(50) NOT NULL,
+    [State] VARCHAR(50) NOT NULL,
+    [Zipcode] VARCHAR(5) NOT NULL, 
+    [PhoneNumber] VARCHAR(10) NOT NULL
 )
+

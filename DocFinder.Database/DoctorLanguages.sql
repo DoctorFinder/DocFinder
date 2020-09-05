@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[DoctorLanguages]
+(
+	[Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	[DoctorId] INT NOT NULL,
+	[LANGUAGEId] INT NOT NULL
+)

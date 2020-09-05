@@ -18,5 +18,10 @@ namespace DocFinder.Service
         {
             return   this._db.Languages;
         }
+
+        public Languages GetLanguageByName(string language)
+        {
+            return this._db.Languages.SingleOrDefault(lan => lan.Language == language);
+        }
     }
 }

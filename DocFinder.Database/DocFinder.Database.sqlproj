@@ -62,5 +62,7 @@
     <Build Include="Doctor.sql" />
     <Build Include="Specialities.sql" />
     <Build Include="Languages.sql" />
+    <Build Include="DoctorLanguages.sql" />
+    <Build Include="DoctorSpecialities.sql" />
   </ItemGroup>
 </Project>

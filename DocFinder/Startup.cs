@@ -1,3 +1,4 @@
+using AutoMapper;
 using DocFinder.Service;
 using DocFinder.Service.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -43,10 +44,14 @@ namespace DocFinder
                 options.UseSqlServer(Configuration.GetConnectionString("DocFinderDb"));
             });
             services.AddControllersWithViews();
+            
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddScoped<IDoctorService, DoctorService>();
             services.AddScoped<ISpecialityService, SpecialityService>();
             services.AddScoped<ILanguageService, LanguageService>();
+            services.AddScoped<IDoctorLanguageService, DoctorLanguageService>();
+            services.AddScoped<IDoctorSpecialityService, DoctorSpecialityService>();
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

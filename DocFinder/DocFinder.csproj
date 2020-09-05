@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.6" />
@@ -29,7 +30,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DocFinder.Domain\DocFinder.Domain.csproj" />
+    <ProjectReference Include="..\DocFinder.Infrastructure\DocFinder.Infrastructure.csproj" />
     <ProjectReference Include="..\DocFinder.Service\DocFinder.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\src\Models\" />
+    <Folder Include="ClientApp\src\Config\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

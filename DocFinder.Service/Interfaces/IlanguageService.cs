@@ -9,5 +9,7 @@ namespace DocFinder.Service.Interfaces
     public interface ILanguageService
     {
         public IQueryable<Languages> GetLanguages();
+
+        public Languages GetLanguageByName(string language);
     }
 }

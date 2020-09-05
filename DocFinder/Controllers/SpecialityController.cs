@@ -1,5 +1,6 @@
 ﻿using DocFinder.Domain;
 using DocFinder.Service.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace DocFinder.Controllers
 
         public ActionResult<IQueryable<Specialities>> Get()
         {
+            
             var specialities = this._specialityService.GetSpecialities();
             return Ok(specialities);
         }
