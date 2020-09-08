@@ -15,37 +15,27 @@ namespace DocFinder.Controllers
     [Route("[controller]")]
     public class DoctorController : ControllerBase
     {
-        private IDoctorService _doctorService { get; set; }
+        private IDoctorApplicationService _doctorApplicationService { get; set; }
 
-        private IDoctorLanguageService _doctorLanguageService { get; set; }
+        private IDoctorLanguageApplicationService _doctorLanguageApplicationService { get; set; }
 
-        private IDoctorSpecialityService _doctorSpecialityService { get; set; }
+        private IDoctorSpecialityApplicationService _doctorSpecialityApplicationService { get; set; }
 
         private readonly IMapper _mapper;
-        public DoctorController(IDoctorService doctorService, IDoctorSpecialityService doctorSpecialityService,IDoctorLanguageService doctorLanguageService, IMapper mapper)
+        public DoctorController(IDoctorApplicationService doctorApplicationService, IDoctorSpecialityApplicationService doctorSpecialityApplicationService, IDoctorLanguageApplicationService doctorLanguageApplicationService, IMapper mapper)
         {
-            this._doctorService = doctorService;
-            this._doctorLanguageService = doctorLanguageService;
-            this._doctorSpecialityService = doctorSpecialityService;
+            this._doctorApplicationService = doctorApplicationService;
+            this._doctorLanguageApplicationService = doctorLanguageApplicationService;
+            this._doctorSpecialityApplicationService = doctorSpecialityApplicationService;
             this._mapper = mapper;
         }
 
         [HttpPost]
         public ActionResult<string> Post (DoctorForCreationDTO doctor)
         {
-            var doctorToAdd = _mapper.Map<Doctor>(doctor);
-            List<DoctorLanguages> doctorLanguages = _mapper.Map<IEnumerable<DoctorLanguages>>(doctor.Languages).ToList();
-            List<DoctorSpecialities> doctorSpecialities = _mapper.Map<IEnumerable<DoctorSpecialities>>(doctor.Specialities).ToList();
 
-             var doctorId = this._doctorService.RegisterDoctor(doctorToAdd);
-
-            doctorLanguages = doctorLanguages.Select(doclan => { doclan.DoctorId = doctorId; return doclan; }).ToList();
-            doctorSpecialities = doctorSpecialities.Select(docspl => { docspl.DoctorId = doctorId; return docspl; }).ToList();
-
-            this._doctorSpecialityService.AddDoctorSpecialities(doctorSpecialities);
-            this._doctorLanguageService.AddDoctorLanguages(doctorLanguages);
-
-            return "str";             
+             var doctorId = this._doctorApplicationService.RegisterDoctor(doctor);
+             return "str";             
         }
 
 

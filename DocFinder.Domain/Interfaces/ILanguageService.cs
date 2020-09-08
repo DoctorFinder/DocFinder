@@ -1,14 +1,12 @@
-﻿using DocFinder.Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
-namespace DocFinder.Service.Interfaces
+namespace DocFinder.Domain.Interfaces
 {
     public interface ILanguageService
     {
-        public IQueryable<Languages> GetLanguages();
+        public IEnumerable<Languages> GetLanguages();
 
         public Languages GetLanguageByName(string language);
     }

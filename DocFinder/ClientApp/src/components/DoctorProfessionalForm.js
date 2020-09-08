@@ -61,8 +61,8 @@ export function DoctorProfessionalForm(props) {
     fetch("Speciality")
       .then(response => response.json())
       .then(data => {
-        let modifiedData = data.map(function(val, idx) {
-          return { label: val.speciality, value: val.id };
+          let modifiedData = data.map(function (val, idx) {
+              return { label: val.label, value: val.value };
         });
         setspecialitiesstate(modifiedData);
       });
@@ -73,7 +73,7 @@ export function DoctorProfessionalForm(props) {
       .then(response => response.json())
       .then(data => {
         let modifiedData = data.map(function(val, idx) {
-          return { label: val.language, value: val.id };
+            return { label: val.label, value: val.value };
         });
         setlanguagesstate(modifiedData);
       });

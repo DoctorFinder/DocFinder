@@ -13,16 +13,16 @@ namespace DocFinder.Controllers
     [Route("Language")]
     public class LanguageController : ControllerBase
     {
-        private ILanguageService _languageService { get; set; }
+        private ILanguageApplicationService _languageApplicationService { get; set; }
         
-        public LanguageController(ILanguageService languageService)
+        public LanguageController(ILanguageApplicationService languageApplicationService)
         {
-            this._languageService = languageService;
+            this._languageApplicationService = languageApplicationService;
         }
 
         public ActionResult<IQueryable<Languages>> Get()
         {
-          var languages = this._languageService.GetLanguages();
+          var languages = this._languageApplicationService.GetLanguages();
           return  Ok(languages);
         }
     }

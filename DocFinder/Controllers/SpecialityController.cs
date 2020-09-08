@@ -1,4 +1,5 @@
 ﻿using DocFinder.Domain;
+using DocFinder.Domain.DTO;
 using DocFinder.Service.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,16 +14,15 @@ namespace DocFinder.Controllers
     [Route("Speciality")]
     public class SpecialityController : ControllerBase
     {
-        private ISpecialityService _specialityService {get;set;}
-        public SpecialityController(ISpecialityService specialityService)
+        private ISpecialityApplicationService _specialityApplicationService { get;set;}
+        public SpecialityController(ISpecialityApplicationService specialityApplicationService)
         {
-            this._specialityService = specialityService;        
+            this._specialityApplicationService = specialityApplicationService;        
         }
 
-        public ActionResult<IQueryable<Specialities>> Get()
-        {
-            
-            var specialities = this._specialityService.GetSpecialities();
+        public ActionResult<IEnumerable<SpecialitiesDTO>> Get()
+        {           
+            var specialities = this._specialityApplicationService.GetSpecialities();
             return Ok(specialities);
         }
     }

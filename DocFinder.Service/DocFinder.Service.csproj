@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DocFinder.Domain\DocFinder.Domain.csproj" />
+    <ProjectReference Include="..\DocFinder.Infrastructure\DocFinder.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

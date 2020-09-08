@@ -1,20 +1,18 @@
-﻿using DocFinder.Domain;
-using DocFinder.Service.Interfaces;
+﻿using DocFinder.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DocFinder.Service
+namespace DocFinder.Domain.Service
 {
     public class DoctorLanguageService : IDoctorLanguageService
     {
-
-        private DocFinderDBContext db { get; set; }
+        private DocFinderDBContext _db { get; set; }
 
         public DoctorLanguageService(DocFinderDBContext db)
         {
-            this.db = db;
+            this._db = db;
         }
 
         public void AddDoctorLanguages(IEnumerable<DoctorLanguages> doctorLanguages)
@@ -22,14 +20,14 @@ namespace DocFinder.Service
             var dbLanguages = doctorLanguages.ToList();
             for (int i = 0; i < doctorLanguages.Count(); i++)
             {
-                this.db.Add(dbLanguages[i]);
+                this._db.Add(dbLanguages[i]);
                 this.Commit();
             }
         }
 
         public int Commit()
         {
-            return this.db.SaveChanges();
+            return this._db.SaveChanges();
         }
     }
 }

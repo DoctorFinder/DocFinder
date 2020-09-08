@@ -1,5 +1,9 @@
 using AutoMapper;
+using DocFinder.Domain;
+using DocFinder.Domain.Interfaces;
+using DocFinder.Domain.Service;
 using DocFinder.Service;
+using DocFinder.Service.ApplicationService;
 using DocFinder.Service.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -47,11 +51,18 @@ namespace DocFinder
             
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            services.AddScoped<IDoctorService, DoctorService>();
+            services.AddScoped<ILanguageApplicationService, LanguageApplicationService>();
+            services.AddScoped<ISpecialityApplicationService, SpecialityApplicationService>();
+            services.AddScoped<IDoctorApplicationService, DoctorApplicationService>();
+            services.AddScoped<IDoctorLanguageApplicationService, DoctorLanguageApplicationService>();
+            services.AddScoped<IDoctorSpecialityApplicationService, DoctorSpecialityApplicationService>();
+
+            services.AddScoped<ILanguageService,LanguageService>();
             services.AddScoped<ISpecialityService, SpecialityService>();
-            services.AddScoped<ILanguageService, LanguageService>();
-            services.AddScoped<IDoctorLanguageService, DoctorLanguageService>();
+            services.AddScoped<IDoctorService, DoctorService>();
+            services.AddScoped<IDoctorLanguageService,DoctorLanguageService>();
             services.AddScoped<IDoctorSpecialityService, DoctorSpecialityService>();
+
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

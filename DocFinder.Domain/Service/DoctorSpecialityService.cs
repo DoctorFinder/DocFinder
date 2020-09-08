@@ -1,20 +1,18 @@
-﻿using DocFinder.Domain;
-using DocFinder.Service.Interfaces;
+﻿using DocFinder.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DocFinder.Service
+namespace DocFinder.Domain.Service
 {
     public class DoctorSpecialityService : IDoctorSpecialityService
     {
-
-        private DocFinderDBContext db { get; set; }
+        private DocFinderDBContext _db { get; set; }
 
         public DoctorSpecialityService(DocFinderDBContext db)
         {
-            this.db = db;
+            this._db = db;
         }
 
         public void AddDoctorSpecialities(IEnumerable<DoctorSpecialities> doctorSpecialities)
@@ -22,14 +20,14 @@ namespace DocFinder.Service
             var dbSpecialities = doctorSpecialities.ToList();
             for (int i = 0; i < doctorSpecialities.Count(); i++)
             {
-                this.db.Add(dbSpecialities[i]);
+                this._db.Add(dbSpecialities[i]);
                 this.Commit();
             }
         }
 
         public int Commit()
         {
-            return this.db.SaveChanges();
+            return this._db.SaveChanges();
         }
     }
 }

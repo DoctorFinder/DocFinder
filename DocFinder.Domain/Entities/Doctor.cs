@@ -78,7 +78,7 @@ namespace DocFinder.Domain
 
         [Required]
         [MaxLength(10)]
-        public int PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
     }
 }
