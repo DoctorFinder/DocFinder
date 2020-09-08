@@ -136,12 +136,11 @@ export function ListYourselfComponent(props) {
             });
     }
      
-    useEffect(() => {
-      //  submitDoctorRegistrationForm();
-    }, []);
 
     function resetRegistrationForm() {
-
+        setdefaultPersonalFormData(emptyPersonalFormData);
+        setdefaultProfessionalFormData(emptyProfessionalFormData);
+        setdefaultImageFormData(emptyImageFormData);
     }
 
 
