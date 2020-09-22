@@ -2,6 +2,7 @@
 import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import { MenuTypeContext } from '../context/MenuContextProvider';
+import Logo from '../images/logo.png';
 //import { Container } from 'reactstrap'
 
 export function Navigation() {
@@ -13,7 +14,9 @@ export function Navigation() {
     return (
         <Navbar bg="light" expand="lg">
             <Container>
-            <Navbar.Brand href="#home">Medicmundo</Navbar.Brand>
+                <Navbar.Brand href="#home">
+                    <img src={Logo} alt="logo" />
+                </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
                 <Nav className="justify-content-end" as="ul">
