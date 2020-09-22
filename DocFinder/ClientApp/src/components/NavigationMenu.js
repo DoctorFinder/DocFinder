@@ -1,9 +1,14 @@
-﻿import React from 'react'
+﻿import React, { useContext} from 'react'
 import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
+import { MenuTypeContext } from '../context/MenuContextProvider';
 //import { Container } from 'reactstrap'
 
 export function Navigation() {
+
+    const context = useContext(MenuTypeContext);
+
+    console.log(context);
 
     return (
         <Navbar bg="light" expand="lg">
@@ -34,6 +39,9 @@ export function Navigation() {
                             <NavDropdown.Item as={Link} to="/Legal">Legal</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="/">Home</NavDropdown.Item>
                         </NavDropdown>
+                        <Nav.Item as="li">
+                            <Nav.Link as={Link} to="/DoctorLogin">Login </Nav.Link>
+                        </Nav.Item>
                 </Nav>
                 </Navbar.Collapse>
                 </Container>

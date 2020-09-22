@@ -45,7 +45,7 @@ namespace DocFinder.Service.ApplicationService
             return doctorDTO;
         }
 
-        public int  RegisterDoctor(DoctorForCreationDTO doctorDTO)
+        public DoctorForCreationDTO RegisterDoctor(DoctorForCreationDTO doctorDTO)
         {
             var doctor = Mapping.Mapper.Map<Doctor>(doctorDTO);
             var doctorLanguages = Mapping.Mapper.Map<IEnumerable<DoctorLanguages>>(doctorDTO.Languages);
@@ -54,9 +54,10 @@ namespace DocFinder.Service.ApplicationService
             if (doctorId > 0)
             {
                 this._doctorSpecialityApplicationService.AddDoctorSpecialities(doctorDTO.Specialities,doctorId);
-                this._doctorLanguageApplicationService.AddDoctorLanguages(doctorDTO.Languages, doctorId);           
+                this._doctorLanguageApplicationService.AddDoctorLanguages(doctorDTO.Languages, doctorId);
+                return doctorDTO;
             }
-            return 1;
+            return null;
         }
     }
 }

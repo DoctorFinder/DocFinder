@@ -31,13 +31,21 @@ namespace DocFinder.Controllers
         }
 
         [HttpPost]
-        public ActionResult<string> Post (DoctorForCreationDTO doctor)
+        public ActionResult<DoctorForCreationDTO> Post (DoctorForCreationDTO doctor)
         {
 
-             var doctorId = this._doctorApplicationService.RegisterDoctor(doctor);
-             return "str";             
+             var doctorDTO = this._doctorApplicationService.RegisterDoctor(doctor);
+             return Ok(doctorDTO);             
         }
 
+        [HttpPost]
+        [Route("[action]")]
+        public ActionResult PostDoctorLogin()
+        {
+
+            return Ok();
+        
+        }
 
         [HttpGet]
         public string Get()

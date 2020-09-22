@@ -20,7 +20,7 @@ namespace DocFinder.Domain.Service
 
             if (doctorExists != null)
             {
-                return 0;
+              //  return 0;
             }
             var doctorAdded = this._db.Add(doctor);
             this.Commit();
@@ -35,7 +35,7 @@ namespace DocFinder.Domain.Service
         public Doctor GetDoctorByEmailandMobileNumber(string email, string mobileNumber)
         {
             return this._db.Doctor.Where(d => d.Email == email ||
-            d.PhoneNumber == mobileNumber).SingleOrDefault();
+            d.PhoneNumber == mobileNumber).FirstOrDefault();
         }
 
         public Doctor GetDoctorByMobileNumber(string mobileNumber)

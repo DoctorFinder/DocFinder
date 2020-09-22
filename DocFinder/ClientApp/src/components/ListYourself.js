@@ -1,8 +1,9 @@
-﻿import React, {useState,useEffect}from "react";
+﻿import React, {useState,useEffect,useContext}from "react";
 import { Route, useLocation, useHistory } from "react-router-dom";
 import { DoctorPersonalForm } from "./DoctorPersonalForm";
 import { DoctorProfessionalForm } from "./DoctorProfessionalForm";
 import { DoctorImageForm } from "./DoctorImageForm";
+import { MenuTypeContext } from '../context/MenuContextProvider';
 import "react-datepicker/dist/react-datepicker.css";
 import "../Styles/Spinner.css";
 
@@ -48,6 +49,7 @@ export function ListYourselfComponent(props) {
     const [defaultProfessionalFormData, setdefaultProfessionalFormData] = useState(emptyProfessionalFormData);
     const [defaultImageFormData, setdefaultImageFormData] = useState(emptyImageFormData);
 
+    const context = useContext(MenuTypeContext);
 
     let location = useLocation();
     let history = useHistory();
@@ -122,15 +124,23 @@ export function ListYourselfComponent(props) {
         };
         fetch('Doctor', requestOptions)
             .then(async response => {
+                console.log("reasched success");
+                debugger;
                 const data = await response.json();
-
+                console.log("reasched success after json");
+                debugger;
                 if (!response.ok) {
                     const error = (data && data.message) || response.status;
                     return Promise.reject(error);
                 }
+                let firstIndexOfPath = location.pathname.indexOf("/");
+                let doctorProfilePath = location.pathname.substring(0, firstIndexOfPath + 1) + "DoctorProfile";
                 setRequestProcessingStatus(false);
+                context.dispatch({ type: "doctor" });
+                history.push(doctorProfilePath);
             })
             .catch(error => {
+                debugger;
                 setRequestProcessingStatus(false);
                 console.error('There was an error!', error);
             });

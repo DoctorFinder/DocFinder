@@ -13,6 +13,8 @@ import { FindTrialsComponent } from "./components/FindTrials";
 import { HelpComponent } from "./components/Help";
 import { EmailComponent } from "./components/Email";
 import { LegalComponent } from "./components/Legal";
+import { DoctorProfileComponent } from "./components/DoctorProfile/DoctorProfile";
+import { DoctorLoginComponent} from './components/DoctorLogin/DoctorLogin';
 
 import "./custom.css";
 
@@ -35,6 +37,8 @@ export default class App extends Component {
           <Route path="/Help" component={HelpComponent} />
           <Route path="/Email" component={EmailComponent} />
           <Route path="/Legal" component={LegalComponent} />
+          <Route path="/DoctorProfile" component={DoctorProfileComponent} />
+          <Route path="/DoctorLogin" component={DoctorLoginComponent} />
         </Layout>
       </>
     );

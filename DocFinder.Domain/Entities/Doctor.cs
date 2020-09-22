@@ -40,7 +40,7 @@ namespace DocFinder.Domain
 
         [Required]
         [MaxLength(30)]
-        public string YearsInPractice { get; set; }
+        public int YearsInPractice { get; set; }
 
         [Required]
         [MaxLength(30)]
