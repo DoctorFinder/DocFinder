@@ -26,34 +26,38 @@ export function DoctorLoginComponent() {
 
   const [show, setShow] = useState(true);
 
-  function LoginAsUserProvided(values) {
-      console.log(values);
-      const requestOptions = {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' }//,
-          //body: JSON.stringify(values)
-      };
-      fetch('Doctor/PostDoctorLogin', requestOptions)
-          .then(async response => {
-              console.log("reasched success");
-              debugger;
-              const data = await response.json();
-              console.log("reasched success after json");
-              debugger;
-              if (!response.ok) {
-                  const error = (data && data.message) || response.status;
-                  return Promise.reject(error);
-              }
-      //        let firstIndexOfPath = location.pathname.indexOf("/");
-       //       let doctorProfilePath = location.pathname.substring(0, firstIndexOfPath + 1) + "DoctorProfile";
-      //        setRequestProcessingStatus(false);     
-      //        history.push(doctorProfilePath);
-          })
-          .catch(error => {
-              debugger;
-      //        setRequestProcessingStatus(false);
-              console.error('There was an error!', error);
-          });
+    function LoginAsUserProvided(values) {
+        const doctor = {
+            EmailAddress: values.emailAddress ,
+            Password: values.password
+        }
+    console.log(values);
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" } ,
+      body: JSON.stringify(doctor)
+    };
+    fetch("Doctor/PostDoctorLogin", requestOptions)
+      .then(async response => {
+        console.log("reasched success");
+        debugger;
+        const data = await response.json();
+        console.log("reasched success after json");
+        debugger;
+        if (!response.ok) {
+          const error = (data && data.message) || response.status;
+          return Promise.reject(error);
+        }
+        //        let firstIndexOfPath = location.pathname.indexOf("/");
+        //       let doctorProfilePath = location.pathname.substring(0, firstIndexOfPath + 1) + "DoctorProfile";
+        //        setRequestProcessingStatus(false);
+        //        history.push(doctorProfilePath);
+      })
+      .catch(error => {
+        debugger;
+        //        setRequestProcessingStatus(false);
+        console.error("There was an error!", error);
+      });
   }
 
   return (
@@ -77,9 +81,9 @@ export function DoctorLoginComponent() {
                   <Row md={12}>
                     <Col>
                       <Form.Label>Email address</Form.Label>
-                                      </Col>
-                          </Row>
-                    <Row md={12}>
+                    </Col>
+                  </Row>
+                  <Row md={12}>
                     <Col>
                       <Form.Control
                         type="email"
@@ -99,9 +103,9 @@ export function DoctorLoginComponent() {
                   <Row md={12}>
                     <Col>
                       <Form.Label>Password</Form.Label>
-                                      </Col>
-                                  </Row>
-                                  <Row md={12}>
+                    </Col>
+                  </Row>
+                  <Row md={12}>
                     <Col>
                       <Form.Control
                         type="password"
@@ -128,8 +132,7 @@ export function DoctorLoginComponent() {
         </Formik>
       </Modal.Body>
 
-      <Modal.Footer>
-      </Modal.Footer>
+      <Modal.Footer />
     </Modal>
     //        <div>This is doctor login</div>
   );

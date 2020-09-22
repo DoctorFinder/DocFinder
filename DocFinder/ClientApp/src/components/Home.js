@@ -2,6 +2,7 @@ import React, { Component, useState } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 
 
+
 export function Home() {
     const [index, setIndex] = useState(0);
 
@@ -14,7 +15,7 @@ export function Home() {
             <Carousel.Item>
                 <img
                     className="d-block w-100"
-                    src="images/banner1.jpg"
+                    src="Images/banner1.jpg"
                     alt="First slide"
                 />
                 <Carousel.Caption>
@@ -25,7 +26,7 @@ export function Home() {
             <Carousel.Item>
                 <img
                     className="d-block w-100"
-                    src="../../images/banner2.jpg"
+                    src="Images/banner2.jpg"
                     alt="Second slide"
                 />
 
@@ -37,7 +38,7 @@ export function Home() {
             <Carousel.Item>
                 <img
                     className="d-block w-100"
-                    src="././images/banner3.jpg"
+                    src="Images/banner3.jpg"
                     alt="Third slide"
                 />
 
