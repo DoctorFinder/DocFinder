@@ -59,5 +59,19 @@ namespace DocFinder.Service.ApplicationService
             }
             return null;
         }
+
+        public DoctorToReturnDTO GetDoctorDetails(DoctorForRetrieving doctor)
+        {
+            var doctorDetails = this._doctorService.GetDoctorByEmail(doctor.EmailAddress);
+
+            if (doctorDetails is null || doctorDetails.Password != doctor.Password)
+            {
+                return null;
+            }
+            else
+            {
+                return Mapping.Mapper.Map<DoctorToReturnDTO>(doctorDetails);
+            }      
+        }
     }
 }

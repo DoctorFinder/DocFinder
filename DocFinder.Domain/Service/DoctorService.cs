@@ -29,7 +29,7 @@ namespace DocFinder.Domain.Service
 
         public Doctor GetDoctorByEmail(string email)
         {
-            return this._db.Doctor.Where(d => d.Email == email).SingleOrDefault();
+            return this._db.Doctor.Where(d => d.Email == email).FirstOrDefault();
         }
 
         public Doctor GetDoctorByEmailandMobileNumber(string email, string mobileNumber)

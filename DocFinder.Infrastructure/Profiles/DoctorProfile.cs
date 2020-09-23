@@ -15,7 +15,8 @@ namespace DocFinder.Infrastructure.Profiles
         {
             CreateMap<Doctor, DoctorForCreationDTO>();
             CreateMap<DoctorForCreationDTO, Doctor>();
-
+            CreateMap<Doctor, DoctorToReturnDTO>();
+            CreateMap<DoctorToReturnDTO, Doctor>();
         }
             
     }

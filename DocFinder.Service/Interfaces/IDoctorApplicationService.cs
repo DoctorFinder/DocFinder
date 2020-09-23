@@ -16,6 +16,7 @@ namespace DocFinder.Service.Interfaces
 
         public DoctorForCreationDTO GetDoctorByMobileNumber(string mobileNumber);
 
+        public DoctorToReturnDTO GetDoctorDetails(DoctorForRetrieving doctor);
 
     }
 }

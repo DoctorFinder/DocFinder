@@ -40,10 +40,10 @@ namespace DocFinder.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public ActionResult PostDoctorLogin(DoctorForRetrieving doctor)
+        public ActionResult<DoctorToReturnDTO> PostDoctorLogin(DoctorForRetrieving doctor)
         {
-           // var doctor = this._doctorApplicationService.GetDoctorDetails(doctor);
-            return Ok();
+            var doctorDetails = this._doctorApplicationService.GetDoctorDetails(doctor);
+            return Ok(doctorDetails);
         
         }
 
