@@ -3,6 +3,7 @@ import Carousel from 'react-bootstrap/Carousel';
 import Banner1 from '../images/banner1.jpg';
 import Banner2 from '../images/banner2.jpg';
 import Banner3 from '../images/banner3.jpg';
+import '../Styles/StyleSheet.scss';
 
 
 export function Home() {
@@ -13,6 +14,8 @@ export function Home() {
     };
 
     return (
+        <div className="carouselContainer">
+        <p className="test-font">Hello</p>
         <Carousel activeIndex={index} onSelect={handleSelect}>
             <Carousel.Item>
                 <img
@@ -51,6 +54,7 @@ export function Home() {
           </p>
                 </Carousel.Caption>
             </Carousel.Item>
-        </Carousel>
+            </Carousel>
+        </div>
     );
 }
