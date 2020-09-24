@@ -43,22 +43,19 @@ export function DoctorProfessionalForm(props) {
   const specialitiesOverrideOptions = {
     selectSomeItems: "Select Specialities",
     allItemsAreSelected: "All items are selected.",
-    selectAll: "Select All",
-    search: "Search"
+    search: "Search Specialities"
   };
 
   const languagesKnownOverrideOptions = {
     selectSomeItems: "Select Specialities",
     allItemsAreSelected: "All items are selected.",
-    selectAll: "Select All",
-    search: "Search"
+    search: "Search Languages"
   };
 
   const subspecialitiesOverrideOptions = {
     selectSomeItems: "Select Languages",
     allItemsAreSelected: "All items are selected.",
-    selectAll: "Select All",
-    search: "Search"
+    search: "Search Sub Specialities"
   };
 
   const [specialitiesstate, setspecialitiesstate] = useState([]);
@@ -218,6 +215,7 @@ export function DoctorProfessionalForm(props) {
                       options={specialitiesstate}
                       value={values.specialities}
                       overrideStrings={specialitiesOverrideOptions}
+                      hasSelectAll={false}
                       onChange={async e => {
                         setselectedSpecialities(e);
                         await setFieldValue("specialities", e);
@@ -238,6 +236,7 @@ export function DoctorProfessionalForm(props) {
                       options={subspecialitiesstate}
                       value={values.subspecialities}
                       overrideStrings={subspecialitiesOverrideOptions}
+                      hasSelectAll={false}
                       onChange={async e => {
                           setselectedSubSpecialities(e);
                         await setFieldValue("subspecialities", e);
@@ -263,6 +262,7 @@ export function DoctorProfessionalForm(props) {
                       options={languagesstate}
                       value={values.languages}
                       overrideStrings={languagesKnownOverrideOptions}
+                      hasSelectAll={false}
                       onChange={async e => {
                         setselectedLanguages(e);
                         await setFieldValue("languages", e);
