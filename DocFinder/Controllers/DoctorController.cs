@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DocFinder.Domain;
 using DocFinder.Domain.DTO;
+using DocFinder.Domain.ServiceResponse;
 using DocFinder.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -40,9 +41,15 @@ namespace DocFinder.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public ActionResult<DoctorToReturnDTO> PostDoctorLogin(DoctorForRetrieving doctor)
+        public ActionResult<DoctorToReturnResponse> PostDoctorLogin(DoctorForRetrieving doctor)
         {
             var doctorDetails = this._doctorApplicationService.GetDoctorDetails(doctor);
+            if (doctorDetails.doctor is null)
+            {
+
+                return NotFound(doctorDetails);
+            }
+
             return Ok(doctorDetails);
         
         }

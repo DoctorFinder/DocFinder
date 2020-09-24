@@ -1,6 +1,7 @@
 ﻿using DocFinder.Domain;
 using DocFinder.Domain.DTO;
 using DocFinder.Domain.Interfaces;
+using DocFinder.Domain.ServiceResponse;
 using DocFinder.Infrastructure;
 using DocFinder.Service.Interfaces;
 using System;
@@ -60,18 +61,24 @@ namespace DocFinder.Service.ApplicationService
             return null;
         }
 
-        public DoctorToReturnDTO GetDoctorDetails(DoctorForRetrieving doctor)
+        public DoctorToReturnResponse GetDoctorDetails(DoctorForRetrieving doctor)
         {
+            var doctorToResponse = new DoctorToReturnResponse();
             var doctorDetails = this._doctorService.GetDoctorByEmail(doctor.EmailAddress);
 
             if (doctorDetails is null || doctorDetails.Password != doctor.Password)
             {
-                return null;
+                doctorToResponse.responseMessage = "Please check Email and Password provided";
+                return doctorToResponse;
             }
             else
             {
-                return Mapping.Mapper.Map<DoctorToReturnDTO>(doctorDetails);
+             var doctorToReturn = Mapping.Mapper.Map<DoctorToReturnDTO>(doctorDetails);
+             doctorToResponse.doctor = doctorToReturn;
+
+             return doctorToResponse;
             }      
+
         }
     }
 }

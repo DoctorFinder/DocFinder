@@ -15,6 +15,9 @@ Yup.addMethod(Yup.string, "checkForNumbers", function (
   });
 });
 
+
+//const passwordRegex = RegExp(/^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$/);
+const passwordRegex = RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/);
 const schema = Yup.object({
   firstName: Yup.string()
     .max(30, errors.tooLong.replace("{0}", "First Name").replace("{1}", "30"))
@@ -24,7 +27,6 @@ const schema = Yup.object({
   middleName: Yup.string()
     .max(30, errors.tooLong.replace("{0}", "Middle Name").replace("{1}", "30"))
     .trim()
-    .required(errors.required.replace("{0}", "Middle Name"))
     .checkForNumbers(),
   lastName: Yup.string()
     .max(30, errors.tooLong.replace("{0}", "Last Name").replace("{1}", "30"))
@@ -34,19 +36,19 @@ const schema = Yup.object({
   emailAddress: Yup.string()
     .required(errors.required.replace("{0}", "Email Address"))
     .email(),
-  password: Yup.string()
-    .required(errors.required.replace("{0}", "Password"))
-    .trim(),
-  //  password: Yup.string().required().matches(
-  //    "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$",
-  //  "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
-  //),
+//  password: Yup.string()
+ //   .required(errors.required.replace("{0}", "Password"))
+ //   .trim(),
+    password: Yup.string().required().matches(
+        passwordRegex,
+    "Must Contain between 6 to 20 Characters, Atleast One Uppercase, One Lowercase, One Number Required"
+  ),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password"), null], "Passwords must match")
     .required()
     .trim(),
   dateOfBirth: Yup.date()
-    .max(new Date("2020-9-3"))
+    .max(new Date("2000-1-1"))
     .required(errors.required.replace("{0}", "Date Of Birth")),
 });
 
@@ -134,6 +136,10 @@ export function DoctorPersonalForm(props) {
                     <DatePicker
                       name="dateOfBirth"
                       selected={values.dateOfBirth}
+                      showMonthDropdown
+                      showYearDropdown
+                      dropdownMode="select"
+                      maxDate={new Date()}
                       onChange={async (e) => {
                         console.log(touched.dateOfBirth);
                         console.log(e);
@@ -173,7 +179,18 @@ export function DoctorPersonalForm(props) {
                         onChange={handleChange}
                       />
                       <label htmlFor="female">Female</label>
-                    </div>
+                                          </div>
+                                          <div className="radio-item">
+                                              <input
+                                                  id="nondisclosure"
+                                                  value="nondisclosure"
+                                                  name="gender"
+                                                  defaultChecked={values.gender === "nondisclosure"}
+                                                  type="radio"
+                                                  onChange={handleChange}
+                                              />
+                                              <label htmlFor="nondisclosure">Prefer not to disclose</label>
+                                          </div>
                   </Col>
                   <Col>
                     <Form.Label>Email address</Form.Label>

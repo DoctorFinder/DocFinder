@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using DocFinder.Domain.DTO;
+using DocFinder.Domain.ServiceResponse;
 
 namespace DocFinder.Service.Interfaces
 {
@@ -16,7 +17,7 @@ namespace DocFinder.Service.Interfaces
 
         public DoctorForCreationDTO GetDoctorByMobileNumber(string mobileNumber);
 
-        public DoctorToReturnDTO GetDoctorDetails(DoctorForRetrieving doctor);
+        public DoctorToReturnResponse GetDoctorDetails(DoctorForRetrieving doctor);
 
     }
 }
