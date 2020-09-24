@@ -25,13 +25,17 @@ const schema = Yup.object({
     .max(30, errors.tooLong.replace("{0}", "Hospitals").replace("{1}", "30")),
   license: Yup.string()
     .trim()
-        .max(30, errors.tooLong.replace("{0}", "License").replace("{1}", "30")),
-    npiNumber: Yup.string()
-        .trim().required(errors.required.replace("{0}", "NPI Number"))
-        .max(30, errors.tooLong.replace("{0}", "NPI Number").replace("{1}", "30")),
+    .max(30, errors.tooLong.replace("{0}", "License").replace("{1}", "30")),
+  npiNumber: Yup.string()
+    .trim()
+    .required(errors.required.replace("{0}", "NPI Number"))
+    .max(30, errors.tooLong.replace("{0}", "NPI Number").replace("{1}", "30")),
   specialities: Yup.array().required(
     errors.required.replace("{0}", "Specialities")
-  ),
+    ),
+    subspecialities: Yup.array().required(
+        errors.required.replace("{0}", "Sub Specialities")
+    ),
   languages: Yup.array().required(errors.required.replace("{0}", "Languages"))
 });
 
@@ -44,6 +48,13 @@ export function DoctorProfessionalForm(props) {
   };
 
   const languagesKnownOverrideOptions = {
+    selectSomeItems: "Select Specialities",
+    allItemsAreSelected: "All items are selected.",
+    selectAll: "Select All",
+    search: "Search"
+  };
+
+  const subspecialitiesOverrideOptions = {
     selectSomeItems: "Select Languages",
     allItemsAreSelected: "All items are selected.",
     selectAll: "Select All",
@@ -52,8 +63,10 @@ export function DoctorProfessionalForm(props) {
 
   const [specialitiesstate, setspecialitiesstate] = useState([]);
   const [languagesstate, setlanguagesstate] = useState([]);
+  const [subspecialitiesstate, setSubspecialitiesstate] = useState([]);
 
-  const [selectedSpeciality, setselectedSpecialities] = useState([]);
+    const [selectedSpeciality, setselectedSpecialities] = useState([]);
+    const [selectedSubSpeciality, setselectedSubSpecialities] = useState([]);
   const [selectedLanguages, setselectedLanguages] = useState([]);
 
   useEffect(() => {
@@ -72,7 +85,8 @@ export function DoctorProfessionalForm(props) {
         let modifiedData = data.map(function(val, idx) {
           return { label: val.label, value: val.value };
         });
-        setspecialitiesstate(modifiedData);
+          setspecialitiesstate(modifiedData);
+          setSubspecialitiesstate(modifiedData);
       });
   }
 
@@ -218,6 +232,23 @@ export function DoctorProfessionalForm(props) {
                   </Col>
                   <Col>
                     <Form.Label>Sub Specialities</Form.Label>
+
+                    <MultiSelect
+                      name="subspecialities"
+                      options={subspecialitiesstate}
+                      value={values.subspecialities}
+                      overrideStrings={subspecialitiesOverrideOptions}
+                      onChange={async e => {
+                          setselectedSubSpecialities(e);
+                        await setFieldValue("subspecialities", e);
+                        setFieldTouched("subspecialities");
+                      }}
+                      labelledBy={"Select"}
+                    />
+                    {errors.subspecialities &&
+                      touched.subspecialities && (
+                        <div className="errorTxt">{errors.subspecialities}</div>
+                      )}
                   </Col>
                 </Row>
               </Form.Group>
