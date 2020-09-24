@@ -1,7 +1,48 @@
-﻿.carouselContainer{
-    width:50%;
+﻿.carouselContainer {
+    width: 70%;
+    margin: auto;
+
+    .titleSection {
+
+        .carousel-caption {
+            background-color: #060606;
+            -khtml-opacity: .80;
+            -moz-opacity: .80;
+            -ms-filter: ”alpha(opacity=80)”;
+            filter: alpha(opacity=80);
+            filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0.8);
+            opacity: .80;
+        }
+    }
 }
 
-.test-font{
-    color:red;
+.navbar-expand-lg {
+    .navbar-nav {
+        .nav-link {
+            padding: 0 1rem;
+        }
+    }
+}
+
+.test-font {
+    color: red;
+}
+
+.docPersonalInfoFormContainer {
+    margin: 20px auto;
+    width: 80%;
+
+    .errorTxt {
+        font-size: 11px;
+        color: red;
+    }
+
+    .submitBtn {
+        background-color: #e35d5d;
+        width: 100px;
+        padding: 5px;
+        text-align: center;
+        border-color: #e35d5d;
+        margin-bottom:30px;
+    }
 }

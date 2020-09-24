@@ -101,14 +101,14 @@ export function DoctorProfessionalForm(props) {
         setFieldValue,
         setFieldTouched
       }) => (
-        <Form noValidate onSubmit={handleSubmit}>
+    <Form noValidate onSubmit={handleSubmit}>
+        <div className="docPersonalInfoFormContainer">
           <Container>
             <Form.Group>
-                              <Row md={4}>
+              <Row md={2}>
                 <Col>
                   <Form.Label>Education</Form.Label>
-                </Col>
-                <Col>
+
                   <Form.Control
                     type="text"
                     name="education"
@@ -119,39 +119,32 @@ export function DoctorProfessionalForm(props) {
                       handleChange(e);
                     }}
                   />
+                    {errors.education && touched.education && <div className="errorTxt">{errors.education}</div>}
+                </Col>
+                <Col>
+                    <Form.Label>Degree</Form.Label>
+
+                    <Form.Control
+                        type="text"
+                        name="degree"
+                        value={values.degree}
+                        placeholder="Enter Degree"
+                        onChange={e => {
+                            setFieldTouched("degree");
+                            handleChange(e);
+                        }}
+                    />
+                    {errors.degree && touched.degree && <div className="errorTxt">{errors.degree}</div>}
                 </Col>
               </Row>
-              {errors.education &&
-                touched.education && <div>{errors.education}</div>}
+              
             </Form.Group>
 
             <Form.Group>
-                              <Row md={4}>
-                <Col>
-                  <Form.Label>Degree</Form.Label>
-                </Col>
-                <Col>
-                  <Form.Control
-                    type="text"
-                    name="degree"
-                    value={values.degree}
-                    placeholder="Enter Degree"
-                    onChange={e => {
-                      setFieldTouched("degree");
-                      handleChange(e);
-                    }}
-                  />
-                </Col>
-              </Row>
-              {errors.degree && touched.degree && <div>{errors.degree}</div>}
-            </Form.Group>
-
-            <Form.Group>
-                              <Row md={4}>
+              <Row md={2}>
                 <Col>
                   <Form.Label>Years In Practise</Form.Label>
-                </Col>
-                <Col>
+
                   <Form.Control
                     type="text"
                     name="experience"
@@ -162,40 +155,33 @@ export function DoctorProfessionalForm(props) {
                       handleChange(e);
                     }}
                   />
-                </Col>
-              </Row>
-              {errors.experience &&
-                touched.experience && <div>{errors.experience}</div>}
-            </Form.Group>
-
-            <Form.Group>
-                              <Row md={4}>
-                <Col>
-                  <Form.Label>Hospitals</Form.Label>
+                {errors.experience && touched.experience && <div className="errorTxt">{errors.experience}</div>}
                 </Col>
                 <Col>
-                  <Form.Control
-                    type="text"
-                    name="hospitals"
-                    value={values.hospitals}
-                    placeholder="Enter Education"
-                    onChange={e => {
-                      setFieldTouched("hospitals");
-                      handleChange(e);
-                    }}
-                  />
+                    <Form.Label>Hospitals</Form.Label>
+
+                    <Form.Control
+                        type="text"
+                        name="hospitals"
+                        value={values.hospitals}
+                        placeholder="Enter Education"
+                        onChange={e => {
+                            setFieldTouched("hospitals");
+                            handleChange(e);
+                        }}
+                    />
+                    {errors.hospitals && touched.hospitals && <div className="errorTxt">{errors.hospitals}</div>}
                 </Col>
               </Row>
-              {errors.hospitals &&
-                touched.hospitals && <div>{errors.hospitals}</div>}
+              
             </Form.Group>
 
+
             <Form.Group>
-                              <Row md={4}>
+              <Row md={2}>
                 <Col>
                   <Form.Label>Specialities</Form.Label>
-                </Col>
-                <Col>
+
                   <MultiSelect
                     name="specialities"
                     options={specialitiesstate}
@@ -208,18 +194,20 @@ export function DoctorProfessionalForm(props) {
                     }}
                     labelledBy={"Select"}
                   />
+                {errors.specialities && touched.specialities && <div className="errorTxt">{errors.specialities}</div>}
+                                      </Col>
+                <Col>
+                    <Form.Label>Sub Specialities</Form.Label>
                 </Col>
               </Row>
-              {errors.specialities &&
-                touched.specialities && <div>{errors.specialities}</div>}
+              
             </Form.Group>
 
             <Form.Group>
-                              <Row md={4}>
+              <Row md={2}>
                 <Col>
                   <Form.Label>Languages</Form.Label>
-                </Col>
-                <Col>
+
                   <MultiSelect
                     name="languages"
                     options={languagesstate}
@@ -231,19 +219,18 @@ export function DoctorProfessionalForm(props) {
                       setFieldTouched("languages");
                     }}
                     labelledBy={"Select"}
-                  />
+                   />
+                   {errors.languages && touched.languages && <div className="errorTxt">{errors.languages}</div>}
                 </Col>
               </Row>
-              {errors.languages &&
-                touched.languages && <div>{errors.languages}</div>}
+              
             </Form.Group>
 
             <Form.Group>
-                              <Row md={4}>
+              <Row md={2}>
                 <Col>
-                                      <Form.Label>License</Form.Label>
-                                      </Col>
-                                          <Col>
+                  <Form.Label>License</Form.Label>
+
                   <Form.Control
                     type="text"
                     name="license"
@@ -254,22 +241,27 @@ export function DoctorProfessionalForm(props) {
                       handleChange(e);
                     }}
                   />
+                  {errors.license && touched.license && <div className="errorTxt">{errors.license}</div>}
+                </Col>
+                <Col>
+                    <Form.Label>NPI Number</Form.Label>
                 </Col>
               </Row>
-              {errors.license && touched.license && <div>{errors.license}</div>}
+              
             </Form.Group>
-                          <Row className="justify-content-md-center">
-                              <Col>
-            <Button    onClick={e => {
-                goToPersonalForm(values);
-              }}
-            > Prev</Button> {""}
-                       <Button type="submit">Next </Button> {""}
-                                  </Col>
-                              </Row>
+            <Row md={1} className="justify-content-md-center">
+                <Col>
+                    <Button className="submitBtn" onClick={e => {
+                        goToPersonalForm(values);
+                      }}
+                    > Prev</Button> {""}
+                     <Button className="submitBtn" type="submit">Next </Button> {""}
+                </Col>
+            </Row>
           </Container>
-        </Form>
+        </div>
+    </Form>
       )}
-    </Formik>
+ </Formik>
   );
 }

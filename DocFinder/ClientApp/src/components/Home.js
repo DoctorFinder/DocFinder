@@ -15,7 +15,6 @@ export function Home() {
 
     return (
         <div className="carouselContainer">
-        <p className="test-font">Hello</p>
         <Carousel activeIndex={index} onSelect={handleSelect}>
             <Carousel.Item>
                 <img
@@ -23,10 +22,12 @@ export function Home() {
                     src={Banner1}
                     alt="First slide"
                 />
-                <Carousel.Caption>
-                    <h3>How to list yourself</h3>
-                    <p>List yourself with us</p>
-                </Carousel.Caption>
+                <div className="titleSection">
+                    <Carousel.Caption>
+                        <h3>How to list yourself</h3>
+                        <p>List yourself with us</p>
+                    </Carousel.Caption>
+                </div>
             </Carousel.Item>
             <Carousel.Item>
                 <img
@@ -34,11 +35,12 @@ export function Home() {
                     src={Banner2}
                     alt="Second slide"
                 />
-
-                <Carousel.Caption>
-                    <h3>How to list your hospital</h3>
-                    <p>List your hospital with us</p>
-                </Carousel.Caption>
+                <div className="titleSection">
+                    <Carousel.Caption>
+                        <h3>How to list your hospital</h3>
+                        <p>List your hospital with us</p>
+                    </Carousel.Caption>
+                </div>
             </Carousel.Item>
             <Carousel.Item>
                 <img
@@ -46,13 +48,14 @@ export function Home() {
                     src={Banner3}
                     alt="Third slide"
                 />
-
-                <Carousel.Caption>
-                    <h3>Health care Professional</h3>
-                    <p>
-                       Be a part of our family
-          </p>
-                </Carousel.Caption>
+                <div className="titleSection">
+                    <Carousel.Caption>
+                        <h3>Health care Professional</h3>
+                        <p>
+                           Be a part of our family
+                        </p>
+                    </Carousel.Caption>
+                </div>
             </Carousel.Item>
             </Carousel>
         </div>
