@@ -24,7 +24,8 @@ export function ListYourselfComponent(props) {
     education: "",
     experience: "",
     hospitals: "",
-    license: "",
+      license: "",
+      npiNumber:"",
     specialities: [],
     languages: []
   };
