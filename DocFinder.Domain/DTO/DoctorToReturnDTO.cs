@@ -27,8 +27,6 @@ namespace DocFinder.Domain.DTO
 
         public string Degree { get; set; }
 
-        public string Hospitals { get; set; }
-
         public string License { get; set; }
 
         public string Address1 { get; set; }

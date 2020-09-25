@@ -19,10 +19,6 @@ const schema = Yup.object({
     .required(errors.required.replace("{0}", "Experience"))
     .max(100)
     .min(0),
-  hospitals: Yup.string()
-    .trim()
-    .required(errors.required.replace("{0}", "Hospitals"))
-    .max(30, errors.tooLong.replace("{0}", "Hospitals").replace("{1}", "30")),
   license: Yup.string()
     .trim()
     .max(30, errors.tooLong.replace("{0}", "License").replace("{1}", "30")),
@@ -182,24 +178,6 @@ export function DoctorProfessionalForm(props) {
                     {errors.experience &&
                       touched.experience && (
                         <div className="errorTxt">{errors.experience}</div>
-                      )}
-                  </Col>
-                  <Col>
-                    <Form.Label>Hospitals</Form.Label>
-
-                    <Form.Control
-                      type="text"
-                      name="hospitals"
-                      value={values.hospitals}
-                      placeholder="Enter Education"
-                      onChange={e => {
-                        setFieldTouched("hospitals");
-                        handleChange(e);
-                      }}
-                    />
-                    {errors.hospitals &&
-                      touched.hospitals && (
-                        <div className="errorTxt">{errors.hospitals}</div>
                       )}
                   </Col>
                 </Row>

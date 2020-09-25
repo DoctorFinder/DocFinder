@@ -24,6 +24,7 @@ namespace DocFinder.Domain
         public DateTime DateOfBirth { get; set; }
 
         [Required]
+        [MaxLength(20)]
         public string Gender { get; set; }
 
 
@@ -46,10 +47,6 @@ namespace DocFinder.Domain
         [MaxLength(30)]
         public string Degree { get; set; }
 
-
-        [Required]
-        [MaxLength(30)]
-        public string Hospitals { get; set; }
 
         [Required]
         [MaxLength(30)]
