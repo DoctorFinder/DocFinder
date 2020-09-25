@@ -4,7 +4,7 @@ import { Layout } from "./components/Layout";
 import { Home } from "./components/Home";
 import { AboutUsComponent } from "./components/AboutUs";
 import { ServicesComponent } from "./components/Services";
-import { ListYourselfComponent } from "./components/ListYourself";
+import { ListYourselfComponent } from "./components/DoctorRegistration/ListYourself";
 import { ListHospitalsComponent } from "./components/ListHospitals";
 import { ListPhysicianComponent } from "./components/ListPhysicians";
 import { FindHospitalsComponent } from "./components/FindHospitals";

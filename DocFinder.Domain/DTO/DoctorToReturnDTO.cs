@@ -6,7 +6,7 @@ namespace DocFinder.Domain.DTO
 {
     public class DoctorToReturnDTO
     {
-
+        public int Id { get; set; }
         public string FirstName { get; set; }
 
         public string MiddleName { get; set; }

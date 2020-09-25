@@ -3,7 +3,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import DatePicker from "react-datepicker";
-import errors from "../Config/errorMessages";
+import errors from "../../Config/errorMessages";
 import "react-datepicker/dist/react-datepicker.css";
 
 Yup.addMethod(Yup.string, "checkForNumbers", function (

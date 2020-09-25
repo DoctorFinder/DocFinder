@@ -1,12 +1,11 @@
 ﻿import React from "react";
-import { Form, Button, Container, Row, Col, Spinner } from "react-bootstrap";
+import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { useLocation, useHistory } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import errors from "../Config/errorMessages";
+import errors from "../../Config/errorMessages";
 import { Fragment } from "react";
 import LoadingOverlay from "react-loading-overlay";
-import "../Styles/Spinner.css";
 
 const phoneRegex = RegExp(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/);
 const zipcodeRegex = RegExp(/(^\d{5}$)|(^\d{5}-\d{4}$)/);
@@ -210,7 +209,8 @@ export function DoctorImageForm(props) {
             </Container>
           </Form>
         )}
-      </Formik>                  
+          </Formik>  
+          {props.submissionErrorState && <div>{props.errorMsg}</div>}
     </Fragment>
   );
 }

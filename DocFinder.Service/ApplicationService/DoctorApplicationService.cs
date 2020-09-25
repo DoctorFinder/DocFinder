@@ -35,6 +35,10 @@ namespace DocFinder.Service.ApplicationService
         public  DoctorForCreationDTO  GetDoctorByEmailandMobileNumber(string email, string mobileNumber)
         {
             var doctor = this._doctorService.GetDoctorByEmailandMobileNumber(email, mobileNumber);
+            if (doctor is null)
+            {
+                return null;
+            }
             var doctorDTO = Mapping.Mapper.Map<DoctorForCreationDTO>(doctor);
             return doctorDTO;
         }
@@ -46,19 +50,45 @@ namespace DocFinder.Service.ApplicationService
             return doctorDTO;
         }
 
-        public DoctorForCreationDTO RegisterDoctor(DoctorForCreationDTO doctorDTO)
+        public DoctorToReturnResponse RegisterDoctor(DoctorForCreationDTO doctorDTO)
         {
-            var doctor = Mapping.Mapper.Map<Doctor>(doctorDTO);
-            var doctorLanguages = Mapping.Mapper.Map<IEnumerable<DoctorLanguages>>(doctorDTO.Languages);
-            var doctorSpecialities = Mapping.Mapper.Map<IEnumerable<DoctorSpecialities>>(doctorDTO.Specialities);
-            int doctorId = this._doctorService.RegisterDoctor(doctor);
-            if (doctorId > 0)
+            var doctorToResponse = new DoctorToReturnResponse();
+
+             var existngDoctor = GetDoctorByEmailandMobileNumber(doctorDTO.Email, doctorDTO.PhoneNumber);
+
+            if (existngDoctor is null)
             {
-                this._doctorSpecialityApplicationService.AddDoctorSpecialities(doctorDTO.Specialities,doctorId);
-                this._doctorLanguageApplicationService.AddDoctorLanguages(doctorDTO.Languages, doctorId);
-                return doctorDTO;
+                var doctor = Mapping.Mapper.Map<Doctor>(doctorDTO);
+                var doctorLanguages = Mapping.Mapper.Map<IEnumerable<DoctorLanguages>>(doctorDTO.Languages);
+                var doctorSpecialities = Mapping.Mapper.Map<IEnumerable<DoctorSpecialities>>(doctorDTO.Specialities);
+                int doctorId = this._doctorService.RegisterDoctor(doctor);
+                
+                if (doctorId > 0)
+                {
+                    this._doctorSpecialityApplicationService.AddDoctorSpecialities(doctorDTO.Specialities, doctorId);
+                    this._doctorLanguageApplicationService.AddDoctorLanguages(doctorDTO.Languages, doctorId);
+                    var doctorToReturn = Mapping.Mapper.Map<DoctorToReturnDTO>(doctor);
+                     doctorToResponse.doctor = doctorToReturn;
+                    return doctorToResponse;
+                }
+               
+            }
+            else
+            {
+                if (existngDoctor.Email == doctorDTO.Email)
+                {
+                    doctorToResponse.responseMessage = "Please select a different email address. Email already exists";
+                    return doctorToResponse;
+                }
+                else if (existngDoctor.PhoneNumber == existngDoctor.PhoneNumber)
+                {
+                    doctorToResponse.responseMessage = "Please select a different Phone Number. Phone Number already exists";
+                    return doctorToResponse;
+                }
+            
             }
             return null;
+
         }
 
         public DoctorToReturnResponse GetDoctorDetails(DoctorForRetrieving doctor)

@@ -32,10 +32,15 @@ namespace DocFinder.Controllers
         }
 
         [HttpPost]
-        public ActionResult<DoctorForCreationDTO> Post (DoctorForCreationDTO doctor)
+        public ActionResult<DoctorToReturnResponse> Post (DoctorForCreationDTO doctor)
         {
 
              var doctorDTO = this._doctorApplicationService.RegisterDoctor(doctor);
+
+            if (doctorDTO is null || doctorDTO.doctor is null)
+            {
+                return NotFound(doctorDTO);
+            }
              return Ok(doctorDTO);             
         }
 

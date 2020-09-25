@@ -9,7 +9,7 @@ namespace DocFinder.Service.Interfaces
 {
     public interface IDoctorApplicationService
     {
-        public DoctorForCreationDTO RegisterDoctor(DoctorForCreationDTO doctorDTO);
+        public DoctorToReturnResponse RegisterDoctor(DoctorForCreationDTO doctorDTO);
 
         public DoctorForCreationDTO GetDoctorByEmailandMobileNumber(string email, string mobileNumber);
 

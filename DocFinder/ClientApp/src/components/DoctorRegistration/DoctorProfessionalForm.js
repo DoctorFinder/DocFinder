@@ -3,8 +3,8 @@ import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { Formik } from "formik";
 import MultiSelect from "react-multi-select-component";
 import * as Yup from "yup";
-import errors from "../Config/errorMessages";
-import "../Styles/bootstrap.multiselect.css";
+import errors from "../../Config/errorMessages";
+import "../../Styles/bootstrap.multiselect.css";
 
 Yup.addMethod(Yup.string, "checkIfRequired", function (
     errorMessage = "NPI Number cannot be empty"

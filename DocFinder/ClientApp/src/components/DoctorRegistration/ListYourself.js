@@ -3,9 +3,9 @@ import { Route, useLocation, useHistory } from "react-router-dom";
 import { DoctorPersonalForm } from "./DoctorPersonalForm";
 import { DoctorProfessionalForm } from "./DoctorProfessionalForm";
 import { DoctorImageForm } from "./DoctorImageForm";
-import { MenuTypeContext } from "../context/MenuContextProvider";
+import { MenuTypeContext } from "../../context/MenuContextProvider";
 import "react-datepicker/dist/react-datepicker.css";
-import "../Styles/Spinner.css";
+import "../../Styles/Spinner.css";
 
 export function ListYourselfComponent(props) {
   const emptyPersonalFormData = {
@@ -40,6 +40,8 @@ export function ListYourselfComponent(props) {
     phoneNumber: ""
   };
 
+    const [errorMsg, seterrorMsg] = useState("");
+    const [submissionErrorState, setSubmissionErrorState] = useState(false);
   const [isRequestProcessing, setRequestProcessingStatus] = useState(false);
   const [isPersonalFormCompleted, setPersonalFormStatus] = useState(false);
   const [isProfessionalFormCompleted, setProfessionalFormStatus] = useState(
@@ -125,7 +127,9 @@ export function ListYourselfComponent(props) {
     submitDoctorRegistrationForm(doctor);
   }
 
-  function submitDoctorRegistrationForm(doctor) {
+    function submitDoctorRegistrationForm(doctor) {
+        setSubmissionErrorState(false);
+        seterrorMsg("");
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -139,7 +143,10 @@ export function ListYourselfComponent(props) {
         console.log("reasched success after json");
         debugger;
         if (!response.ok) {
-          const error = (data && data.message) || response.status;
+            let error = (data && data.message) || response.status;
+            if (data.responseMessage) {
+                error = data.responseMessage;
+            }
           return Promise.reject(error);
         }
         let firstIndexOfPath = location.pathname.indexOf("/");
@@ -151,8 +158,10 @@ export function ListYourselfComponent(props) {
         history.push(doctorProfilePath);
       })
       .catch(error => {
-        debugger;
-        setRequestProcessingStatus(false);
+          debugger;
+          setSubmissionErrorState(true);
+          setRequestProcessingStatus(false);
+          seterrorMsg(error);
         console.error("There was an error!", error);
       });
   }
@@ -182,14 +191,16 @@ export function ListYourselfComponent(props) {
         </Route>
         <Route path={`${props.match.path}/Image`}>
           <DoctorImageForm
-            isRequestProcessing={isRequestProcessing}
-            getProfessionalForm={getProfessionalForm}
-            saveImageFormData={saveImageFormData}
-            defaultImageFormData={defaultImageFormData}
-            isProfessionalFormCompleted={isProfessionalFormCompleted}
+                      isRequestProcessing={isRequestProcessing}
+                      getProfessionalForm={getProfessionalForm}
+                      saveImageFormData={saveImageFormData}
+                      defaultImageFormData={defaultImageFormData}
+                      isProfessionalFormCompleted={isProfessionalFormCompleted}
+                      submissionErrorState={submissionErrorState}
+                      errorMsg={errorMsg}
           />
         </Route>
-      </fieldset>
+          </fieldset>
       {isRequestProcessing && <div className="spinner" />}
     </div>
   );
