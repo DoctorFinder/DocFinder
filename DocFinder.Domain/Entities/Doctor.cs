@@ -48,9 +48,14 @@ namespace DocFinder.Domain
         public string Degree { get; set; }
 
 
-        [Required]
         [MaxLength(30)]
         public string License { get; set; }
+
+        [MaxLength(30)]
+        public string NpiNumber { get; set; }
+
+        [Required]
+        public bool NpiDisclosure { get; set; }
 
         [Required]
         [MaxLength(50)]

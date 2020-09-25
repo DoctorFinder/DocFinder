@@ -6,6 +6,16 @@ import * as Yup from "yup";
 import errors from "../Config/errorMessages";
 import "../Styles/bootstrap.multiselect.css";
 
+Yup.addMethod(Yup.string, "checkIfRequired", function (
+    errorMessage = "NPI Number cannot be empty"
+) {
+    return this.test("checkIfRequired", errorMessage, (value) => {
+        //console.log(npiDisclosureState)
+        console.log(value);
+        return !value;
+    });
+});
+
 const schema = Yup.object({
   education: Yup.string()
     .trim()
@@ -21,10 +31,14 @@ const schema = Yup.object({
     .min(0),
   license: Yup.string()
     .trim()
-    .max(30, errors.tooLong.replace("{0}", "License").replace("{1}", "30")),
-  npiNumber: Yup.string()
+        .max(30, errors.tooLong.replace("{0}", "License").replace("{1}", "30")),
+    npiDisclosure: Yup.boolean(),
+    npiNumber: Yup.string()
+        .when('npiDisclosure', {
+            is: false, // alternatively: (val) => val == true
+            then: Yup.string().required()
+        })
     .trim()
-    .required(errors.required.replace("{0}", "NPI Number"))
     .max(30, errors.tooLong.replace("{0}", "NPI Number").replace("{1}", "30")),
   specialities: Yup.array().required(
     errors.required.replace("{0}", "Specialities")
@@ -56,7 +70,8 @@ export function DoctorProfessionalForm(props) {
 
   const [specialitiesstate, setspecialitiesstate] = useState([]);
   const [languagesstate, setlanguagesstate] = useState([]);
-  const [subspecialitiesstate, setSubspecialitiesstate] = useState([]);
+    const [subspecialitiesstate, setSubspecialitiesstate] = useState([]);
+    const [npiDisclosureState, setnpiDisclosureState] = useState(false);
 
     const [selectedSpeciality, setselectedSpecialities] = useState([]);
     const [selectedSubSpeciality, setselectedSubSpecialities] = useState([]);
@@ -282,12 +297,25 @@ export function DoctorProfessionalForm(props) {
                       type="text"
                       name="npiNumber"
                       value={values.npiNumber}
-                      placeholder="Enter NPI Number"
+                                  placeholder="Enter NPI Number"
+                                              disabled={npiDisclosureState}
                       onChange={e => {
                         setFieldTouched("npiNumber");
                         handleChange(e);
                       }}
-                    />
+                        />
+                                          <Form.Check label="wish not to specify"
+                                              type="checkbox"
+                                              checked={values.npiDisclosure}
+                                              name="npiDisclosure"
+                                              onChange={e => {
+                                                  setFieldTouched("npiDisclosure");
+                                                  handleChange(e);
+                                                  console.log(e);
+                                                  console.log(values.npiDisclosure);
+                                                  setnpiDisclosureState(!npiDisclosureState);
+                                              }}
+                                          />
                     {errors.npiNumber &&
                       touched.npiNumber && (
                         <div className="errorTxt">{errors.npiNumber}</div>

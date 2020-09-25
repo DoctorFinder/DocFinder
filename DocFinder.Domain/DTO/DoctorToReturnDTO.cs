@@ -29,6 +29,10 @@ namespace DocFinder.Domain.DTO
 
         public string License { get; set; }
 
+        public string NpiNumber { get; set; }
+
+        public bool NpiDisclosure { get; set; }
+
         public string Address1 { get; set; }
 
         public string Address2 { get; set; }

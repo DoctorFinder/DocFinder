@@ -12,6 +12,8 @@
     [YearsInPractice] int  NOT NULL,
     [Degree] VARCHAR(30) NOT NULL,
     [License] VARCHAR(30) NOT NULL,
+    [NpiNumber] VARCHAR(30) NULL,
+    [NpiDisclosure] bit,
     [Address1] VARCHAR(50) NOT NULL,
     [Address2] VARCHAR(50) NOT NULL,
     [City] VARCHAR(50) NOT NULL,
