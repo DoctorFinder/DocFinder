@@ -77,7 +77,6 @@ export function DoctorLoginComponent() {
         debugger;
         setRequestProcessingStatus(false);
         seterrorMsg(error);
-        console.error("There was an error!", error);
       });
   }
 
@@ -93,8 +92,7 @@ export function DoctorLoginComponent() {
             <Formik
               validationSchema={schema}
               initialValues={emptyLoginData}
-              onSubmit={(values: FState, setSubmitting: any) => {
-                console.log(values);
+              onSubmit={(values: FState, setSubmitting: any) => {               
                 LoginAsUserProvided(values);
               }}
             >
@@ -163,7 +161,6 @@ export function DoctorLoginComponent() {
                           Submit
                         </Button>{" "}
                         {""}
-                        {console.log(touched)}
                       </Col>
                     </Row>
                   </Container>

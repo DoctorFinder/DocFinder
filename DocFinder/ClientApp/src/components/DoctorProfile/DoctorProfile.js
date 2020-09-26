@@ -1,27 +1,42 @@
-﻿import React from "react";
-import { Route, useLocation, useHistory } from "react-router-dom";
-import Tabs from 'react-bootstrap/Tabs'
-import Tab from 'react-bootstrap/Tab'
+﻿import React, { Fragment,useState } from "react";
+import {  useLocation } from "react-router-dom";
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
 import { OfficeInfo } from './OfficeInfo';
-import { PersonalInfo} from './PersonalInfo'
+import { OfficeInfoEdit } from './OfficeInfoEdit';
+import { PersonalInfo } from './PersonalInfo';
+import { PersonalInfoEdit } from './PersonalInfoEdit'
+import {  Button, } from "react-bootstrap";
 
 export function DoctorProfileComponent() {
 
+    const [updateModeState, setUpdateModeState] = useState(false);
     let location = useLocation();
-    let history = useHistory();
 
-    console.log(location.state);
+    let doctorDetails = location.state;
+
+    function setEditMode() {
+        setUpdateModeState(true);
+    }
+
+    function setReadOnlyMode() {
+        setUpdateModeState(false);
+    }
 
     return (
+        <Fragment>
         <Tabs defaultActiveKey="personal" id="doctorProfile">
             <Tab eventKey="personal" title="Personal Info">
-                <PersonalInfo/>
+                    {!updateModeState && <PersonalInfo DoctorDetails={doctorDetails} />} 
+                    {updateModeState && <PersonalInfoEdit DoctorDetails={doctorDetails} />} 
             </Tab>
             <Tab eventKey="office" title="Office Info">
-                <OfficeInfo />
+                    {!updateModeState && <OfficeInfo DoctorDetails={doctorDetails} />}
+                    {updateModeState && <OfficeInfoEdit DoctorDetails={doctorDetails} />}
             </Tab>
-        </Tabs>
-        //<div><h3>Page after Doctor registered</h3></div>
-
+            </Tabs>
+            {!updateModeState && <div><Button onClick={setEditMode}>Edit Profile</Button> </div>}
+            {updateModeState && <div><Button onClick={setReadOnlyMode}>save</Button> <Button onClick={setReadOnlyMode}>Cancel</Button></div>}
+            </Fragment>
     )
 }
