@@ -3,7 +3,7 @@ import { Form, Row, Col } from "react-bootstrap";
 
 export function PersonalInfo(props) {
     console.log(props);
-    const doctorDetails = props.DoctorDetails.doctordetails.doctor;
+    const doctorDetails = props.DoctorDetails;
 
 
     function getAgeFromDOB(dob) {

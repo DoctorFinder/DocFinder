@@ -6,16 +6,6 @@ import * as Yup from "yup";
 import errors from "../../Config/errorMessages";
 import "../../Styles/bootstrap.multiselect.css";
 
-Yup.addMethod(Yup.string, "checkIfRequired", function (
-    errorMessage = "NPI Number cannot be empty"
-) {
-    return this.test("checkIfRequired", errorMessage, (value) => {
-        //console.log(npiDisclosureState)
-        console.log(value);
-        return !value;
-    });
-});
-
 const schema = Yup.object({
   education: Yup.string()
     .trim()
