@@ -27,8 +27,8 @@ export function DoctorLoginComponent() {
     password: ""
   };
 
-    const [show, setShow] = useState(true);
-    const [errorMsg, seterrorMsg] = useState("");
+  const [show, setShow] = useState(true);
+  const [errorMsg, seterrorMsg] = useState("");
 
   const [isRequestProcessing, setRequestProcessingStatus] = useState(false);
   const context = useContext(MenuTypeContext);
@@ -36,14 +36,12 @@ export function DoctorLoginComponent() {
   let location = useLocation();
   let history = useHistory();
 
-
-    function handleClose() {
-        let firstIndexOfPath = location.pathname.indexOf("/");
-        let homePath =
-            location.pathname.substring(0, firstIndexOfPath) ;   
-             setShow(false);
-        history.push(homePath);
-    }
+  function handleClose() {
+    let firstIndexOfPath = location.pathname.indexOf("/");
+    let homePath = location.pathname.substring(0, firstIndexOfPath);
+    setShow(false);
+    history.push(homePath);
+  }
 
   function LoginAsUserProvided(values) {
     const doctor = {
@@ -57,35 +55,36 @@ export function DoctorLoginComponent() {
     };
     setRequestProcessingStatus(true);
     fetch("Doctor/PostDoctorLogin", requestOptions)
-      .then(async response => {        
+      .then(async response => {
         const data = await response.json();
-          debugger;
-          if (!response.ok) {
-              let error = (data && data.message) || response.status;
-              if (data.responseMessage) {
-                  error = data.responseMessage;
-              }
+        debugger;
+        if (!response.ok) {
+          let error = (data && data.message) || response.status;
+          if (data.responseMessage) {
+            error = data.responseMessage;
+          }
           return Promise.reject(error);
         }
         let firstIndexOfPath = location.pathname.indexOf("/");
         let doctorProfilePath =
-          location.pathname.substring(0, firstIndexOfPath + 1) + "DoctorProfile";
+          location.pathname.substring(0, firstIndexOfPath + 1) +
+          "DoctorProfile";
         setRequestProcessingStatus(false);
         context.dispatch({ type: "doctor" });
-          history.push(doctorProfilePath, { doctordetails: data});
+        history.push(doctorProfilePath, { doctordetails: data });
       })
       .catch(error => {
         debugger;
-          setRequestProcessingStatus(false);
-          seterrorMsg(error);
+        setRequestProcessingStatus(false);
+        seterrorMsg(error);
         console.error("There was an error!", error);
       });
   }
 
   return (
     <div>
-          <Modal show={show} onHide={handleClose}>
-              <Modal.Header closeButton>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
           <Modal.Title> Login as a doctor </Modal.Title>
         </Modal.Header>
 
@@ -95,10 +94,19 @@ export function DoctorLoginComponent() {
               validationSchema={schema}
               initialValues={emptyLoginData}
               onSubmit={(values: FState, setSubmitting: any) => {
+                console.log(values);
                 LoginAsUserProvided(values);
               }}
             >
-              {({ handleSubmit, handleChange, values, touched }) => (
+              {({
+                handleSubmit,
+                handleChange,
+                values,
+                errors,
+                touched,
+                isValid,
+                setFieldTouched
+              }) => (
                 <Form noValidate onSubmit={handleSubmit}>
                   <Container>
                     <Form.Group>
@@ -115,15 +123,12 @@ export function DoctorLoginComponent() {
                             placeholder="Enter Email"
                             value={values.emailAddress}
                             onChange={e => {
+                              setFieldTouched("emailAddress");
                               handleChange(e);
                             }}
                           />
                         </Col>
                       </Row>
-                      {errors.emailAddress &&
-                        touched.emailAddress && (
-                          <div>{errors.emailAddress}</div>
-                        )}
                     </Form.Group>
                     <Form.Group>
                       <Row md={12}>
@@ -139,17 +144,26 @@ export function DoctorLoginComponent() {
                             placeholder="Enter Password"
                             value={values.password}
                             onChange={e => {
+                              setFieldTouched("password");
                               handleChange(e);
                             }}
                           />
                         </Col>
                       </Row>
-                      {errors.password &&
-                        touched.password && <div>{errors.password}</div>}
                     </Form.Group>
                     <Row md={12} className="justify-content-md-center">
                       <Col>
-                        <Button type="submit">Submit</Button> {""}
+                        <Button
+                          type="submit"
+                          disabled={
+                            !isValid ||
+                            (!touched.password && !touched.emailAddress)
+                          }
+                        >
+                          Submit
+                        </Button>{" "}
+                        {""}
+                        {console.log(touched)}
                       </Col>
                     </Row>
                   </Container>
@@ -159,9 +173,9 @@ export function DoctorLoginComponent() {
           </fieldset>
         </Modal.Body>
 
-              <Modal.Footer >
-                  <label> {errorMsg}</label>
-              </Modal.Footer>
+        <Modal.Footer>
+          <label> {errorMsg}</label>
+        </Modal.Footer>
         {isRequestProcessing && <div className="spinner" />}
       </Modal>
     </div>
