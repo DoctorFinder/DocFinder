@@ -25,6 +25,17 @@ namespace DocFinder.Domain.Service
             }
         }
 
+        public IEnumerable<Specialities> GetDoctorSpecialities(int doctorId)
+        {
+
+            var specialities = (from spec in this._db.Specialities
+                             join docspec in this._db.DoctorSpecialities on spec.ID equals docspec.SpecialityId
+                                where docspec.DoctorId == doctorId
+                             select new Specialities() { ID = spec.ID, Speciality = spec.Speciality });
+
+            return specialities;
+        }
+
         public int Commit()
         {
             return this._db.SaveChanges();

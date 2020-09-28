@@ -24,5 +24,12 @@ namespace DocFinder.Service.ApplicationService
             doctorLanguages = doctorLanguages.Select(doclan => { doclan.DoctorId = doctorId; return doclan; }).ToList();
             this._doctorLanguageService.AddDoctorLanguages(doctorLanguages); 
         }
+
+        public IEnumerable<DoctorLanguagesToReturnDTO> GetDoctorLanguages(int doctorId)
+        {
+            var doctorLanguages = this._doctorLanguageService.GetDoctorLanguages(doctorId);
+            var doctorLanguagesToReturn = Mapping.Mapper.Map<IEnumerable<DoctorLanguagesToReturnDTO>>(doctorLanguages);
+            return doctorLanguagesToReturn;
+        }
     }
 }

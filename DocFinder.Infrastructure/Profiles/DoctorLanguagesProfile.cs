@@ -15,6 +15,14 @@ namespace DocFinder.Infrastructure.Profiles
                   .ForMember(
                    dest => dest.LanguageId,
                    opt => opt.MapFrom(src => src.value));
+
+            CreateMap<Languages, DoctorLanguagesToReturnDTO>()
+                 .ForMember(
+                   dest => dest.value,
+                   opt => opt.MapFrom(src => src.Id))
+                 .ForMember(
+                   dest => dest.label,
+                   opt => opt.MapFrom(src => src.Language));                
         }
     }
 }

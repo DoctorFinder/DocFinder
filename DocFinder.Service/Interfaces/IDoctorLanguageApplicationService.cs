@@ -8,5 +8,7 @@ namespace DocFinder.Service.Interfaces
     public interface IDoctorLanguageApplicationService
     {
         public void AddDoctorLanguages(IEnumerable<DoctorLanguagesForCreation> doctorLanguagesDTO, int doctorId);
+
+        public IEnumerable<DoctorLanguagesToReturnDTO> GetDoctorLanguages(int doctorId);
     }
 }

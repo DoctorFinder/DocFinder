@@ -14,6 +14,15 @@ namespace DocFinder.Infrastructure.Profiles
                 .ForMember(
                  dest => dest.SpecialityId,
                  opt => opt.MapFrom(src => src.value));
-    }
+
+            CreateMap<Specialities,DoctorSpecialitiesToReturnDTO>()
+             .ForMember(
+              dest => dest.value,
+              opt => opt.MapFrom(src => src.ID))
+              .ForMember(
+              dest => dest.label,
+              opt => opt.MapFrom(src => src.Speciality)
+              );
+        }
     }
 }

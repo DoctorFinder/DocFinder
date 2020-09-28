@@ -9,9 +9,9 @@ namespace DocFinder.Domain.ServiceResponse
     {
         public DoctorToReturnDTO doctor { get; set; }
 
-        public List<LanguageDTO> languages { get; set; }
+        public List<DoctorLanguagesToReturnDTO> languages { get; set; }
 
-        public List<SpecialitiesDTO> specialities { get; set; }
+        public List<DoctorSpecialitiesToReturnDTO> specialities { get; set; }
 
         public string responseMessage { get; set; }
     }

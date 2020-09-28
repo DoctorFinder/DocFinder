@@ -200,7 +200,7 @@ export function DoctorProfessionalForm(props) {
                       overrideStrings={specialitiesOverrideOptions}
                       hasSelectAll={false}
                       onChange={async e => {
-                        setselectedSpecialities(e);
+                       // setselectedSpecialities(e);
                         await setFieldValue("specialities", e);
                         setFieldTouched("specialities");
                       }}

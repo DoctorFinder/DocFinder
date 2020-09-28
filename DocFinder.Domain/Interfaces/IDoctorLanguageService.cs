@@ -7,5 +7,7 @@ namespace DocFinder.Domain.Interfaces
     public interface IDoctorLanguageService
     {
         public void AddDoctorLanguages(IEnumerable<DoctorLanguages> doctorLanguages);
+
+        public IEnumerable<Languages> GetDoctorLanguages(int doctorId);
     }
 }

@@ -9,5 +9,7 @@ namespace DocFinder.Service.Interfaces
     {
         public void AddDoctorSpecialities(IEnumerable<DoctorSpecialitiesForCreation> doctorSpecialitiesDTO,int doctorId);
 
+        public IEnumerable<DoctorSpecialitiesToReturnDTO> GetDoctorSpecialities(int doctorId);
+
     }
 }

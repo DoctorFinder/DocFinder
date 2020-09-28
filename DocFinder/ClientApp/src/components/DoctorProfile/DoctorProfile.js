@@ -15,9 +15,9 @@ export function DoctorProfileComponent() {
     const [updateModeState, setUpdateModeState] = useState(false);
     let location = useLocation();
 
-    console.log(location.state);
-    console.log(location.state.doctordetails.doctor);
     let doctor = location.state.doctordetails.doctor;
+        doctor.languages = location.state.doctordetails.languages;
+        doctor.specialities = location.state.doctordetails.specialities;
 
     function setEditMode() {
         setUpdateModeState(true);
@@ -32,20 +32,19 @@ export function DoctorProfileComponent() {
         <Tabs defaultActiveKey="personal" id="doctorProfile">
             <Tab eventKey="personal" title="Personal Info">
                     {!updateModeState && <PersonalInfo DoctorDetails={doctor} />} 
-                    {updateModeState && <PersonalInfoEdit DoctorDetails={doctor} />} 
+                    {updateModeState && <PersonalInfoEdit DoctorDetails={doctor} SetReadOnlyMode={setReadOnlyMode}/>} 
                 </Tab>
                 {updateModeState &&
                     <Tab eventKey="professional" title="Professional Info">
-                    <ProfessionalEditInfo DoctorDetails={doctor} />
+                    <ProfessionalEditInfo DoctorDetails={doctor} SetReadOnlyMode={setReadOnlyMode}/>
                     </Tab>
                 }
             <Tab eventKey="office" title="Office Info">
                     {!updateModeState && <OfficeInfo DoctorDetails={doctor} />}
-                    {updateModeState && <OfficeInfoEdit DoctorDetails={doctor} />}
+                    {updateModeState && <OfficeInfoEdit DoctorDetails={doctor} SetReadOnlyMode={setReadOnlyMode}/>}
                 </Tab>
             </Tabs>
-            {!updateModeState && <div><Button onClick={setEditMode}>Edit Profile</Button> </div>}
-            {updateModeState && <div><Button onClick={setReadOnlyMode}>save</Button> <Button onClick={setReadOnlyMode}>Cancel</Button></div>}
+            {!updateModeState && <div><Button onClick={setEditMode}>Edit Profile</Button> </div>}           
             </Fragment>
     )
 }

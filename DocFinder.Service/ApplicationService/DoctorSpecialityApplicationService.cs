@@ -23,5 +23,12 @@ namespace DocFinder.Service.ApplicationService
             doctorSpecialities = doctorSpecialities.Select(docspl => { docspl.DoctorId = doctorId; return docspl; }).ToList();
             this._doctorSpecialityService.AddDoctorSpecialities(doctorSpecialities);            
         }
+
+        public IEnumerable<DoctorSpecialitiesToReturnDTO> GetDoctorSpecialities(int doctorId)
+        {
+            var doctorSpecialities = this._doctorSpecialityService.GetDoctorSpecialities(doctorId);
+            var doctorSpecialitiesToReturn = Mapping.Mapper.Map<IEnumerable<DoctorSpecialitiesToReturnDTO>>(doctorSpecialities);
+            return doctorSpecialitiesToReturn;
+        }
     }
 }

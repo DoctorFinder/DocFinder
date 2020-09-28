@@ -7,5 +7,7 @@ namespace DocFinder.Domain.Interfaces
     public interface IDoctorSpecialityService
     {
         public void AddDoctorSpecialities(IEnumerable<DoctorSpecialities> doctorSpecialities);
+
+        public IEnumerable<Specialities> GetDoctorSpecialities(int doctorId);
     }
 }

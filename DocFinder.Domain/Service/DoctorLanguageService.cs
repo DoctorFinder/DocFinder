@@ -1,7 +1,9 @@
 ﻿using DocFinder.Domain.Interfaces;
+using Microsoft.Data.SqlClient.DataClassification;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace DocFinder.Domain.Service
@@ -23,6 +25,18 @@ namespace DocFinder.Domain.Service
                 this._db.Add(dbLanguages[i]);
                 this.Commit();
             }
+        }
+
+        public IEnumerable<Languages> GetDoctorLanguages(int doctorId)
+        {
+
+            var languages  = (from lan in this._db.Languages
+                 join doclan in this._db.DoctorLanguages on lan.Id equals doclan.LanguageId
+                 where doclan.DoctorId == doctorId
+                 select new Languages() { Id = lan.Id, Language = lan.Language, Code = lan.Code });         
+
+
+            return languages;
         }
 
         public int Commit()

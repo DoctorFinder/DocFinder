@@ -196,30 +196,40 @@ export function PersonalInfoEdit(props) {
                   </div>
                 </Col>
               </Row>
+            </Form.Group>
+            <Form.Group>
+              <Row md={6}>
+                <Col>
+                  <Form.Label>Password</Form.Label>
+                </Col>
+                <Col>
+                  <Form.Control
+                    type="password"
+                    name="password"
+                    placeholder="Enter Password"
+                    value={values.password}
+                    onChange={e => {
+                      setFieldTouched("password");
+                      handleChange(e);
+                    }}
+                  />
+                  {errors.password &&
+                    touched.password && (
+                      <div className="errorTxt">{errors.password}</div>
+                    )}
+                </Col>
+              </Row>
                           </Form.Group>
-                          <Form.Group>
-                              <Row md={6}>
-                                  <Col>
-                                      <Form.Label>Password</Form.Label>
-                                  </Col>
-                                  <Col>
-                                      <Form.Control
-                                          type="password"
-                                          name="password"
-                                          placeholder="Enter Password"
-                                          value={values.password}
-                                          onChange={e => {
-                                              setFieldTouched("password");
-                                              handleChange(e);
-                                          }}
-                                      />
-                                      {errors.password &&
-                                          touched.password && (
-                                              <div className="errorTxt">{errors.password}</div>
-                                          )}
-                                  </Col>
-                              </Row>
-                              </Form.Group>
+                          <Row md={6} className="justify-content-md-center">
+                              <Col>
+                                  <Button type="submit" className="submitBtn">
+                                      Save
+                               </Button>{" "}
+                                  <Button className="submitBtn" onClick={props.SetReadOnlyMode}>
+                                      Cancel
+                               </Button>{" "}
+                              </Col>
+                          </Row>                                 
           </Container>
         </Form>
       )}
