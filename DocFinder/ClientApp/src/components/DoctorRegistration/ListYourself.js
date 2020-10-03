@@ -155,7 +155,7 @@ export function ListYourselfComponent(props) {
           "DoctorProfile";
         setRequestProcessingStatus(false);
         context.dispatch({ type: "doctor" });
-        history.push(doctorProfilePath);
+          history.push(doctorProfilePath, { doctordetails: data });
       })
       .catch(error => {
           debugger;

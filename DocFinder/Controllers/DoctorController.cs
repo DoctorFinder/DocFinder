@@ -35,13 +35,13 @@ namespace DocFinder.Controllers
         public ActionResult<DoctorToReturnResponse> Post (DoctorForCreationDTO doctor)
         {
 
-             var doctorDTO = this._doctorApplicationService.RegisterDoctor(doctor);
+             var doctorDetails = this._doctorApplicationService.RegisterDoctor(doctor);
 
-            if (doctorDTO is null || doctorDTO.doctor is null)
+            if (doctorDetails is null || doctorDetails.doctor is null)
             {
-                return NotFound(doctorDTO);
+                return NotFound(doctorDetails);
             }
-             return Ok(doctorDTO);             
+             return Ok(doctorDetails);             
         }
 
         [HttpPost]

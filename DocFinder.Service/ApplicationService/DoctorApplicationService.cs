@@ -68,7 +68,11 @@ namespace DocFinder.Service.ApplicationService
                     this._doctorSpecialityApplicationService.AddDoctorSpecialities(doctorDTO.Specialities, doctorId);
                     this._doctorLanguageApplicationService.AddDoctorLanguages(doctorDTO.Languages, doctorId);
                     var doctorToReturn = Mapping.Mapper.Map<DoctorToReturnDTO>(doctor);
-                     doctorToResponse.doctor = doctorToReturn;
+                    var doctorLanguagesToReturn = this._doctorLanguageApplicationService.GetDoctorLanguages(doctorId).ToList();
+                    var doctorSpecialitiesToReturn = this._doctorSpecialityApplicationService.GetDoctorSpecialities(doctorId).ToList();
+                    doctorToResponse.doctor = doctorToReturn;
+                    doctorToResponse.languages = doctorLanguagesToReturn;
+                    doctorToResponse.specialities = doctorSpecialitiesToReturn;
                     return doctorToResponse;
                 }
                
