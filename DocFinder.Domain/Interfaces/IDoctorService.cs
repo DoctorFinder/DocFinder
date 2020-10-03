@@ -14,6 +14,8 @@ namespace DocFinder.Domain.Interfaces
 
         public Doctor GetDoctorByMobileNumber(string mobileNumber);
 
+        public Doctor UpdateDoctor(Doctor doctor);
+
         public int Commit();
     }
 }

@@ -27,6 +27,13 @@ namespace DocFinder.Domain.Service
             return doctorAdded.Entity.Id;           
         }
 
+        public Doctor UpdateDoctor(Doctor doctor)
+        {
+            this._db.Doctor.Update(doctor);
+            this.Commit();
+            return doctor;
+        }
+
         public Doctor GetDoctorByEmail(string email)
         {
             return this._db.Doctor.Where(d => d.Email == email).FirstOrDefault();

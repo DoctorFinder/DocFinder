@@ -14,7 +14,7 @@ const schema = Yup.object({
     .trim()
     .required(errors.required.replace("{0}", "Degree"))
     .max(30, errors.tooLong.replace("{0}", "Degree").replace("{1}", "30")),
-  experience: Yup.number()
+    yearsInPractice: Yup.number()
     .required(errors.required.replace("{0}", "Experience"))
     .max(100)
     .min(0),
@@ -91,10 +91,16 @@ export function ProfessionalEditInfo(props) {
         setlanguagesstate(modifiedData);
       });
   }
-
-  console.log(props);
+    console.log(props);
   return (
-    <Formik validationSchema={schema} initialValues={props.DoctorDetails}>
+      <Formik
+          validationSchema={schema}
+          initialValues={props.DoctorDetails}
+          onSubmit={(values: FState, setSubmitting: any) => {
+              props.SaveDoctorProfessionalData(values);
+              console.log("testing this");
+          }}
+      >
       {({
         handleSubmit,
         handleChange,
@@ -106,7 +112,12 @@ export function ProfessionalEditInfo(props) {
         setFieldValue,
         setFieldTouched
       }) => (
-        <Form noValidate onSubmit={handleSubmit}>
+                  <Form noValidate onSubmit={e => {
+                      console.log("test here prof");
+                      console.log(errors);
+                      console.log(isValid);
+                      handleSubmit(e);
+                  }}>
           <Container>
             <Form.Group>
               <Row md={6}>
@@ -162,11 +173,11 @@ export function ProfessionalEditInfo(props) {
                 <Col>
                   <Form.Control
                     type="text"
-                    name="experience"
-                    value={values.experience}
+                    name="yearsInPractice"
+                    value={values.yearsInPractice}
                     placeholder="Enter Education"
                     onChange={e => {
-                      setFieldTouched("experience");
+                      setFieldTouched("yearsInPractice");
                       handleChange(e);
                     }}
                   />
@@ -211,7 +222,7 @@ export function ProfessionalEditInfo(props) {
                   <MultiSelect
                     name="subspecialities"
                     options={subspecialitiesstate}
-                    value={values.specialities}
+                    value={values.subspecialities}
                     overrideStrings={subspecialitiesOverrideOptions}
                     hasSelectAll={false}
                     onChange={async e => {

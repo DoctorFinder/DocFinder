@@ -1,9 +1,7 @@
-﻿import React, { useState, useEffect } from "react";
-import MultiSelect from "react-multi-select-component";
+﻿import React from "react";
 import * as Yup from "yup";
 import errors from "../../Config/errorMessages";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
-import { useLocation, useHistory } from "react-router-dom";
 import { Formik } from "formik";
 
 const phoneRegex = RegExp(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/);
@@ -32,15 +30,13 @@ const schema = Yup.object({
 });
 
 export function OfficeInfoEdit(props) {
-  console.log(props);
   return (
     <Formik
       validationSchema={schema}
       initialValues={props.DoctorDetails}
-      onSubmit={(values: FState, setSubmitting: any) => {
-        console.log(values);
-        props.saveImageFormData(values);
-      }}
+          onSubmit={(values: FState, setSubmitting: any) => {
+              props.SaveDoctorOfficeData(values);
+          }}
     >
       {({
         handleSubmit,

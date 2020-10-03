@@ -59,6 +59,19 @@ namespace DocFinder.Controllers
         
         }
 
+        [HttpPut]
+        [Route("[action]")]
+        public ActionResult<DoctorToReturnResponse> UpdateDoctorLogin(DoctorForCreationDTO doctor)
+        {
+            var doctorDTO = this._doctorApplicationService.RegisterDoctor(doctor);
+
+            if (doctorDTO is null || doctorDTO.doctor is null)
+            {
+                return NotFound(doctorDTO);
+            }
+            return Ok(doctorDTO);
+        }
+
         [HttpGet]
         public string Get()
         {

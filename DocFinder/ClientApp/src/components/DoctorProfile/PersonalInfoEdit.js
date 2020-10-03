@@ -21,22 +21,12 @@ const schema = Yup.object({
     .trim()
     .required(errors.required.replace("{0}", "Last Name"))
     .checkForNumbers(),
-  emailAddress: Yup.string()
-    .required(errors.required.replace("{0}", "Email Address"))
-    .email(),
-  //  password: Yup.string()
-  //   .required(errors.required.replace("{0}", "Password"))
-  //   .trim(),
-  password: Yup.string()
+   password: Yup.string()
     .required()
     .matches(
       passwordRegex,
       "Must Contain between 6 to 20 Characters, Atleast One Uppercase, One Lowercase, One Number Required"
     ),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password"), null], "Passwords must match")
-    .required()
-    .trim(),
   dateOfBirth: Yup.date()
     .max(new Date("2000-1-1"))
     .required(errors.required.replace("{0}", "Date Of Birth"))
@@ -45,7 +35,13 @@ const schema = Yup.object({
 export function PersonalInfoEdit(props) {
   console.log(props);
   return (
-    <Formik validationSchema={schema} initialValues={props.DoctorDetails}>
+      <Formik
+          validationSchema={schema}
+          initialValues={props.DoctorDetails}
+          onSubmit={(values: FState, setSubmitting: any) => {
+              props.SaveDoctorPersonalData(values);
+          }}
+      >
       {({
         handleSubmit,
         handleChange,
@@ -57,7 +53,12 @@ export function PersonalInfoEdit(props) {
         setFieldValue,
         setFieldTouched
       }) => (
-        <Form noValidate onSubmit={handleSubmit}>
+                  <Form noValidate onSubmit={e => {
+                      console.log("test here prof");
+                      console.log(errors);
+                      console.log(isValid);
+                      handleSubmit(e);
+                  }}>
           <Container>
             <Form.Group>
               <Row md={6}>

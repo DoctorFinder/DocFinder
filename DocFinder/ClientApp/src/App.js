@@ -7,7 +7,7 @@ import { ServicesComponent } from "./components/Services";
 import { ListYourselfComponent } from "./components/DoctorRegistration/ListYourself";
 import { ListHospitalsComponent } from "./components/ListHospitals";
 import { ListPhysicianComponent } from "./components/ListPhysicians";
-import { FindHospitalsComponent } from "./components/FindHospitals";
+import { SearchLocationInput } from "./components/FindHospitals";
 import { FindDoctorsComponent } from "./components/FindDoctors";
 import { FindTrialsComponent } from "./components/FindTrials";
 import { HelpComponent } from "./components/Help";
@@ -32,7 +32,7 @@ export default class App extends Component {
           <Route path="/List/yourself" component={ListYourselfComponent} />
           <Route path="/List/Hospitals" component={ListHospitalsComponent} />
           <Route path="/List/physicians" component={ListPhysicianComponent} />
-          <Route path="/Find/Hospitals" component={FindHospitalsComponent} />
+          <Route path="/Find/Hospitals" component={SearchLocationInput} />
           <Route path="/Find/Doctors" component={FindDoctorsComponent} />
           <Route path="/Find/Trials" component={FindTrialsComponent} />
           <Route path="/Help" component={HelpComponent} />
