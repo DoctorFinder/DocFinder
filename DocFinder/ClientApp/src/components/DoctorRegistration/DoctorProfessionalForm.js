@@ -126,7 +126,7 @@ export function DoctorProfessionalForm(props) {
             <Container>
               <Form.Group>
                 <Row md={2}>
-                  <Col>
+                  <Col sm={12} className="margin-bottom">
                     <Form.Label>Education</Form.Label>
 
                     <Form.Control
@@ -167,7 +167,7 @@ export function DoctorProfessionalForm(props) {
 
               <Form.Group>
                 <Row md={2}>
-                  <Col>
+                  <Col sm={12} className="margin-bottom">
                     <Form.Label>Years In Practise</Form.Label>
 
                     <Form.Control
@@ -263,7 +263,7 @@ export function DoctorProfessionalForm(props) {
 
               <Form.Group>
                 <Row md={2}>
-                  <Col>
+                  <Col sm={12} className="margin-bottom">
                     <Form.Label>License</Form.Label>
 
                     <Form.Control
