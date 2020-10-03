@@ -53,6 +53,11 @@ export function DoctorProfileComponent() {
         setReadOnlyMode();
     }
 
+    function cancelProfessionalData() {
+        setReadOnlyMode();
+        setKey("personal");        
+    }
+
     return (
         <Fragment>
             <fieldset disabled={isRequestProcessing}>
@@ -64,7 +69,7 @@ export function DoctorProfileComponent() {
                 </Tab>
                 {updateModeState &&
                     <Tab eventKey="professional" title="Professional Info">
-                    <ProfessionalEditInfo DoctorDetails={doctor} SetReadOnlyMode={setReadOnlyMode} SaveDoctorProfessionalData={saveDoctorProfessionalData}/>
+                        <ProfessionalEditInfo DoctorDetails={doctor} SetReadOnlyMode={setReadOnlyMode} SaveDoctorProfessionalData={saveDoctorProfessionalData} CancelProfessionalData={cancelProfessionalData}/>
                     </Tab>
                 }
             <Tab eventKey="office" title="Office Info">

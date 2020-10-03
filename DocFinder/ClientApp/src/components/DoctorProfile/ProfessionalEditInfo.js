@@ -328,7 +328,7 @@ export function ProfessionalEditInfo(props) {
                                   <Button type="submit" className="submitBtn">
                                       Save
                                </Button>{" "}
-                                  <Button className="submitBtn" onClick={props.SetReadOnlyMode}>
+                                  <Button className="submitBtn" onClick={props.CancelProfessionalData}>
                                       Cancel
                                </Button>{" "}
                               </Col>
