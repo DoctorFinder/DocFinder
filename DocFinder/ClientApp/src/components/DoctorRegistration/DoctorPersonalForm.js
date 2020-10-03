@@ -79,7 +79,7 @@ export function DoctorPersonalForm(props) {
             <Container>
               <Form.Group>
                 <Row md={2}>
-                  <Col>
+                  <Col sm={12} className="margin-bottom">
                     <Form.Label>First Name</Form.Label>
                     <Form.Control
                       type="text"
@@ -118,7 +118,7 @@ export function DoctorPersonalForm(props) {
 
               <Form.Group>
                 <Row md={2}>
-                  <Col>
+                  <Col sm={12} className="margin-bottom">
                     <Form.Label>Last Name</Form.Label>
                     <Form.Control
                       type="text"
@@ -136,13 +136,14 @@ export function DoctorPersonalForm(props) {
                       )}
                   </Col>
                   <Col>
-                    <Form.Label>Date Of Birth</Form.Label>
+                    <Form.Label className="block">Date Of Birth</Form.Label>
                     <DatePicker
                       name="dateOfBirth"
                       selected={values.dateOfBirth}
                       showMonthDropdown
                       showYearDropdown
                       dropdownMode="select"
+                      className="form-control"
                       maxDate={new Date()}
                       onChange={async e => {
                         console.log(touched.dateOfBirth);
@@ -161,7 +162,7 @@ export function DoctorPersonalForm(props) {
               </Form.Group>
               <Form.Group>
                 <Row md={2}>
-                  <Col>
+                  <Col sm={12} className="margin-bottom">
                     <Form.Label> Gender</Form.Label>
                     <div className="radio-item">
                       <input
@@ -172,7 +173,7 @@ export function DoctorPersonalForm(props) {
                         type="radio"
                         onChange={handleChange}
                       />
-                      <label htmlFor="male">Male</label>
+                      <label htmlFor="male">&nbsp; Male</label>
                     </div>
                     <div className="radio-item">
                       <input
@@ -183,7 +184,7 @@ export function DoctorPersonalForm(props) {
                         type="radio"
                         onChange={handleChange}
                       />
-                      <label htmlFor="female">Female</label>
+                      <label htmlFor="female">&nbsp; Female</label>
                     </div>
                     <div className="radio-item">
                       <input
@@ -195,7 +196,7 @@ export function DoctorPersonalForm(props) {
                         onChange={handleChange}
                       />
                       <label htmlFor="nondisclosure">
-                        Prefer not to disclose
+                         &nbsp; Prefer not to disclose
                       </label>
                     </div>
                   </Col>
@@ -221,7 +222,7 @@ export function DoctorPersonalForm(props) {
 
               <Form.Group>
                 <Row md={2}>
-                  <Col>
+                  <Col sm={12} className="margin-bottom">
                     <Form.Label>Password</Form.Label>
                     <Form.Control
                       type="password"
