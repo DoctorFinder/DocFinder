@@ -61,7 +61,7 @@ export function DoctorProfessionalForm(props) {
   const [specialitiesstate, setspecialitiesstate] = useState([]);
   const [languagesstate, setlanguagesstate] = useState([]);
     const [subspecialitiesstate, setSubspecialitiesstate] = useState([]);
-    const [npiDisclosureState, setnpiDisclosureState] = useState(false);
+    const [npiDisclosureState, setnpiDisclosureState] = useState(props.defaultProfessionalFormData.npiDisclosure);
 
     const [selectedSpeciality, setselectedSpecialities] = useState([]);
     const [selectedSubSpeciality, setselectedSubSpecialities] = useState([]);
