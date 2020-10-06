@@ -21,7 +21,6 @@ import "./custom.css";
 export default class App extends Component {
   static displayName = App.name;
     //          <Route path="/List/yourself" component={ListYourselfComponent} />
-    //          <Route path="/DoctorLogin" component={DoctorLoginComponent} />
   render() {
     return (
       <>
@@ -30,7 +29,7 @@ export default class App extends Component {
           <Route exact path="/Home" component={Home} />
           <Route path="/AboutUs" component={AboutUsComponent} />
           <Route path="/Services" component={ServicesComponent} />
-
+          <Route path="/DoctorLogin" component={DoctorLoginComponent} />
           <Route path="/List/Hospitals" component={ListHospitalsComponent} />
           <Route path="/List/physicians" component={ListPhysicianComponent} />
           <Route path="/Find/Hospitals" component={SearchLocationInput} />
