@@ -5,6 +5,15 @@ import * as Yup from "yup";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import errors from "../../Config/errorMessages";
 
+Yup.addMethod(Yup.string, "checkForNumbers", function (
+    errorMessage = "Cannot Enter Numbers"
+) {
+    return this.test("checkForNumbers", errorMessage, value => {
+        var hasNumber = /\d/;
+        return !hasNumber.test(value);
+    });
+});
+
 const passwordRegex = RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/);
 const schema = Yup.object({
   firstName: Yup.string()
