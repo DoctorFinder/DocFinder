@@ -1,5 +1,6 @@
 ﻿import React, { useState, useContext } from "react";
 import Modal from "react-bootstrap/Modal";
+import fetch from 'cross-fetch';
 import { Route, useLocation, useHistory } from "react-router-dom";
 import ModalHeader from "react-bootstrap/ModalHeader";
 import ModalTitle from "react-bootstrap/ModalTitle";

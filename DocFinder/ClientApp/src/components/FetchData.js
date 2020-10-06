@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import fetch from 'cross-fetch' 
 
 export class FetchData extends Component {
   static displayName = FetchData.name;

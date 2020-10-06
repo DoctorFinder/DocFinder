@@ -4,6 +4,7 @@ import { Formik } from "formik";
 import MultiSelect from "react-multi-select-component";
 import * as Yup from "yup";
 import errors from "../../Config/errorMessages";
+import fetch from 'cross-fetch' 
 
 const schema = Yup.object({
   education: Yup.string()
