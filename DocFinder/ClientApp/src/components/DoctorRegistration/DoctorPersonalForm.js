@@ -16,7 +16,7 @@ Yup.addMethod(Yup.string, "checkForNumbers", function(
 });
 
 //const passwordRegex = RegExp(/^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$/);
-//const passwordRegex = RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/);
+ const passwordRegex = RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/);
 const schema = Yup.object({
   firstName: Yup.string()
     .max(30, errors.tooLong.replace("{0}", "First Name").replace("{1}", "30"))
@@ -39,11 +39,11 @@ const schema = Yup.object({
   //   .required(errors.required.replace("{0}", "Password"))
   //   .trim(),
   password: Yup.string()
-    .required(),
-    //.matches(
-    //  passwordRegex,
-    //  "Must Contain between 6 to 20 Characters, Atleast One Uppercase, One Lowercase, One Number Required"
-   // ),
+    .required()
+    .matches(
+      passwordRegex,
+      "Must Contain between 6 to 20 Characters, Atleast One Uppercase, One Lowercase, One Number Required"
+    ),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password"), null], "Passwords must match")
     .required()

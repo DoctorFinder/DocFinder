@@ -20,7 +20,7 @@ import "./custom.css";
 
 export default class App extends Component {
   static displayName = App.name;
-    //          <Route path="/List/yourself" component={ListYourselfComponent} />
+
   render() {
     return (
       <>
@@ -39,6 +39,7 @@ export default class App extends Component {
           <Route path="/Email" component={EmailComponent} />
           <Route path="/Legal" component={LegalComponent} />
           <Route path="/DoctorProfile" component={DoctorProfileComponent} />
+          <Route path="/List/yourself" component={ListYourselfComponent} />
 
         </Layout>
       </>

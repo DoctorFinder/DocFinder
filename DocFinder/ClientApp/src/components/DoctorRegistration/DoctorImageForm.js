@@ -7,8 +7,8 @@ import errors from "../../Config/errorMessages";
 import { Fragment } from "react";
 //import useAddressPredictions from "../useAddressPredictions";
 
-//const phoneRegex = RegExp(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/);
-//const zipcodeRegex = RegExp(/(^\d{5}$)|(^\d{5}-\d{4}$)/);
+const phoneRegex = RegExp(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/);
+const zipcodeRegex = RegExp(/(^\d{5}$)|(^\d{5}-\d{4}$)/);
 
 const schema = Yup.object({
     address1: Yup.string()
@@ -25,10 +25,10 @@ const schema = Yup.object({
         .required(errors.required.replace("{0}", "State"))
         .max(30, errors.tooLong.replace("{0}", "State").replace("{1}", 30)),
     zipcode: Yup.string()
-        //.matches(zipcodeRegex, "Zipcode entered is not valid")
+        .matches(zipcodeRegex, "Zipcode entered is not valid")
         .required(errors.required.replace("{0}", "zip code")),
     phoneNumber: Yup.string()
-        //.matches(phoneRegex, "Phone Number entered is not valid")
+        .matches(phoneRegex, "Phone Number entered is not valid")
         .required(errors.required.replace("{0}", "Phone Number"))
 });
 

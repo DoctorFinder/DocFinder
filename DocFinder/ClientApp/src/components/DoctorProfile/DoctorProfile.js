@@ -6,7 +6,7 @@ import { OfficeInfo } from './OfficeInfo';
 import { OfficeInfoEdit } from './OfficeInfoEdit';
 import { PersonalInfo } from './PersonalInfo';
 import { PersonalInfoEdit } from './PersonalInfoEdit';
-//import { ProfessionalEditInfo } from './ProfessionalEditInfo';
+import { ProfessionalEditInfo } from './ProfessionalEditInfo';
 import "../../Styles/Spinner.css";
 
 import {  Button, } from "react-bootstrap";
@@ -58,12 +58,7 @@ export function DoctorProfileComponent() {
         setKey("personal");        
     }
 
-    //{
-    //    updateModeState &&
-    //    <Tab eventKey="professional" title="Professional Info">
-    //        <ProfessionalEditInfo DoctorDetails={doctor} SetReadOnlyMode={setReadOnlyMode} SaveDoctorProfessionalData={saveDoctorProfessionalData} CancelProfessionalData={cancelProfessionalData} />
-    //    </Tab>
-    //}
+ 
 
     return (
         <Fragment>
@@ -74,6 +69,12 @@ export function DoctorProfileComponent() {
                     {!updateModeState && <PersonalInfo DoctorDetails={doctor} />} 
                     {updateModeState && <PersonalInfoEdit DoctorDetails={doctor} SetReadOnlyMode={setReadOnlyMode} SaveDoctorPersonalData={saveDoctorPersonalData} />} 
                 </Tab>
+                    {
+                        updateModeState &&
+                        <Tab eventKey="professional" title="Professional Info">
+                            <ProfessionalEditInfo DoctorDetails={doctor} SetReadOnlyMode={setReadOnlyMode} SaveDoctorProfessionalData={saveDoctorProfessionalData} CancelProfessionalData={cancelProfessionalData} />
+                        </Tab>
+                    }
                 
             <Tab eventKey="office" title="Office Info">
                     {!updateModeState && <OfficeInfo DoctorDetails={doctor} />}
