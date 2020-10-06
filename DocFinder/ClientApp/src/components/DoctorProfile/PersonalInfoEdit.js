@@ -37,7 +37,7 @@ const schema = Yup.object({
       "Must Contain between 6 to 20 Characters, Atleast One Uppercase, One Lowercase, One Number Required"
     ),
   dateOfBirth: Yup.date()
-    .max(new Date("2000-1-1"))
+    .max(new Date("2000-01-01"))
     .required(errors.required.replace("{0}", "Date Of Birth"))
 });
 
