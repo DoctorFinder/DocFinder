@@ -49,7 +49,7 @@ const schema = Yup.object({
     .required()
     .trim(),
   dateOfBirth: Yup.date()
-    .max(new Date("2000-1-1"))
+    .max(new Date("2000-01-01"))
     .required(errors.required.replace("{0}", "Date Of Birth"))
 });
 
