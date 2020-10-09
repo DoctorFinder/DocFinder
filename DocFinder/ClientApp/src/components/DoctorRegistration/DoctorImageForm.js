@@ -5,7 +5,8 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import errors from "../../Config/errorMessages";
 import { Fragment } from "react";
-//import useAddressPredictions from "../useAddressPredictions";
+import useAddressPredictions from "../useAddressPredictions";
+//import usePlaceDetails from "../usePlaceDetails";
 
 const phoneRegex = RegExp(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/);
 const zipcodeRegex = RegExp(/(^\d{5}$)|(^\d{5}-\d{4}$)/);
@@ -36,43 +37,39 @@ export function DoctorImageForm(props) {
     let location = useLocation();
     let history = useHistory();
 
+
+
     const [input, setInput] = useState("");
+    const [placeId, setPlaceId] = useState("");
     const [displayAddressDiv, setdisplayAddressDiv] = useState(false);
 
 
-    //const predictions = useAddressPredictions(input);
+    const predictions = useAddressPredictions(input);
+  //  const placeInfo = usePlaceDetails(placeId);
     
 
-    //const onAddressSelected = async (placeid, setFieldValue) => {
-    //    const firstIdx = placeid.indexOf('"') + 1;
-    //    const lastIdx = placeid.lastIndexOf('"');
-    //    var substr = placeid.substring(firstIdx, lastIdx);
-    //    var addressDetails = predictions.filter(function (e) {
-    //        if (e.place_id == substr) {
-    //            return e;
-    //        }
-    //    })
-    //    var address = addressDetails[0].terms;
-    //    console.log(address);
-    //    const address1 = address[0].value + " " + address[1].value;
-    //    const city = address[2].value;
-    //    const state = address[3].value;
-    //    await setFieldValue("address1", address1);
-    //    await setFieldValue("city", city);
-    //    await setFieldValue("state", state);
-    //};
+    const onAddressSelected = async (placeid, setFieldValue) => {
+        setPlaceId(placeid);
+        const firstIdx = placeid.indexOf('"') + 1;
+        const lastIdx = placeid.lastIndexOf('"');
+        var substr = placeid.substring(firstIdx, lastIdx);
+        console.log(predictions);
+        var addressDetails = predictions.filter(function (e) {
+            if (e.place_id == substr) {
+                return e;
+            }
+        })
+        var address = addressDetails[0].terms;
+        console.log(address);
+        const address1 = address[0].value + " " + address[1].value;
+        const city = address[2].value;
+        const state = address[3].value;
+        await setFieldValue("address1", address1);
+        await setFieldValue("city", city);
+        await setFieldValue("state", state);
+    };
 
-                   //<ul>
-                                                //{ displayAddressDiv && predictions.map((prediction, index) => (
-                                            //        <li key={prediction.place_id} value={prediction.place_id} onMouseDown={async e => {
-
-                                            //            const palceid = e.target.outerHTML;
-                                            //            await onAddressSelected(palceid, setFieldValue);
-                                            //            setdisplayAddressDiv(false);
-                                            //           // await setFieldValue("address1", e.target.key,false);                                                      
-                                            //        }}>{prediction.description}</li>
-                                            //    ))}
-                                            //</ul>
+                
 
     function goToProfessionalForm(values) {
         props.getProfessionalForm(values);
@@ -129,7 +126,7 @@ export function DoctorImageForm(props) {
                                                     console.log(e.target.value);
                                                     await setFieldValue("address1", e.target.value);
 //                                                    console.log(predictions);
-  //                                                  setInput(va);
+                                                   setInput(va);
                                                 }}
                                                 onBlur={e => {
                                                 //    debugger;
@@ -141,6 +138,17 @@ export function DoctorImageForm(props) {
                                                  //   console.log(e);
                                                // }}
                                             />
+                                            <ul>
+                                                {displayAddressDiv && predictions.map((prediction, index) => (
+                                                    <li key={prediction.place_id} value={prediction.place_id} onMouseDown={async e => {
+
+                                                        const palceid = e.target.outerHTML;
+                                                        await onAddressSelected(palceid, setFieldValue);
+                                                        setdisplayAddressDiv(false);
+                                                        // await setFieldValue("address1", e.target.key,false);                                                      
+                                                    }}>{prediction.description}</li>
+                                                ))}
+                                            </ul>
                              
 
                                         </Col>
@@ -268,6 +276,7 @@ export function DoctorImageForm(props) {
                         </Form>
                     )}
             </Formik>
+            <div id="service-helper"></div>
             {props.submissionErrorState && <div>{props.errorMsg}</div>}
         </Fragment>
     );

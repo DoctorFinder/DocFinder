@@ -1,8 +1,34 @@
 ﻿import React, { useState } from "react";
-import useAddressPredictions from "./useAddressPredictions";
+//import useAddressPredictions from "./useAddressPredictions";
 
 export function SearchLocationInput() {
     const [input, setInput] = useState("");
+
+
+       //var geocoder;
+       //var map;
+       //var input =  document.getElementById('id_address');
+       // var options = {
+       //     types: ['address'],
+       //     componentRestrictions: {
+       //         country: 'in'
+       //     }
+       // };
+
+       // autocomplete = new google.maps.places.Autocomplete(input, options);
+
+       // google.maps.event.addListener(autocomplete, 'place_changed', function () {
+       //     var place = autocomplete.getPlace();
+
+       //     for (var i = 0; i < place.address_components.length; i++) {
+       //         for (var j = 0; j < place.address_components[i].types.length; j++) {
+       //             if (place.address_components[i].types[j] == "postal_code") {
+       //                 document.getElementById('postal_code').innerHTML = place.address_components[i].long_name;
+
+       //             }
+       //         }
+       //     }
+       // })
 
     //const predictions = useAddressPredictions(input);
 
@@ -12,13 +38,10 @@ export function SearchLocationInput() {
       //  ))}
     //</ul>
     return (
-        <div>
-            <input
-                value={input}
-                onChange={event => setInput(event.target.value)}
-            />
- 
-        </div>
+        <>
+        <input id="id_address" type="text" value="" />
+            <div id="postal_code"></div>
+            </>
     );
 }
 //SearchLocationInput

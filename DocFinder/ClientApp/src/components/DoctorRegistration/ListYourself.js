@@ -16,7 +16,8 @@ export function ListYourselfComponent(props) {
     password: "",
     confirmPassword: "",
     dateOfBirth: "",
-    gender: "male"
+    gender: "male",
+    file: new File([""], "T")
   };
 
   const emptyProfessionalFormData = {
@@ -66,7 +67,8 @@ export function ListYourselfComponent(props) {
   function savePersonalFormData(values) {
     setPersonalFormStatus(true);
     setdefaultPersonalFormData(values);
-    console.log(values);
+      console.log(values);
+      console.log(defaultPersonalFormData);
     history.push(location.pathname + "/Professional");
   }
 
@@ -119,7 +121,8 @@ export function ListYourselfComponent(props) {
       City: values.city,
       State: values.state,
       Zipcode: values.zipcode,
-      PhoneNumber: values.phoneNumber
+        PhoneNumber: values.phoneNumber,
+        Image: defaultPersonalFormData.file
     };
     console.log(doctor);
     setRequestProcessingStatus(true);

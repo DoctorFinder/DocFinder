@@ -1,39 +1,53 @@
-﻿//import { useCallback, useEffect, useRef, useState } from "react";
-//import { debounce } from "lodash";
+﻿import { useCallback, useEffect, useRef, useState } from "react";
+import { debounce } from "lodash";
 
-//export default function useAddressPredictions(input) {
-//    const [predictions, setPredictions] = useState([]);
+export default function useAddressPredictions(input) {
+    const [predictions, setPredictions] = useState([]);
 
-//    const autocomplete = useRef();
+    const autocomplete = useRef();
 
-//    if (!autocomplete.current) {
-//        autocomplete.current =
-//            new window.google.maps.places.AutocompleteService();
-//    }
+    // create a new session token 
+    const sessionToken = new window.google.maps.places.AutocompleteSessionToken();
 
-//    function getPlacePredictions(input) {
-//        //if (input != "") {
-//        //    autocomplete.current.getPlacePredictions(
-//        //        { input },
-//        //        predictions => {
-//        //            setPredictions(                        
-//        //                predictions.map(prediction => {                                                 
-//        //                    return prediction;
-//        //                })
-//        //            );
-//        //        }
-//        //    );
-//        //}        
-//    }
+//    if (!sessionToken.current) {
+  //      sessionToken.current = 
+    //        new window.google.maps.places.AutocompleteSessionToken();
+    //}
 
-//    const debouncedGetPlacePredictions = useCallback(
-//        debounce(getPlacePredictions, 500),
-//        []
-//    );
+    //pass the token to the autocomplete service.
 
-//    useEffect(() => {
-//        debouncedGetPlacePredictions(input);
-//    }, [input]);
+    if (!autocomplete.current) {
+        autocomplete.current =
+            new window.google.maps.places.AutocompleteService();
+    }
 
-//    return predictions;
-//}
+    function getPlacePredictions(input) {
+        if (input != "") {
+            console.log(sessionToken);
+            autocomplete.current.getPlacePredictions(
+                {
+                    input,
+                    sessionToken: sessionToken
+                },
+                predictions => {
+                    setPredictions(                        
+                        predictions.map(prediction => {                                                 
+                            return prediction;
+                        })
+                    );
+                }
+            );
+        }        
+    }
+
+    const debouncedGetPlacePredictions = useCallback(
+        debounce(getPlacePredictions, 500),
+        []
+    );
+
+    useEffect(() => {
+        debouncedGetPlacePredictions(input);
+    }, [input]);
+
+    return predictions;
+}

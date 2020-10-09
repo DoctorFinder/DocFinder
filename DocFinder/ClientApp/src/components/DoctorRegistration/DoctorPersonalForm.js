@@ -1,7 +1,8 @@
-﻿import React from "react";
+﻿import React, { useState,useEffect,useRef} from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import Image from 'react-bootstrap/Image'
 import DatePicker from "react-datepicker";
 import errors from "../../Config/errorMessages";
 import "react-datepicker/dist/react-datepicker.css";
@@ -15,7 +16,6 @@ Yup.addMethod(Yup.string, "checkForNumbers", function(
   });
 });
 
-//const passwordRegex = RegExp(/^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$/);
  const passwordRegex = RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/);
 const schema = Yup.object({
   firstName: Yup.string()
@@ -35,9 +35,6 @@ const schema = Yup.object({
   emailAddress: Yup.string()
     .required(errors.required.replace("{0}", "Email Address"))
     .email(),
-  //  password: Yup.string()
-  //   .required(errors.required.replace("{0}", "Password"))
-  //   .trim(),
   password: Yup.string()
     .required()
     .matches(
@@ -50,15 +47,78 @@ const schema = Yup.object({
     .trim(),
   dateOfBirth: Yup.date()
     .max(new Date("2000-01-01"))
-    .required(errors.required.replace("{0}", "Date Of Birth"))
+        .required(errors.required.replace("{0}", "Date Of Birth"))    
 });
 
 export function DoctorPersonalForm(props) {
+
+    const isMountedRef = useRef(null);
+    let isInitialSelect = false;
+    let initialImage;
+    const [selectedFile, setSelectedFile] = useState(initialImage);
+    const [isFileSelected, setIsFileSelected] = useState(isInitialSelect);
+
+
+    function setUserImage() {
+        if (props.defaultPersonalFormData.file.name != "T" ) {
+            console.log("entered");
+            console.log(props.defaultPersonalFormData.file);
+            console.log(props.defaultPersonalFormData.file.name);
+            let reader = new FileReader();
+            let file = props.defaultPersonalFormData.file;
+            reader.onloadend = () => {
+                setSelectedFile(reader.result);
+            };
+            reader.readAsDataURL(file);
+            setIsFileSelected(true);
+        }
+        else {
+            console.log("should enter now");
+            let reader = new FileReader();
+            let file = props.defaultPersonalFormData.file;
+            reader.onloadend = () => {
+                setSelectedFile(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+    
+
+    function handleFileUpload(event) {
+        let reader = new FileReader();
+        let file = event.target.files[0];
+        reader.onloadend = () => {             
+            setSelectedFile(reader.result);           
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function checkIfFileSelected() {
+        if (Object.keys(props.defaultPersonalFormData.file).length > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    useEffect(() => {
+        isMountedRef.current = true;
+        if (isMountedRef.current) {
+            setUserImage();
+        }
+
+        return () => isMountedRef.current = false;
+    },[]);
+
   return (
     <Formik
       validationSchema={schema}
       initialValues={props.defaultPersonalFormData}
-      onSubmit={(values: FState, setSubmitting: any) => {
+          onSubmit={(values: FState, setSubmitting: any) => {
+              console.log({
+                  fileName: values.file.name,
+                  type: values.file.type,
+                  size: `${values.file.size} bytes`
+              })
         props.savePersonalFormData(values);
       }}
       validator={() => ({})}
@@ -256,7 +316,28 @@ export function DoctorPersonalForm(props) {
                         <div className="errorTxt">{errors.confirmPassword}</div>
                       )}
                   </Col>
-                </Row>
+                                  </Row>
+                                  <Row md={2}>
+                                      <Col sm={12}>
+                                          <Form.File
+                                              id="custom-file"
+                                              label="Custom file input"
+                                              custom
+                                              accept="image/*"
+                                              name="file"
+                                              onChange={(event) => {
+                                                  console.log(event.currentTarget.files[0]);
+                                                  console.log("changed");
+                                                  setFieldValue("file", event.currentTarget.files[0]);
+                                                  handleFileUpload(event);
+                                                  setIsFileSelected(true);
+                                              }} 
+                                          />
+                                      </Col>
+                                      <Col xs={6} md={4} lg={2}>
+                                          {isFileSelected && <Image src={selectedFile} roundedCircle className="imageSize"/>} 
+                                          </Col>
+                                      </Row>
               </Form.Group>
 
               <Row md={6} className="justify-content-md-center">
