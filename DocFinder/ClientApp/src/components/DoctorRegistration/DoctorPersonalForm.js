@@ -61,9 +61,6 @@ export function DoctorPersonalForm(props) {
 
     function setUserImage() {
         if (props.defaultPersonalFormData.file.name != "T" ) {
-            console.log("entered");
-            console.log(props.defaultPersonalFormData.file);
-            console.log(props.defaultPersonalFormData.file.name);
             let reader = new FileReader();
             let file = props.defaultPersonalFormData.file;
             reader.onloadend = () => {
@@ -73,7 +70,6 @@ export function DoctorPersonalForm(props) {
             setIsFileSelected(true);
         }
         else {
-            console.log("should enter now");
             let reader = new FileReader();
             let file = props.defaultPersonalFormData.file;
             reader.onloadend = () => {
@@ -83,7 +79,6 @@ export function DoctorPersonalForm(props) {
         }
     }
     
-
     function handleFileUpload(event) {
         let reader = new FileReader();
         let file = event.target.files[0];
@@ -114,11 +109,6 @@ export function DoctorPersonalForm(props) {
       validationSchema={schema}
       initialValues={props.defaultPersonalFormData}
           onSubmit={(values: FState, setSubmitting: any) => {
-              console.log({
-                  fileName: values.file.name,
-                  type: values.file.type,
-                  size: `${values.file.size} bytes`
-              })
         props.savePersonalFormData(values);
       }}
       validator={() => ({})}
@@ -136,7 +126,7 @@ export function DoctorPersonalForm(props) {
       }) => (
         <Form noValidate onSubmit={handleSubmit}>
           <div className="docPersonalInfoFormContainer">
-            <Container>
+           <Container>
               <Form.Group>
                 <Row md={2}>
                   <Col sm={12} className="margin-bottom">
@@ -198,7 +188,8 @@ export function DoctorPersonalForm(props) {
                   <Col>
                     <Form.Label className="block">Date Of Birth</Form.Label>
                     <DatePicker
-                      name="dateOfBirth"
+                     name="dateOfBirth"
+                     dateFormat="yyyy/MM/dd"
                       selected={values.dateOfBirth}
                       showMonthDropdown
                       showYearDropdown
@@ -206,11 +197,8 @@ export function DoctorPersonalForm(props) {
                       className="form-control"
                       maxDate={new Date()}
                       onChange={async e => {
-                        console.log(touched.dateOfBirth);
-                        console.log(e);
                         await setFieldValue("dateOfBirth", e);
                         setFieldTouched("dateOfBirth");
-                        console.log(values.dateOfBirth);
                       }}
                     />
                     {errors.dateOfBirth &&
@@ -318,7 +306,7 @@ export function DoctorPersonalForm(props) {
                   </Col>
                                   </Row>
                                   <Row md={2}>
-                                      <Col sm={12}>
+                                      <Col>
                                           <Form.File
                                               id="custom-file"
                                               label="Custom file input"
@@ -326,16 +314,17 @@ export function DoctorPersonalForm(props) {
                                               accept="image/*"
                                               name="file"
                                               onChange={(event) => {
-                                                  console.log(event.currentTarget.files[0]);
-                                                  console.log("changed");
                                                   setFieldValue("file", event.currentTarget.files[0]);
                                                   handleFileUpload(event);
                                                   setIsFileSelected(true);
                                               }} 
                                           />
                                       </Col>
-                                      <Col xs={6} md={4} lg={2}>
-                                          {isFileSelected && <Image src={selectedFile} roundedCircle className="imageSize"/>} 
+                                      <Col>
+                                          {isFileSelected &&
+                                              <div>
+                                              <img src={selectedFile} />
+                                              </div>} 
                                           </Col>
                                       </Row>
               </Form.Group>

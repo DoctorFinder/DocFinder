@@ -1,11 +1,7 @@
 ﻿import React, { useState, useContext } from "react";
 import Modal from "react-bootstrap/Modal";
 import fetch from 'cross-fetch';
-import { Route, useLocation, useHistory } from "react-router-dom";
-import ModalHeader from "react-bootstrap/ModalHeader";
-import ModalTitle from "react-bootstrap/ModalTitle";
-import ModalBody from "react-bootstrap/ModalBody";
-import ModalFooter from "react-bootstrap/ModalFooter";
+import {useLocation, useHistory } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
@@ -58,7 +54,7 @@ export function DoctorLoginComponent() {
     fetch("Doctor/PostDoctorLogin", requestOptions)
       .then(async response => {
         const data = await response.json();
-        debugger;
+        
         if (!response.ok) {
           let error = (data && data.message) || response.status;
           if (data.responseMessage) {
@@ -75,7 +71,6 @@ export function DoctorLoginComponent() {
         history.push(doctorProfilePath, { doctordetails: data });
       })
       .catch(error => {
-        debugger;
         setRequestProcessingStatus(false);
         seterrorMsg(error);
       });
@@ -177,6 +172,5 @@ export function DoctorLoginComponent() {
         {isRequestProcessing && <div className="spinner" />}
       </Modal>
     </div>
-    //        <div>This is doctor login</div>
   );
 }

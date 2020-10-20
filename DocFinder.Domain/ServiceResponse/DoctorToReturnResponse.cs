@@ -13,6 +13,8 @@ namespace DocFinder.Domain.ServiceResponse
 
         public List<DoctorSpecialitiesToReturnDTO> specialities { get; set; }
 
+        public List<DoctorAddressesToReturnDTO> addresses { get; set; }
+
         public string responseMessage { get; set; }
     }
 }

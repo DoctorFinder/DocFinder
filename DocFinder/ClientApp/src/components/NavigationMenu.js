@@ -8,8 +8,6 @@ import Logo from "../images/logo.png";
 export function Navigation() {
   const context = useContext(MenuTypeContext);
 
-  console.log(context);
-
   return (
     <Navbar bg="light" expand="lg">
       <Container>

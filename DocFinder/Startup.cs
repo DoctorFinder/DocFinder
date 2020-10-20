@@ -56,12 +56,17 @@ namespace DocFinder
             services.AddScoped<IDoctorApplicationService, DoctorApplicationService>();
             services.AddScoped<IDoctorLanguageApplicationService, DoctorLanguageApplicationService>();
             services.AddScoped<IDoctorSpecialityApplicationService, DoctorSpecialityApplicationService>();
+            services.AddScoped<IDoctorAddressesApplicationService, DoctorAddressesApplicationService>();
+            services.AddScoped<IPasswordHasherApplicationService, PasswordHasherApplicationService>();
+            services.AddScoped<IHospitalTimingsApplicationService, HospitalTimingsApplicationService>();
 
             services.AddScoped<ILanguageService,LanguageService>();
             services.AddScoped<ISpecialityService, SpecialityService>();
             services.AddScoped<IDoctorService, DoctorService>();
             services.AddScoped<IDoctorLanguageService,DoctorLanguageService>();
             services.AddScoped<IDoctorSpecialityService, DoctorSpecialityService>();
+            services.AddScoped<IDoctorAddressService, DoctorAddressService>();
+            services.AddScoped<IHospitalTimingsService, HospitalTimingsService>();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

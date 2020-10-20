@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DocFinder.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,5 +22,9 @@ namespace DocFinder.Domain
         public DbSet<DoctorLanguages> DoctorLanguages { get; set; }
 
         public DbSet<DoctorSpecialities> DoctorSpecialities { get; set; }
+
+        public DbSet<DoctorAddresses> DoctorAddresses  { get;set; }
+
+        public DbSet<HospitalTimings> HospitalTimings { get; set; }
     }
 }

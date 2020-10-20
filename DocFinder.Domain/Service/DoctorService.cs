@@ -16,7 +16,7 @@ namespace DocFinder.Domain.Service
 
         public int RegisterDoctor(Doctor doctor)
         {
-            var doctorExists = this.GetDoctorByEmailandMobileNumber(doctor.Email, doctor.PhoneNumber);
+            var doctorExists = this.GetDoctorByEmail(doctor.Email);
 
             if (doctorExists != null)
             {
@@ -36,18 +36,8 @@ namespace DocFinder.Domain.Service
 
         public Doctor GetDoctorByEmail(string email)
         {
-            return this._db.Doctor.Where(d => d.Email == email).FirstOrDefault();
-        }
+            return this._db.Doctor.Where(d =>d.Email == email).SingleOrDefault();            
 
-        public Doctor GetDoctorByEmailandMobileNumber(string email, string mobileNumber)
-        {
-            return this._db.Doctor.Where(d => d.Email == email ||
-            d.PhoneNumber == mobileNumber).FirstOrDefault();
-        }
-
-        public Doctor GetDoctorByMobileNumber(string mobileNumber)
-        {
-            return this._db.Doctor.Where(d => d.PhoneNumber == mobileNumber).SingleOrDefault();
         }
 
         public int Commit()

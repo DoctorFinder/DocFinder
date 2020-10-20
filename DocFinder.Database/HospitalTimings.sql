@@ -1,0 +1,27 @@
+﻿CREATE TABLE [dbo].[HospitalTimings]
+(
+	[Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	[DoctorAddressId] INT NOT NULL,
+	[UpdateHours] bit,
+    [SunDayOpen] bit,
+    [MonDayOpen] bit,
+    [TuesDayOpen] bit, 
+    [WednesDayOpen] bit,
+    [ThursDayOpen] bit,
+    [FriDayOpen] bit,
+    [SatDayOpen] bit,
+    [SundayStart] Date NOT NULL,
+    [SundayEnd] Date NOT NULL,
+    [MondayStart] Date NOT NULL,
+    [MondayEnd] Date NOT NULL,
+    [TuesdayStart] Date NOT NULL,
+    [TuesdayEnd] Date NOT NULL,
+    [WednesdayStart]  Date NOT NULL,
+    [WednesdayEnd] Date NOT NULL,
+    [ThursdayStart] Date NOT NULL,
+    [ThursdayEnd] Date NOT NULL,
+    [FridayStart] Date NOT NULL,
+    [FridayEnd] Date NOT NULL,
+    [SaturdayStart] Date NOT NULL,
+    [SaturdayEnd] Date NOT NULL
+)

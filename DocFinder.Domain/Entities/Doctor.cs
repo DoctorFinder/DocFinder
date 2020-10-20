@@ -12,7 +12,6 @@ namespace DocFinder.Domain
         [MaxLength(30)]
         public string FirstName { get; set; }
 
-        [Required]
         [MaxLength(30)]
         public string MiddleName { get; set; }
 
@@ -32,7 +31,6 @@ namespace DocFinder.Domain
         public string Email { get; set; }
 
         [Required]
-        [MaxLength(20)]
         public string Password { get; set; }
 
         [Required]
@@ -57,30 +55,7 @@ namespace DocFinder.Domain
         [Required]
         public bool NpiDisclosure { get; set; }
 
-        [Required]
-        [MaxLength(50)]
-        public string Address1 { get; set; }
-
-        [Required]
-        [MaxLength(50)]
-        public string Address2 { get; set; }
-
-        [Required]
-        [MaxLength(50)]
-        public string City { get; set; }
-
-        [Required]
-        [MaxLength(50)]
-        public string State { get; set; }
-
-        [Required]
-        [MaxLength(5)]
-        public string Zipcode { get; set; }
-
-
-        [Required]
-        [MaxLength(10)]
-        public string PhoneNumber { get; set; }
+        public byte[] UserImage { get; set; }
 
     }
 }

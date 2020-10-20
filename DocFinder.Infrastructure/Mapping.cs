@@ -18,6 +18,8 @@ namespace DocFinder.Infrastructure
                 cfg.AddProfile<LanguagesProfile>();
                 cfg.AddProfile<DoctorLanguagesProfile>();
                 cfg.AddProfile<DoctorSpecialitiesProfile>();
+                cfg.AddProfile<DoctorAddressesProfile>();
+                cfg.AddProfile<HospitalTimingsProfile>();
             });
             var mapper = config.CreateMapper();
             return mapper;

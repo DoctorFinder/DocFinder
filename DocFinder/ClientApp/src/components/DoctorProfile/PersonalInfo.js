@@ -2,7 +2,6 @@
 import { Form, Row, Col } from "react-bootstrap";
 
 export function PersonalInfo(props) {
-  console.log(props);
   const doctorDetails = props.DoctorDetails;
 
   function getAgeFromDOB(dob) {
@@ -13,7 +12,6 @@ export function PersonalInfo(props) {
     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
       age--;
     }
-    console.log(age);
     return age;
   }
 

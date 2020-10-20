@@ -42,7 +42,6 @@ const schema = Yup.object({
 });
 
 export function PersonalInfoEdit(props) {
-  console.log(props);
   return (
       <Formik
           validationSchema={schema}
@@ -63,9 +62,6 @@ export function PersonalInfoEdit(props) {
         setFieldTouched
       }) => (
                   <Form noValidate onSubmit={e => {
-                      console.log("test here prof");
-                      console.log(errors);
-                      console.log(isValid);
                       handleSubmit(e);
                   }}>
           <Container>
@@ -149,11 +145,8 @@ export function PersonalInfoEdit(props) {
                     dropdownMode="select"
                     maxDate={new Date()}
                     onChange={async e => {
-                      console.log(touched.dateOfBirth);
-                      console.log(e);
                       await setFieldValue("dateOfBirth", e);
                       setFieldTouched("dateOfBirth");
-                      console.log(values.dateOfBirth);
                     }}
                   />
                   {errors.dateOfBirth &&

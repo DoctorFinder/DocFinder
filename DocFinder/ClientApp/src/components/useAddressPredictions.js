@@ -23,7 +23,6 @@ export default function useAddressPredictions(input) {
 
     function getPlacePredictions(input) {
         if (input != "") {
-            console.log(sessionToken);
             autocomplete.current.getPlacePredictions(
                 {
                     input,

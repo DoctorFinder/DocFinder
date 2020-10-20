@@ -106,7 +106,6 @@ export function DoctorProfessionalForm(props) {
       validationSchema={schema}
       initialValues={props.defaultProfessionalFormData}
       onSubmit={(values: FState, setSubmitting: any) => {
-        console.log(values);
         props.saveProfessionalFormData(values);
       }}
     >
@@ -301,8 +300,6 @@ export function DoctorProfessionalForm(props) {
                                               onChange={e => {
                                                   setFieldTouched("npiDisclosure");
                                                   handleChange(e);
-                                                  console.log(e);
-                                                  console.log(values.npiDisclosure);
                                                   setnpiDisclosureState(!npiDisclosureState);
                                               }}
                                           />

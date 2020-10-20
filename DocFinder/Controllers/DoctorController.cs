@@ -3,11 +3,16 @@ using DocFinder.Domain;
 using DocFinder.Domain.DTO;
 using DocFinder.Domain.ServiceResponse;
 using DocFinder.Service.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Configuration.Json;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace DocFinder.Controllers
@@ -22,21 +27,42 @@ namespace DocFinder.Controllers
 
         private IDoctorSpecialityApplicationService _doctorSpecialityApplicationService { get; set; }
 
+        private IDoctorAddressesApplicationService _doctorAddresesApplicationService { get; set; }
+
+        private ILogger<DoctorController> _logger { get; set; }
+
         private readonly IMapper _mapper;
-        public DoctorController(IDoctorApplicationService doctorApplicationService, IDoctorSpecialityApplicationService doctorSpecialityApplicationService, IDoctorLanguageApplicationService doctorLanguageApplicationService, IMapper mapper)
+        public DoctorController(IDoctorApplicationService doctorApplicationService, IDoctorSpecialityApplicationService doctorSpecialityApplicationService,
+                                IDoctorLanguageApplicationService doctorLanguageApplicationService, IDoctorAddressesApplicationService doctorAddresesApplicationService,
+                                ILogger<DoctorController> logger,IMapper mapper)
         {
             this._doctorApplicationService = doctorApplicationService;
             this._doctorLanguageApplicationService = doctorLanguageApplicationService;
             this._doctorSpecialityApplicationService = doctorSpecialityApplicationService;
+            this._doctorAddresesApplicationService = doctorAddresesApplicationService;
+            this._logger = logger;
             this._mapper = mapper;
         }
 
         [HttpPost]
-        public ActionResult<DoctorToReturnResponse> Post (DoctorForCreationDTO doctor)
+        public async Task<ActionResult<DoctorToReturnResponse>> Post (IFormCollection doctor)
         {
+            
+            DoctorForCreationDTO doctorForCreation = new DoctorForCreationDTO();
+            await this.TryUpdateModelAsync(doctorForCreation);
+            doctorForCreation.Specialities = JsonSerializer.Deserialize<ICollection<DoctorSpecialitiesForCreation>>(doctor["specialities"]);
+            doctorForCreation.Languages = JsonSerializer.Deserialize<ICollection<DoctorLanguagesForCreation>>(doctor["languages"]);
+            doctorForCreation.Addresses = JsonSerializer.Deserialize<ICollection<DoctorAddressesForCreation>>(doctor["addresses"]);
+            var doctorForCreationImage = doctor.Files[0];
 
-             var doctorDetails = this._doctorApplicationService.RegisterDoctor(doctor);
+            using (var memoryStream = new MemoryStream())
+            {
+                await doctorForCreationImage.CopyToAsync(memoryStream);
+                doctorForCreation.UserImage = memoryStream.ToArray();
+            }
 
+            var doctorDetails = this._doctorApplicationService.RegisterDoctor(doctorForCreation);
+            
             if (doctorDetails is null || doctorDetails.doctor is null)
             {
                 return NotFound(doctorDetails);
@@ -73,9 +99,11 @@ namespace DocFinder.Controllers
         }
 
         [HttpGet]
-        public string Get()
+        public ActionResult Get()
         {
-            return "Test return bro";
+            var doctorToRetun = this._doctorApplicationService.GetDoctorByEmail("aasriram.sakinala@gmail.com");
+            string result = Convert.ToBase64String(doctorToRetun.UserImage);
+            return new JsonResult(result);
         }
     } 
 }

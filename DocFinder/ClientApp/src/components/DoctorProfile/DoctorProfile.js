@@ -1,4 +1,4 @@
-﻿import React, { Fragment,useState } from "react";
+﻿import React, { Fragment,useState,useEffect } from "react";
 import {  useLocation } from "react-router-dom";
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
@@ -8,7 +8,6 @@ import { PersonalInfo } from './PersonalInfo';
 import { PersonalInfoEdit } from './PersonalInfoEdit';
 import { ProfessionalEditInfo } from './ProfessionalEditInfo';
 import "../../Styles/Spinner.css";
-
 import {  Button, } from "react-bootstrap";
 
 export function DoctorProfileComponent() {
@@ -23,6 +22,28 @@ export function DoctorProfileComponent() {
     doctor.specialities = location.state.doctordetails.specialities;
     doctor.subspecialities = location.state.doctordetails.specialities;
 
+    useEffect(() => {
+        getUserImage();
+    },[]);
+
+    async function getUserImage() {
+        fetch('Doctor').then(async response => {
+            const data = await response.json();
+            document.getElementById("ItemPreview").src = "data:image/png;base64," + data;
+            if (!response.ok) {
+                let error = (data && data.message) || response.status;
+                if (data.responseMessage) {
+                    error = data.responseMessage;
+                }
+                return Promise.reject(error);
+            }
+
+        }).catch(error => {
+            console.log(error);
+        });        
+    }
+
+
     function setEditMode() {
         setUpdateModeState(true);
     }
@@ -34,14 +55,12 @@ export function DoctorProfileComponent() {
     function saveDoctorPersonalData(values) {
         setRequestProcessingStatus(true);
         setRequestProcessingStatus(false);
-        console.log(values);
         setReadOnlyMode();
     }
 
     function saveDoctorProfessionalData(values) {
         setRequestProcessingStatus(true);
         setRequestProcessingStatus(false);
-        console.log(values);
         setReadOnlyMode();
         setKey("personal");
     }
@@ -49,7 +68,6 @@ export function DoctorProfileComponent() {
     function saveDoctorOfficeData(values) {
         setRequestProcessingStatus(true);
         setRequestProcessingStatus(false);
-        console.log(values);
         setReadOnlyMode();
     }
 
@@ -84,6 +102,7 @@ export function DoctorProfileComponent() {
             {!updateModeState && <div><Button onClick={setEditMode}>Edit Profile</Button> </div>} 
               </fieldset>
             {isRequestProcessing && <div className="spinner" />}
+            <img id="ItemPreview" alt="nopes"/>
             </Fragment>
     )
 }

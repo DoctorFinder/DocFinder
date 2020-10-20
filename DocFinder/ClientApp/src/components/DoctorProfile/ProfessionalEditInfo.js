@@ -92,14 +92,12 @@ export function ProfessionalEditInfo(props) {
         setlanguagesstate(modifiedData);
       });
   }
-    console.log(props);
   return (
       <Formik
           validationSchema={schema}
           initialValues={props.DoctorDetails}
           onSubmit={(values: FState, setSubmitting: any) => {
               props.SaveDoctorProfessionalData(values);
-              console.log("testing this");
           }}
       >
       {({
@@ -114,9 +112,6 @@ export function ProfessionalEditInfo(props) {
         setFieldTouched
       }) => (
                   <Form noValidate onSubmit={e => {
-                      console.log("test here prof");
-                      console.log(errors);
-                      console.log(isValid);
                       handleSubmit(e);
                   }}>
           <Container>
@@ -312,8 +307,6 @@ export function ProfessionalEditInfo(props) {
                     onChange={e => {
                       setFieldTouched("npiDisclosure");
                       handleChange(e);
-                      console.log(e);
-                      console.log(values.npiDisclosure);
                       setnpiDisclosureState(!npiDisclosureState);
                     }}
                   />

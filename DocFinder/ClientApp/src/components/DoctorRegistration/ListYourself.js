@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useContext } from "react";
+﻿import React, { useState,useContext } from "react";
 import { Route, useLocation, useHistory } from "react-router-dom";
 import { DoctorPersonalForm } from "./DoctorPersonalForm";
 import { DoctorProfessionalForm } from "./DoctorProfessionalForm";
@@ -32,14 +32,43 @@ export function ListYourselfComponent(props) {
     languages: []
   };
 
-  const emptyImageFormData = {
-    address1: "",
-    address2: "",
-    city: "",
-    state: "",
-    zipcode: "",
-    phoneNumber: ""
-  };
+    const emptyImageFormData = [
+        {
+            id:1,
+            address1: "",
+            address2: "",
+            city: "",
+            state: "",
+            zipcode: "",
+            phoneNumber: "",
+            webAddress: "",
+            isAdded: false,
+            timings: {
+                UpdateHours:false,
+                SunDayOpen: true,
+                SundayStart: new Date(),
+                SundayEnd: new Date(),
+                MonDayOpen: true,
+                MondayStart: new Date(),
+                MondayEnd: new Date(),
+                TuesDayOpen: true,
+                TuesdayStart: new Date(),
+                TuesdayEnd: new Date(),
+                WednesDayOpen: true,
+                WednesdayStart: new Date(),
+                WednesdayEnd: new Date(),
+                ThursDayOpen: true,
+                ThursdayStart: new Date(),
+                ThursdayEnd: new Date(),
+                FriDayOpen: true,
+                FridayStart: new Date(),
+                FridayEnd: new Date(),
+                SatDayOpen: true,
+                SaturdayStart: new Date(),
+                SaturdayEnd: new Date()
+            }            
+        }
+    ];
 
     const [errorMsg, seterrorMsg] = useState("");
     const [submissionErrorState, setSubmissionErrorState] = useState(false);
@@ -67,8 +96,6 @@ export function ListYourselfComponent(props) {
   function savePersonalFormData(values) {
     setPersonalFormStatus(true);
     setdefaultPersonalFormData(values);
-      console.log(values);
-      console.log(defaultPersonalFormData);
     history.push(location.pathname + "/Professional");
   }
 
@@ -88,63 +115,132 @@ export function ListYourselfComponent(props) {
     history.push(imagePath);
   }
 
-  function getProfessionalForm(values) {
-    setdefaultImageFormData(values);
+  function getProfessionalForm() {
     let lastIndexOfPath = location.pathname.lastIndexOf("/");
     let professionalFormPath =
       location.pathname.substring(0, lastIndexOfPath + 1) + "Professional";
     history.push(professionalFormPath);
-  }
+    }
 
-  function saveImageFormData(values) {
-    setdefaultImageFormData(values);
-    console.log("parent component called from Image component");
-    console.log(values);
-    const doctor = {
-      FirstName: defaultPersonalFormData.firstName,
-      MiddleName: defaultPersonalFormData.middleName,
-      LastName: defaultPersonalFormData.lastName,
-      Email: defaultPersonalFormData.emailAddress,
-      Password: defaultPersonalFormData.password,
-      DateOfBirth: defaultPersonalFormData.dateOfBirth,
-      Gender: defaultPersonalFormData.gender,
-      Degree: defaultProfessionalFormData.degree,
-      Education: defaultProfessionalFormData.education,
-      YearsInPractice: defaultProfessionalFormData.experience,
-        License: defaultProfessionalFormData.license,
-        NpiNumber: defaultProfessionalFormData.npiNumber,
-        NpiDisclosure: defaultProfessionalFormData.npiDisclosure,
-      Specialities: defaultProfessionalFormData.specialities,
-      Languages: defaultProfessionalFormData.languages,
-      Address1: values.address1,
-      Address2: values.address2,
-      City: values.city,
-      State: values.state,
-      Zipcode: values.zipcode,
-        PhoneNumber: values.phoneNumber,
-        Image: defaultPersonalFormData.file
-    };
-    console.log(doctor);
-    setRequestProcessingStatus(true);
+    function addNewAddressData(addressId) {
+        setdefaultImageFormData(defaultImageFormData => {
+            const newState = defaultImageFormData.map(item => item)
+            newState.push({
+                id: addressId,
+                address1: "",
+                address2: "",
+                city: "",
+                state: "",
+                zipcode: "",
+                phoneNumber: "",
+                webAddress: "",
+                isAdded: false,
+                timings: {
+                    UpdateHours: false,
+                    SunDayOpen: false,
+                    SundayStart: new Date(),
+                    SundayEnd: new Date(),
+                    MonDayOpen: false,
+                    MondayStart: new Date(),
+                    MondayEnd: new Date(),
+                    TuesDayOpen: false,
+                    TuesdayStart: new Date(),
+                    TuesdayEnd: new Date(),
+                    WednesDayOpen: false,
+                    WednesdayStart: new Date(),
+                    WednesdayEnd: new Date(),
+                    ThursDayOpen: false,
+                    ThursdayStart: new Date(),
+                    ThursdayEnd: new Date(),
+                    FriDayOpen: false,
+                    FridayStart: new Date(),
+                    FridayEnd: new Date(),
+                    SatDayOpen: false,
+                    SaturdayStart: new Date(),
+                    SaturdayEnd: new Date()
+                }
+            });
+            return newState;
+        });
+    }
 
-    submitDoctorRegistrationForm(doctor);
-  }
+    function saveImageFormData(values) {
+      setdefaultImageFormData(defaultImageFormData => {
+          const newstate = defaultImageFormData.map(item => {              
+              if (item.id == values.id) {
+                  item.address1 = values.address1;
+                  item.address2 = values.address2;
+                  item.city = values.city;
+                  item.state = values.state;
+                  item.zipcode = values.zipcode;
+                  item.phoneNumber = values.phoneNumber;
+                  item.webAddress = values.webAddress;
+                  item.isAdded = true;
+                  item.timings = values.timings;
+              }
+              return item;
+          });
+          return newstate;
+      });
+    }
+
+    function saveDoctorRegistration() {
+        const doctor = {
+            FirstName: defaultPersonalFormData.firstName,
+            MiddleName: defaultPersonalFormData.middleName,
+            LastName: defaultPersonalFormData.lastName,
+            Email: defaultPersonalFormData.emailAddress,
+            Password: defaultPersonalFormData.password,
+            DateOfBirth: defaultPersonalFormData.dateOfBirth.toJSON(),
+            Gender: defaultPersonalFormData.gender,
+            Degree: defaultProfessionalFormData.degree,
+            Education: defaultProfessionalFormData.education,
+            YearsInPractice: defaultProfessionalFormData.experience,
+            License: defaultProfessionalFormData.license,
+            NpiNumber: defaultProfessionalFormData.npiNumber,
+            NpiDisclosure: defaultProfessionalFormData.npiDisclosure,
+            UserImage: defaultPersonalFormData.file
+        };
+        var DoctorForCreationDTO = new FormData();
+        for (var key in doctor) {
+            DoctorForCreationDTO.append(key, doctor[key]);
+        }
+        const savedAddresses = defaultImageFormData.filter(address => {
+            if (address.isAdded) {
+                return address;
+            }
+        });
+        const addressForCreation = savedAddresses.map(address => {
+            let doctor = {
+                Address1: address.address1,
+                Address2: address.address2,
+                City: address.city,
+                State: address.state,
+                Zipcode: address.zipcode,
+                PhoneNumber: address.phoneNumber,
+                WebAddress: address.webAddress,
+                HospitalTimings: address.timings
+            }            
+            return doctor;
+        });
+        debugger;
+        DoctorForCreationDTO.append('Specialities', JSON.stringify(defaultProfessionalFormData.specialities));
+        DoctorForCreationDTO.append('Languages', JSON.stringify(defaultProfessionalFormData.languages));
+        DoctorForCreationDTO.append('Addresses', JSON.stringify(addressForCreation));
+       setRequestProcessingStatus(true);
+       submitDoctorRegistrationForm(DoctorForCreationDTO);
+    }
 
     function submitDoctorRegistrationForm(doctor) {
         setSubmissionErrorState(false);
         seterrorMsg("");
     const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(doctor)
+        method: 'post',
+        body: doctor
     };
     fetch("Doctor", requestOptions)
       .then(async response => {
-        console.log("reasched success");
-        debugger;
         const data = await response.json();
-        console.log("reasched success after json");
-        debugger;
         if (!response.ok) {
             let error = (data && data.message) || response.status;
             if (data.responseMessage) {
@@ -161,11 +257,9 @@ export function ListYourselfComponent(props) {
           history.push(doctorProfilePath, { doctordetails: data });
       })
       .catch(error => {
-          debugger;
           setSubmissionErrorState(true);
           setRequestProcessingStatus(false);
           seterrorMsg(error);
-        console.error("There was an error!", error);
       });
   }
 
@@ -201,6 +295,8 @@ export function ListYourselfComponent(props) {
                       isProfessionalFormCompleted={isProfessionalFormCompleted}
                       submissionErrorState={submissionErrorState}
                       errorMsg={errorMsg}
+                      addNewAddressData={addNewAddressData}
+                      saveDoctorRegistration={saveDoctorRegistration}
           />
         </Route>
           </fieldset>

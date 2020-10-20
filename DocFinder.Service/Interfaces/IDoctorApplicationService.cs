@@ -11,11 +11,11 @@ namespace DocFinder.Service.Interfaces
     {
         public DoctorToReturnResponse RegisterDoctor(DoctorForCreationDTO doctorDTO);
 
-        public DoctorForCreationDTO GetDoctorByEmailandMobileNumber(string email, string mobileNumber);
+        //public DoctorForCreationDTO GetDoctorByEmailandMobileNumber(string email, string mobileNumber);
 
         public DoctorForCreationDTO GetDoctorByEmail(string email);
 
-        public DoctorForCreationDTO GetDoctorByMobileNumber(string mobileNumber);
+        //public DoctorForCreationDTO GetDoctorByMobileNumber(string mobileNumber);
 
         public DoctorToReturnResponse GetDoctorDetails(DoctorForRetrieving doctor);
 

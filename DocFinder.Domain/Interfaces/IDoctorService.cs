@@ -8,11 +8,11 @@ namespace DocFinder.Domain.Interfaces
     {
         public int RegisterDoctor(Doctor doctor);
 
-        public Doctor GetDoctorByEmailandMobileNumber(string email, string mobileNumber);
+        //public Doctor GetDoctorByEmailandMobileNumber(string email, string mobileNumber);
 
         public Doctor GetDoctorByEmail(string email);
 
-        public Doctor GetDoctorByMobileNumber(string mobileNumber);
+        //public Doctor GetDoctorByMobileNumber(string mobileNumber);
 
         public Doctor UpdateDoctor(Doctor doctor);
 
