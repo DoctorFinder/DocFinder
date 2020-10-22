@@ -165,9 +165,9 @@ export function DoctorProfessionalForm(props) {
         setlanguagesstate(modifiedData);
       });
   }
-//  if (!props.isPersonalFormCompleted) {
-  //  return <div>Dude fill personal details first</div>;
- // }
+  if (!props.isPersonalFormCompleted) {
+    return <div>Dude fill personal details first</div>;
+  }
   return (
     <Formik
       validationSchema={schema}
@@ -243,7 +243,6 @@ export function DoctorProfessionalForm(props) {
                                               yearItemNumber={9}
                                               className="form-control"
                                               onChange={async e => {
-                                                  console.log(e);
                                                   await setFieldValue("yearOfGraduation", e);
                                                   setFieldTouched("yearOfGraduation");
                                               }}

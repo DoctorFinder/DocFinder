@@ -197,7 +197,6 @@ export function DoctorPersonalForm(props) {
                       className="form-control"
                       maxDate={new Date()}
                       onChange={async e => {
-                         console.log(e);
                         await setFieldValue("dateOfBirth", e);
                         setFieldTouched("dateOfBirth");
                       }}

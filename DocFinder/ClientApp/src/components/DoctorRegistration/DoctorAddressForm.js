@@ -82,7 +82,6 @@ export function DoctorAddressForm(props) {
                 return true;
             }
         });
-        console.log(typeValue);
         return typeValue.length > 0 ? typeValue[0]['long_name'] : '';
     }
 
