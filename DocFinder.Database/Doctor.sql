@@ -14,6 +14,19 @@
     [License] VARCHAR(30) NULL,
     [NpiNumber] VARCHAR(30) NULL,
     [NpiDisclosure] bit,
-    [UserImage] VarBinary(Max)  NULL
+    [LicenseDisclosure] bit,
+    [UserImage] VarBinary(Max)  NULL,
+    [EducationCity] VARCHAR(30) NULL,
+    [EducationCountry] VARCHAR(30) NULL,
+    [EducationState] VARCHAR(30) NULL,
+    [YearOfGraduation] VARCHAR(30) NULL,
+    [ResidencyFrom] VARCHAR(30) NULL,
+    [ResidencyCity] VARCHAR(30) NULL,
+    [ResidencyCountry] VARCHAR(30) NULL,
+    [ResidencyState] VARCHAR(30) NULL,
+    [FellowhipFrom] VARCHAR(30) NULL,
+    [FellowhipCity] VARCHAR(30) NULL,
+    [FellowhipCountry] VARCHAR(30) NULL,
+    [FellowhipState] VARCHAR(30) NULL
 )
 

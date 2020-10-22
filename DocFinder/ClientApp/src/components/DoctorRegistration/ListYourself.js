@@ -20,16 +20,31 @@ export function ListYourselfComponent(props) {
     file: new File([""], "T")
   };
 
-  const emptyProfessionalFormData = {
+    const emptyProfessionalFormData = {
+    clinicalInterest: "",
+    researchInterest:"",
     degree: "",
     education: "",
     experience: "",
-      license: "",
-      npiNumber: "",
-      npiDisclosure:false,
-      specialities: [],
-     subspecialities:[],
-    languages: []
+    license: "",
+    npiNumber: "",
+    npiDisclosure: false,
+    licenseDisclosure:false,
+    specialities: [],
+    subspecialities:[],
+    languages: [],
+    educationCity:"",
+    educationCountry: "",
+    educationState: "",
+    yearOfGraduation: new Date(),
+    residencyFrom: "",
+    residencyCity: "",
+    residencyCountry: "",
+    residencyState: "",
+    fellowhipFrom: "",
+    fellowhipCity: "",
+    fellowhipCountry: "",
+    fellowhipState: ""
   };
 
     const emptyImageFormData = [
@@ -199,8 +214,22 @@ export function ListYourselfComponent(props) {
             License: defaultProfessionalFormData.license,
             NpiNumber: defaultProfessionalFormData.npiNumber,
             NpiDisclosure: defaultProfessionalFormData.npiDisclosure,
-            UserImage: defaultPersonalFormData.file
-        };
+            UserImage: defaultPersonalFormData.file,
+            LicenseDisclosure: defaultProfessionalFormData.licenseDisclosure,
+            EducationCity: defaultProfessionalFormData.educationCity,
+            EducationCountry: defaultProfessionalFormData.educationCountry,
+            EducationState: defaultProfessionalFormData.educationState,
+            YearOfGraduation: defaultProfessionalFormData.yearOfGraduation.toJSON(),
+            ResidencyFrom: defaultProfessionalFormData.residencyFrom,
+            ResidencyCity: defaultProfessionalFormData.residencyCity,
+            ResidencyCountry: defaultProfessionalFormData.residencyCountry,
+            ResidencyState: defaultProfessionalFormData.residencyState,
+            FellowhipFrom: defaultProfessionalFormData.fellowhipFrom,
+            FellowhipCity: defaultProfessionalFormData.fellowhipCity,
+            FellowhipCountry: defaultProfessionalFormData.fellowhipCountry,
+            FellowhipState: defaultProfessionalFormData.fellowhipState
+        };                           
+
         var DoctorForCreationDTO = new FormData();
         for (var key in doctor) {
             DoctorForCreationDTO.append(key, doctor[key]);

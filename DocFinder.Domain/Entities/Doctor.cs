@@ -7,7 +7,7 @@ namespace DocFinder.Domain
     {
         [Key]
         public int Id { get; set; }
-        
+
         [Required]
         [MaxLength(30)]
         public string FirstName { get; set; }
@@ -54,6 +54,45 @@ namespace DocFinder.Domain
 
         [Required]
         public bool NpiDisclosure { get; set; }
+
+        [Required]
+        public bool LicenseDisclosure { get; set; }
+
+        [MaxLength(30)]
+        public string EducationState { get; set; }
+
+        [MaxLength(30)]
+        public string EducationCity { get; set; }
+
+        [MaxLength(30)]
+        public string EducationCountry { get; set; }
+
+        [Required]
+        public DateTime YearOfGraduation  { get;set;}
+
+        [MaxLength(30)]
+        public string FellowhipFrom { get; set; }
+
+        [MaxLength(30)]
+        public string FellowhipCity { get; set; }
+        
+        [MaxLength(30)]
+        public string FellowhipCountry { get; set; }
+        
+        [MaxLength(30)]
+        public string FellowhipState { get; set; }
+
+        [MaxLength(30)]
+        public string ResidencyFrom { get; set; }
+
+        [MaxLength(30)]
+        public string ResidencyCity { get; set; }
+
+        [MaxLength(30)]
+        public string ResidencyCountry { get; set; }
+
+        [MaxLength(30)]
+        public string ResidencyState { get; set; }
 
         public byte[] UserImage { get; set; }
 

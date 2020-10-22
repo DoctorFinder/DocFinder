@@ -33,6 +33,32 @@ namespace DocFinder.Domain.DTO
 
         public bool NpiDisclosure { get; set; }
 
+        public bool LicenseDisclosure { get; set; }
+
+        public string EducationState { get; set; }
+
+        public string EducationCity { get; set; }
+
+        public string EducationCountry { get; set; }
+
+        public DateTime YearOfGraduation { get; set; }
+
+        public string FellowhipFrom { get; set; }
+
+        public string FellowhipCity { get; set; }
+
+        public string FellowhipCountry { get; set; }
+
+        public string FellowhipState { get; set; }
+
+        public string ResidencyFrom { get; set; }
+
+        public string ResidencyCity { get; set; }
+
+        public string ResidencyCountry { get; set; }
+
+        public string ResidencyState { get; set; }
+
         public ICollection<DoctorLanguagesForCreation> Languages { get; set; }
 
         public ICollection<DoctorSpecialitiesForCreation> Specialities { get; set; }
