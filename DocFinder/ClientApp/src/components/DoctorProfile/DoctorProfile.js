@@ -23,7 +23,7 @@ export function DoctorProfileComponent() {
     doctor.subspecialities = location.state.doctordetails.specialities;
 
     useEffect(() => {
-        getUserImage();
+       // getUserImage();
     },[]);
 
     async function getUserImage() {

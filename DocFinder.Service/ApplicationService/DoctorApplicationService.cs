@@ -136,6 +136,24 @@ namespace DocFinder.Service.ApplicationService
             }      
         }
 
+
+        public DoctorToReturnResponse UpdateDoctorPaid(string emailAddress)
+        {
+            var doctor = this._doctorService.GetDoctorByEmail(emailAddress);
+            doctor.IsPaid = true;
+            this._doctorService.UpdateDoctor(doctor);
+            var doctorToReturn = Mapping.Mapper.Map<DoctorToReturnDTO>(doctor);
+            var doctorLanguagesToReturn = this._doctorLanguageApplicationService.GetDoctorLanguages(doctor.Id).ToList();
+            var doctorSpecialitiesToReturn = this._doctorSpecialityApplicationService.GetDoctorSpecialities(doctor.Id).ToList();
+            var doctorAddressesToReturn = this._doctorAddressesApplicationService.GetDoctorAddresses(doctor.Id).ToList();
+            var doctorToResponse = new DoctorToReturnResponse();
+            doctorToResponse.doctor = doctorToReturn;
+            doctorToResponse.languages = doctorLanguagesToReturn;
+            doctorToResponse.specialities = doctorSpecialitiesToReturn;
+            doctorToResponse.addresses = doctorAddressesToReturn;
+            return doctorToResponse;
+        }
+        
         private bool IsPasswordMatched(string hash, string password)
         {
             var result = this._passwordHasherApplicationService.Check(hash, password);

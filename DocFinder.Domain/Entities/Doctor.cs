@@ -96,5 +96,9 @@ namespace DocFinder.Domain
 
         public byte[] UserImage { get; set; }
 
+        public bool IsPaid { get; set; }
+
+        public bool IsVerified { get; set; }
+
     }
 }

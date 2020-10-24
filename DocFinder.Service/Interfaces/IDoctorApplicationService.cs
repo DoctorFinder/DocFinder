@@ -19,5 +19,7 @@ namespace DocFinder.Service.Interfaces
 
         public DoctorToReturnResponse GetDoctorDetails(DoctorForRetrieving doctor);
 
+        public DoctorToReturnResponse UpdateDoctorPaid(string emailAddress);
+
     }
 }

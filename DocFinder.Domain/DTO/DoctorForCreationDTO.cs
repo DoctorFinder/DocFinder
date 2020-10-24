@@ -66,5 +66,9 @@ namespace DocFinder.Domain.DTO
         public ICollection<DoctorAddressesForCreation> Addresses { get; set; }
 
         public byte[] UserImage { get; set; }
+
+        public bool IsPaid { get; set; }
+
+        public bool IsVerified { get; set; }
     }
 }

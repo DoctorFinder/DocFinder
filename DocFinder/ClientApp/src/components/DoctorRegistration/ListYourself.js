@@ -4,6 +4,7 @@ import { DoctorPersonalForm } from "./DoctorPersonalForm";
 import { DoctorProfessionalForm } from "./DoctorProfessionalForm";
 import { DoctorImageForm } from "./DoctorImageForm";
 import { MenuTypeContext } from "../../context/MenuContextProvider";
+import { PaymentForm } from "./PaymentForm";
 import "react-datepicker/dist/react-datepicker.css";
 import "../../Styles/Spinner.css";
 
@@ -125,8 +126,8 @@ export function ListYourselfComponent(props) {
     setProfessionalFormStatus(true);
     setdefaultProfessionalFormData(values);
     let lastIndexOfPath = location.pathname.lastIndexOf("/");
-    let imagePath =
-      location.pathname.substring(0, lastIndexOfPath + 1) + "Image";
+      let imagePath =
+          location.pathname.substring(0, lastIndexOfPath + 1) + "Image";
     history.push(imagePath);
   }
 
@@ -227,7 +228,9 @@ export function ListYourselfComponent(props) {
             FellowhipFrom: defaultProfessionalFormData.fellowhipFrom,
             FellowhipCity: defaultProfessionalFormData.fellowhipCity,
             FellowhipCountry: defaultProfessionalFormData.fellowhipCountry,
-            FellowhipState: defaultProfessionalFormData.fellowhipState
+            FellowhipState: defaultProfessionalFormData.fellowhipState,
+            IsPaid: false,
+            IsVerified:false
         };                           
 
         var DoctorForCreationDTO = new FormData();
@@ -280,10 +283,12 @@ export function ListYourselfComponent(props) {
         let firstIndexOfPath = location.pathname.indexOf("/");
         let doctorProfilePath =
           location.pathname.substring(0, firstIndexOfPath + 1) +
-          "DoctorProfile";
+              "DoctorProfile";
+          let paymentMethod =
+              location.pathname.substring(0, firstIndexOfPath + 1) + "list/yourself/Payment";
         setRequestProcessingStatus(false);
-        context.dispatch({ type: "doctor" });
-          history.push(doctorProfilePath, { doctordetails: data });
+       // context.dispatch({ type: "doctor" });
+          history.push(paymentMethod, { doctordetails: data });
       })
       .catch(error => {
           setSubmissionErrorState(true);
@@ -327,7 +332,10 @@ export function ListYourselfComponent(props) {
                       addNewAddressData={addNewAddressData}
                       saveDoctorRegistration={saveDoctorRegistration}
           />
-        </Route>
+         </Route>
+              <Route path={`${props.match.path}/Payment`}>
+                  <PaymentForm/>
+         </Route>
           </fieldset>
       {isRequestProcessing && <div className="spinner" />}
     </div>

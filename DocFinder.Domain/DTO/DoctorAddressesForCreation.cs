@@ -21,5 +21,9 @@ namespace DocFinder.Domain.DTO
         public string WebAddress { get; set; }
 
         public HospitalTimingsForCreationDTO HospitalTimings { get; set; }
+
+        public bool IsPaid { get; set; }
+
+        public bool IsVerified { get; set; }
     }
 }

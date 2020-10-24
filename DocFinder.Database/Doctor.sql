@@ -19,7 +19,7 @@
     [EducationCity] VARCHAR(30) NULL,
     [EducationCountry] VARCHAR(30) NULL,
     [EducationState] VARCHAR(30) NULL,
-    [YearOfGraduation] VARCHAR(30) NULL,
+    [YearOfGraduation] Date NOT NULL,
     [ResidencyFrom] VARCHAR(30) NULL,
     [ResidencyCity] VARCHAR(30) NULL,
     [ResidencyCountry] VARCHAR(30) NULL,
@@ -27,6 +27,8 @@
     [FellowhipFrom] VARCHAR(30) NULL,
     [FellowhipCity] VARCHAR(30) NULL,
     [FellowhipCountry] VARCHAR(30) NULL,
-    [FellowhipState] VARCHAR(30) NULL
+    [FellowhipState] VARCHAR(30) NULL,
+    [IsPaid] bit Default(0),
+    [IsVerified] bit Default(0)
 )
 
