@@ -20,6 +20,10 @@ namespace DocFinder.Domain.DTO
 
         public string WebAddress { get; set; }
 
+        public Decimal? Latitude { get; set; }
+
+        public Decimal? Longitude { get;set;}
+
         public HospitalTimingsForCreationDTO HospitalTimings { get; set; }
 
         public bool IsPaid { get; set; }

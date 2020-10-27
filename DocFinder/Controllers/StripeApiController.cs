@@ -44,7 +44,7 @@ namespace DocFinder.Controllers
         [Route("[action]")]
         public ActionResult Put(DoctorForRetrieving doctor) 
         {
-            var doctorToReturn = this._doctorApplicationService.UpdateDoctorPaid(doctor.EmailAddress);
+            var doctorToReturn = this._doctorApplicationService.UpdateDoctorActivated(doctor.EmailAddress);
             return Ok(doctorToReturn);
         }
     }

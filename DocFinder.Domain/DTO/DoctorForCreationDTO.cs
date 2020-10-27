@@ -43,13 +43,13 @@ namespace DocFinder.Domain.DTO
 
         public DateTime YearOfGraduation { get; set; }
 
-        public string FellowhipFrom { get; set; }
+        public string FellowshipFrom { get; set; }
 
-        public string FellowhipCity { get; set; }
+        public string FellowshipCity { get; set; }
 
-        public string FellowhipCountry { get; set; }
+        public string FellowshipCountry { get; set; }
 
-        public string FellowhipState { get; set; }
+        public string FellowshipState { get; set; }
 
         public string ResidencyFrom { get; set; }
 

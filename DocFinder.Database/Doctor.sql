@@ -24,10 +24,10 @@
     [ResidencyCity] VARCHAR(30) NULL,
     [ResidencyCountry] VARCHAR(30) NULL,
     [ResidencyState] VARCHAR(30) NULL,
-    [FellowhipFrom] VARCHAR(30) NULL,
-    [FellowhipCity] VARCHAR(30) NULL,
-    [FellowhipCountry] VARCHAR(30) NULL,
-    [FellowhipState] VARCHAR(30) NULL,
+    [FellowshipFrom] VARCHAR(30) NULL,
+    [FellowshipCity] VARCHAR(30) NULL,
+    [FellowshipCountry] VARCHAR(30) NULL,
+    [FellowshipState] VARCHAR(30) NULL,
     [IsPaid] bit Default(0),
     [IsVerified] bit Default(0)
 )

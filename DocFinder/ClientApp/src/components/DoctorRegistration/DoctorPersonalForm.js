@@ -323,7 +323,7 @@ export function DoctorPersonalForm(props) {
                                       <Col>
                                           {isFileSelected &&
                                               <div>
-                                              <img src={selectedFile} />
+                                              <img className="img-fluid" src={selectedFile} alt="not found"/>
                                               </div>} 
                                           </Col>
                                       </Row>

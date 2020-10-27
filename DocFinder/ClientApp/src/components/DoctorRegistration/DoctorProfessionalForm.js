@@ -90,16 +90,16 @@ const schema = Yup.object({
     residencyState: Yup.string()
         .trim()
         .max(30, errors.tooLong.replace("{0}", "State Attended Residency").replace("{1}", "30")),
-    fellowhipFrom: Yup.string()
+    fellowshipFrom: Yup.string()
         .trim()
         .max(30, errors.tooLong.replace("{0}", "Place Attended Fellowship").replace("{1}", "30")),
-    fellowhipCity: Yup.string()
+    fellowshipCity: Yup.string()
         .trim()
         .max(30, errors.tooLong.replace("{0}", "City Attended Fellowship").replace("{1}", "30")),
-    fellowhipCountry: Yup.string()
+    fellowshipCountry: Yup.string()
         .trim()
         .max(30, errors.tooLong.replace("{0}", "Country Attended Fellowship").replace("{1}", "30")),
-    fellowhipState: Yup.string()
+    fellowshipState: Yup.string()
         .trim()
         .max(30, errors.tooLong.replace("{0}", "State Attended Fellowship").replace("{1}", "30"))
 });
@@ -422,11 +422,11 @@ export function DoctorProfessionalForm(props) {
 
                                           <Form.Control
                                               type="text"
-                                              name="fellowhipFrom"
+                                              name="fellowshipFrom"
                                               value={values.fellowhipFrom}
                                               placeholder="Enter Fellowship Place"
                                               onChange={e => {
-                                                  setFieldTouched("fellowhipFrom");
+                                                  setFieldTouched("fellowshipFrom");
                                                   handleChange(e);
                                               }}
                                           />
@@ -462,11 +462,11 @@ export function DoctorProfessionalForm(props) {
 
                                           <Form.Control
                                               type="text"
-                                              name="fellowhipCountry"
+                                              name="fellowshipCountry"
                                               value={values.fellowhipCountry}
                                               placeholder="Enter Country Attended Fellowship"
                                               onChange={e => {
-                                                  setFieldTouched("fellowhipCountry");
+                                                  setFieldTouched("fellowshipCountry");
                                                   handleChange(e);
                                               }}
                                           />
@@ -480,11 +480,11 @@ export function DoctorProfessionalForm(props) {
 
                                           <Form.Control
                                               type="text"
-                                              name="fellowhipState"
+                                              name="fellowshipState"
                                               value={values.fellowhipState}
                                               placeholder="Enter State Attended Fellowship"
                                               onChange={e => {
-                                                  setFieldTouched("fellowhipState");
+                                                  setFieldTouched("fellowshipState");
                                                   handleChange(e);
                                               }}
                                           />

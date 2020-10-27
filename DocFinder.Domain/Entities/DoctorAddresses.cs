@@ -38,6 +38,10 @@ namespace DocFinder.Domain
         [MaxLength(10)]
         public string PhoneNumber { get; set; }
 
+        public Decimal? Latitude { get; set; }
+
+        public Decimal? Longitude { get; set; }
+
         public virtual HospitalTimings HospitalTimings  { get; set; }
 
     }

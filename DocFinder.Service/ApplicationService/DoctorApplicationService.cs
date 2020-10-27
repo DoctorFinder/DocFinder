@@ -153,7 +153,46 @@ namespace DocFinder.Service.ApplicationService
             doctorToResponse.addresses = doctorAddressesToReturn;
             return doctorToResponse;
         }
-        
+
+        public DoctorToReturnResponse UpdateDoctorActivated(string emailAddress)
+        {
+            var doctor = this._doctorService.GetDoctorByEmail(emailAddress);
+            doctor.IsVerified = !doctor.IsVerified;
+            this._doctorService.UpdateDoctor(doctor);
+            var doctorToReturn = Mapping.Mapper.Map<DoctorToReturnDTO>(doctor);
+            var doctorLanguagesToReturn = this._doctorLanguageApplicationService.GetDoctorLanguages(doctor.Id).ToList();
+            var doctorSpecialitiesToReturn = this._doctorSpecialityApplicationService.GetDoctorSpecialities(doctor.Id).ToList();
+            var doctorAddressesToReturn = this._doctorAddressesApplicationService.GetDoctorAddresses(doctor.Id).ToList();
+            var doctorToResponse = new DoctorToReturnResponse();
+            doctorToResponse.doctor = doctorToReturn;
+            doctorToResponse.languages = doctorLanguagesToReturn;
+            doctorToResponse.specialities = doctorSpecialitiesToReturn;
+            doctorToResponse.addresses = doctorAddressesToReturn;
+            return doctorToResponse;
+        }
+
+        public List<DoctorToReturnResponse> GetDoctors()
+        {
+         var doctors = this._doctorService.GetDoctors();
+
+            List<DoctorToReturnResponse> doctorsList = new List<DoctorToReturnResponse>();
+            foreach (var doctor in doctors)
+            {
+                var doctorToReturn = Mapping.Mapper.Map<DoctorToReturnDTO>(doctor);
+                var doctorLanguagesToReturn = this._doctorLanguageApplicationService.GetDoctorLanguages(doctor.Id).ToList();
+                var doctorSpecialitiesToReturn = this._doctorSpecialityApplicationService.GetDoctorSpecialities(doctor.Id).ToList();
+                var doctorAddressesToReturn = this._doctorAddressesApplicationService.GetDoctorAddresses(doctor.Id).ToList();
+                var doctorToResponse = new DoctorToReturnResponse();
+                doctorToResponse.doctor = doctorToReturn;
+                doctorToResponse.languages = doctorLanguagesToReturn;
+                doctorToResponse.specialities = doctorSpecialitiesToReturn;
+                doctorToResponse.addresses = doctorAddressesToReturn;
+                doctorsList.Add(doctorToResponse);
+            }
+            return doctorsList;
+        }
+
+
         private bool IsPasswordMatched(string hash, string password)
         {
             var result = this._passwordHasherApplicationService.Check(hash, password);

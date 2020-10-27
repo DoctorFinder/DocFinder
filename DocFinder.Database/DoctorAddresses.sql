@@ -7,5 +7,7 @@
     [City] VARCHAR(50) NOT NULL,
     [State] VARCHAR(50) NOT NULL,
     [Zipcode] VARCHAR(5) NOT NULL, 
+    [Latitude] DECIMAL(9,6) NULL,
+    Longitude DECIMAL(12,9) NULL,
     [PhoneNumber] VARCHAR(10) NOT NULL
 )

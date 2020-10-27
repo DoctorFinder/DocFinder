@@ -42,10 +42,10 @@ export function ListYourselfComponent(props) {
     residencyCity: "",
     residencyCountry: "",
     residencyState: "",
-    fellowhipFrom: "",
-    fellowhipCity: "",
-    fellowhipCountry: "",
-    fellowhipState: ""
+    fellowshipFrom: "",
+    fellowshipCity: "",
+    fellowshipCountry: "",
+    fellowshipState: ""
   };
 
     const emptyImageFormData = [
@@ -58,6 +58,8 @@ export function ListYourselfComponent(props) {
             zipcode: "",
             phoneNumber: "",
             webAddress: "",
+            latitude: "",
+            longitude:"",
             isAdded: false,
             timings: {
                 UpdateHours:false,
@@ -150,6 +152,8 @@ export function ListYourselfComponent(props) {
                 zipcode: "",
                 phoneNumber: "",
                 webAddress: "",
+                latitude: "",
+                longitude: "",
                 isAdded: false,
                 timings: {
                     UpdateHours: false,
@@ -191,6 +195,8 @@ export function ListYourselfComponent(props) {
                   item.zipcode = values.zipcode;
                   item.phoneNumber = values.phoneNumber;
                   item.webAddress = values.webAddress;
+                  item.latitude = values.latitude;
+                  item.longitude = values.longitude;
                   item.isAdded = true;
                   item.timings = values.timings;
               }
@@ -225,10 +231,10 @@ export function ListYourselfComponent(props) {
             ResidencyCity: defaultProfessionalFormData.residencyCity,
             ResidencyCountry: defaultProfessionalFormData.residencyCountry,
             ResidencyState: defaultProfessionalFormData.residencyState,
-            FellowhipFrom: defaultProfessionalFormData.fellowhipFrom,
-            FellowhipCity: defaultProfessionalFormData.fellowhipCity,
-            FellowhipCountry: defaultProfessionalFormData.fellowhipCountry,
-            FellowhipState: defaultProfessionalFormData.fellowhipState,
+            FellowshipFrom: defaultProfessionalFormData.fellowshipFrom,
+            FellowshipCity: defaultProfessionalFormData.fellowshipCity,
+            FellowshipCountry: defaultProfessionalFormData.fellowshipCountry,
+            FellowshipState: defaultProfessionalFormData.fellowshipState,
             IsPaid: false,
             IsVerified:false
         };                           
@@ -251,11 +257,14 @@ export function ListYourselfComponent(props) {
                 Zipcode: address.zipcode,
                 PhoneNumber: address.phoneNumber,
                 WebAddress: address.webAddress,
+                Latitude: address.latitude,
+                Longitude: address.longitude,
                 HospitalTimings: address.timings
             }            
             return doctor;
         });
         debugger;
+        console.log(addressForCreation);
         DoctorForCreationDTO.append('Specialities', JSON.stringify(defaultProfessionalFormData.specialities));
         DoctorForCreationDTO.append('Languages', JSON.stringify(defaultProfessionalFormData.languages));
         DoctorForCreationDTO.append('Addresses', JSON.stringify(addressForCreation));

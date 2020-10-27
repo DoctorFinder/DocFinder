@@ -38,15 +38,11 @@ export function DoctorAddressForm(props) {
     const formikRef = useRef();
     const [input, setInput] = useState("");
     const [placeId, setPlaceId] = useState("");
-    const [address1state, setAddress1state] = useState("");
-    const [address2state, setAddress2state] = useState("");
-    const [citystate, setCitystate] = useState("");
-    const [statestate, setStatestate] = useState("");
-    const [postalcodestate, setPostalcodestate] = useState("");
     const [displayAddressDiv, setdisplayAddressDiv] = useState(false);
     const [displayTimingsModal, setDisplayTimingsModal] = useState(false);
     const [hospitaltimings, setHospitaltimings] = useState(props.item.timings)
-    const [addressComponentstate, setAddressComponent] = useState([]);
+    const [latitude, setLatitude] = useState("");
+    const [longitude, setLongitude] = useState("");
 
 
     const predictions = useAddressPredictions(input);
@@ -85,7 +81,8 @@ export function DoctorAddressForm(props) {
         return typeValue.length > 0 ? typeValue[0]['long_name'] : '';
     }
 
-    function displayPlaceAddress(placeInfo) {     
+    function displayPlaceAddress(placeInfo) {    
+        console.log(placeInfo);
         if (!Array.isArray(placeInfo)) {
             let addressComponent = placeInfo["address_components"]; 
             let address1 = getTypeFromaddress("street_number", addressComponent) + getTypeFromaddress("route", addressComponent); //        addressComponent[0]["long_name"] + " " + addressComponent[1]["long_name"];
@@ -93,6 +90,8 @@ export function DoctorAddressForm(props) {
             let city = getTypeFromaddress("locality", addressComponent);
             let state = getTypeFromaddress("administrative_area_level_1", addressComponent);
             let postalcode = getTypeFromaddress("postal_code", addressComponent);
+            setLatitude(placeInfo.geometry.location.lat());
+            setLongitude(placeInfo.geometry.location.lng());
             if (formikRef.current) {
                 formikRef.current.setFieldValue("address1", address1);
                 formikRef.current.setFieldValue("address2", address2);
@@ -118,12 +117,14 @@ export function DoctorAddressForm(props) {
 
     function saveImageFormData(values) {
         values.timings = hospitaltimings;
+        values.latitude = latitude;
+        values.longitude = longitude;
         props.saveImageFormData(values);
     }
 
-      if (!props.isProfessionalFormCompleted) {
-      return <div>Bhai please complete professional form first </div>;
-    }
+//      if (!props.isProfessionalFormCompleted) {
+  //    return <div>Bhai please complete professional form first </div>;
+   // }
 
     return (
         <Fragment>

@@ -71,16 +71,16 @@ namespace DocFinder.Domain
         public DateTime YearOfGraduation  { get;set;}
 
         [MaxLength(30)]
-        public string FellowhipFrom { get; set; }
+        public string FellowshipFrom { get; set; }
 
         [MaxLength(30)]
-        public string FellowhipCity { get; set; }
+        public string FellowshipCity { get; set; }
         
         [MaxLength(30)]
-        public string FellowhipCountry { get; set; }
+        public string FellowshipCountry { get; set; }
         
         [MaxLength(30)]
-        public string FellowhipState { get; set; }
+        public string FellowshipState { get; set; }
 
         [MaxLength(30)]
         public string ResidencyFrom { get; set; }

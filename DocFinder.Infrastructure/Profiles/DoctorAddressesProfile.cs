@@ -13,6 +13,13 @@ namespace DocFinder.Infrastructure.Profiles
         {
             CreateMap<DoctorAddressesForCreation, DoctorAddresses>();
             CreateMap<DoctorAddresses, DoctorAddressesToReturnDTO>();
+                //.ForMember(
+                //dest => dest.Latitude,
+                //opt => opt.MapFrom(src => (double)src.Latitude))
+                //.ForMember(
+                //dest => dest.Longitude,
+                //opt => opt.MapFrom(src => (double)src.Longitude)
+                //);
         }
     }
 }

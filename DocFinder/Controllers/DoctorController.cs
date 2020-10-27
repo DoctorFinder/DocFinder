@@ -47,27 +47,35 @@ namespace DocFinder.Controllers
         [HttpPost]
         public async Task<ActionResult<DoctorToReturnResponse>> Post (IFormCollection doctor)
         {
-            
-            DoctorForCreationDTO doctorForCreation = new DoctorForCreationDTO();
-            await this.TryUpdateModelAsync(doctorForCreation);
-            doctorForCreation.Specialities = JsonSerializer.Deserialize<ICollection<DoctorSpecialitiesForCreation>>(doctor["specialities"]);
-            doctorForCreation.Languages = JsonSerializer.Deserialize<ICollection<DoctorLanguagesForCreation>>(doctor["languages"]);
-            doctorForCreation.Addresses = JsonSerializer.Deserialize<ICollection<DoctorAddressesForCreation>>(doctor["addresses"]);
-            var doctorForCreationImage = doctor.Files[0];
-
-            using (var memoryStream = new MemoryStream())
+            try
             {
-                await doctorForCreationImage.CopyToAsync(memoryStream);
-                doctorForCreation.UserImage = memoryStream.ToArray();
+                DoctorForCreationDTO doctorForCreation = new DoctorForCreationDTO();
+                await this.TryUpdateModelAsync(doctorForCreation);
+                doctorForCreation.Specialities = JsonSerializer.Deserialize<ICollection<DoctorSpecialitiesForCreation>>(doctor["specialities"]);
+                doctorForCreation.Languages = JsonSerializer.Deserialize<ICollection<DoctorLanguagesForCreation>>(doctor["languages"]);
+                doctorForCreation.Addresses = JsonSerializer.Deserialize<ICollection<DoctorAddressesForCreation>>(doctor["addresses"]);
+                var doctorForCreationImage = doctor.Files[0];
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    await doctorForCreationImage.CopyToAsync(memoryStream);
+                    doctorForCreation.UserImage = memoryStream.ToArray();
+                }
+
+                var doctorDetails = this._doctorApplicationService.RegisterDoctor(doctorForCreation);
+
+                if (doctorDetails is null || doctorDetails.doctor is null)
+                {
+                    return NotFound(doctorDetails);
+                }
+                return Ok(doctorDetails);
+            }
+            catch (Exception ex)
+            {
+                this._logger.LogError(ex.Message);
+               return NotFound();
             }
 
-            var doctorDetails = this._doctorApplicationService.RegisterDoctor(doctorForCreation);
-            
-            if (doctorDetails is null || doctorDetails.doctor is null)
-            {
-                return NotFound(doctorDetails);
-            }
-             return Ok(doctorDetails);             
         }
 
         [HttpPost]
@@ -99,9 +107,18 @@ namespace DocFinder.Controllers
         }
 
         [HttpGet]
+        [Route("[action]")]
+        public ActionResult GetAllDoctors() 
+        {
+            var doctorToRetun = this._doctorApplicationService.GetDoctors();
+            return Ok(doctorToRetun);
+        }
+
+
+        [HttpGet]
         public ActionResult Get()
         {
-            var doctorToRetun = this._doctorApplicationService.GetDoctorByEmail("aasriram.sakinala@gmail.com");
+            var doctorToRetun = this._doctorApplicationService.GetDoctorByEmail("image.test@gmail.com");
             string result = Convert.ToBase64String(doctorToRetun.UserImage);
             return new JsonResult(result);
         }

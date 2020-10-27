@@ -21,5 +21,9 @@ namespace DocFinder.Service.Interfaces
 
         public DoctorToReturnResponse UpdateDoctorPaid(string emailAddress);
 
+        public DoctorToReturnResponse UpdateDoctorActivated(string emailAddress);
+
+        public List<DoctorToReturnResponse> GetDoctors();
+
     }
 }

@@ -40,6 +40,11 @@ namespace DocFinder.Domain.Service
 
         }
 
+        public IEnumerable<Doctor> GetDoctors()
+        {
+            return this._db.Doctor.ToList();
+        }
+
         public int Commit()
         {
             return this._db.SaveChanges();

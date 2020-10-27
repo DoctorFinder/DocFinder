@@ -43,6 +43,8 @@ export function DoctorImageForm(props) {
                 zipcode: "",
                 phoneNumber: "",
                 webAddress: "",
+                latitude: "",
+                longitude: "",
                 timings: {
                     UpdateHours: false,
                     SunDayOpen: false,
