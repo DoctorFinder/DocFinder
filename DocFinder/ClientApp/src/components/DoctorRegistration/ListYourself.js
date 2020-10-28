@@ -204,6 +204,7 @@ export function ListYourselfComponent(props) {
           });
           return newstate;
       });
+        console.log(values);
     }
 
     function saveDoctorRegistration() {

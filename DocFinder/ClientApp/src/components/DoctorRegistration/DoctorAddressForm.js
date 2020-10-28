@@ -6,6 +6,7 @@ import errors from "../../Config/errorMessages";
 import { Fragment } from "react";
 import useAddressPredictions from "../useAddressPredictions";
 import usePlaceDetails from "../usePlaceDetails";
+import useGeoCoder from "../useGeoCoder";
 import { TimingsDialog } from "./TimingsDialog";
 
 const phoneRegex = RegExp(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/);
@@ -38,6 +39,8 @@ export function DoctorAddressForm(props) {
     const formikRef = useRef();
     const [input, setInput] = useState("");
     const [placeId, setPlaceId] = useState("");
+    const [selectedAddress, setSelectedAddress] = useState("");
+    const [addressforCode, setAddressforCode] = useState("");
     const [displayAddressDiv, setdisplayAddressDiv] = useState(false);
     const [displayTimingsModal, setDisplayTimingsModal] = useState(false);
     const [hospitaltimings, setHospitaltimings] = useState(props.item.timings)
@@ -47,29 +50,25 @@ export function DoctorAddressForm(props) {
 
     const predictions = useAddressPredictions(input);
     const placeInfo = usePlaceDetails(placeId);
+    const geoCodes = useGeoCoder(addressforCode);
 
     useEffect(() => {
         displayPlaceAddress(placeInfo)
     }, [placeInfo]);
+
+    useEffect(() => {
+        if (geoCodes != "") {
+            formikRef.current.values.latitude = geoCodes[0];
+            formikRef.current.values.longitude = geoCodes[1];
+            props.saveImageFormData(formikRef.current.values);
+        }
+    }, [geoCodes])
 
     const onAddressSelected = async (placeid, setFieldValue) => {
         const firstIdx = placeid.indexOf('"') + 1;
         const lastIdx = placeid.lastIndexOf('"');
         var substr = placeid.substring(firstIdx, lastIdx);
         setPlaceId(substr);
-
-     //   var addressDetails = predictions.filter(function (e) {
-       //     if (e.place_id == substr) {
-         //       return e;
-           // }
-       // })
-        //var address = addressDetails[0].terms;
-       // const address1 = address[0].value + " " + address[1].value;
-        //const city = address[2].value;
-        //const state = address[3].value;
-        //await setFieldValue("address1", address1);
-        //await setFieldValue("city", city);
-        //await setFieldValue("state", state);
     };
 
     function getTypeFromaddress(type, addressComponent) {
@@ -92,6 +91,7 @@ export function DoctorAddressForm(props) {
             let postalcode = getTypeFromaddress("postal_code", addressComponent);
             setLatitude(placeInfo.geometry.location.lat());
             setLongitude(placeInfo.geometry.location.lng());
+            setSelectedAddress(address1 + " " + address2 + " " + city + " " + state + " " + postalcode);
             if (formikRef.current) {
                 formikRef.current.setFieldValue("address1", address1);
                 formikRef.current.setFieldValue("address2", address2);
@@ -119,12 +119,18 @@ export function DoctorAddressForm(props) {
         values.timings = hospitaltimings;
         values.latitude = latitude;
         values.longitude = longitude;
+        let sendingAddress = values.address1 + " " + values.address2 + " " + values.city + " " + values.state + " " + values.zipcode;
+
+        if (sendingAddress != selectedAddress) {
+            setAddressforCode(sendingAddress);
+        }
+
         props.saveImageFormData(values);
     }
 
-//      if (!props.isProfessionalFormCompleted) {
-  //    return <div>Bhai please complete professional form first </div>;
-   // }
+      if (!props.isProfessionalFormCompleted) {
+      return <div>Bhai please complete professional form first </div>;
+    }
 
     return (
         <Fragment>

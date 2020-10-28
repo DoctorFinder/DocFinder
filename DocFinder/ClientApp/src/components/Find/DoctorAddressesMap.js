@@ -18,7 +18,7 @@ const MapWithAMarker = withGoogleMap(props => {
     return (
         <GoogleMap
             defaultZoom={14}
-            defaultCenter={{ lat: -34.397, lng: 150.644 }}>
+            defaultCenter={merged[0]}>
             {merged.map((mark, index) => {
 
                 return <Marker

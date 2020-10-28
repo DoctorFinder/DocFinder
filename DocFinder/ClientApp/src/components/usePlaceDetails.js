@@ -1,7 +1,7 @@
 ﻿import { useCallback, useEffect, useRef, useState } from "react";
 import { debounce } from "lodash";
 
-export default function usePlaceDetails(placeId) {
+export default function useGeoCoder(placeId) {
     const [placeInfo, setPlaceInfo] = useState([]);
 
 
@@ -25,10 +25,10 @@ export default function usePlaceDetails(placeId) {
                 {
                     placeId: placeId
                 }, (place, status) => {
-                    setPlaceInfo(place); 
-                }   
+                    setPlaceInfo(place);
+                }
             );
-        }        
+        }
     }
 
     const debouncedGetPlacePredictions = useCallback(
