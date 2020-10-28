@@ -9,13 +9,13 @@ import { ListHospitalsComponent } from "./components/ListHospitals";
 import { ListPhysicianComponent } from "./components/ListPhysicians";
 import { SearchLocationInput } from "./components/Find/FindHospitals";
 import { FindDoctorsComponent } from "./components/Find/FindDoctors";
-import { FindTrialsComponent } from "./components/Find/FindTrials";
+import  FindTrialsComponent  from "./components/Find/FindTrials";
 import { HelpComponent } from "./components/Help";
 import { EmailComponent } from "./components/Email";
 import { LegalComponent } from "./components/Legal";
 import { DoctorProfileComponent } from "./components/DoctorProfile/DoctorProfile";
 import { DoctorLoginComponent } from "./components/DoctorLogin/DoctorLogin";
-import { AdminDashboard} from "./components/Admin/AdminDashboard";
+import  AdminDashboard from "./components/Admin/AdminDashboard";
 
 import "./custom.css";
 

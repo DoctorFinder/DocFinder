@@ -18,8 +18,8 @@ namespace DocFinder.Domain.DTO
 
         public string PhoneNumber { get; set; }
 
-        public Decimal? Latitude { get; set; }
+        public Decimal Latitude { get; set; }
 
-        public Decimal? Longitude { get; set; }
+        public Decimal Longitude { get; set; }
     }
 }

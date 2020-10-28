@@ -30,7 +30,7 @@ export function DoctorProfileComponent() {
     async function getUserImage() {
         fetch('Doctor').then(async response => {
             const data = await response.json();
-            document.getElementById("ItemPreview1").src = "data:image/png;base64," + data;
+            document.getElementById("ItemPreview1").src = "data:image/png;base64," + doctor.userImage;
             if (!response.ok) {
                 let error = (data && data.message) || response.status;
                 if (data.responseMessage) {

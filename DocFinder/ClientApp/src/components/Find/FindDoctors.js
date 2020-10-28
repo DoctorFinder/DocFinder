@@ -65,11 +65,18 @@ export function FindDoctorsComponent() {
                         </Row>
                 </Form.Group>
             </Container>
-            <Container>
+            <div class="parent-container d-flex">
+            <Container fluid={true}>
                 {doctorsList.length > 0 && doctorsList.map(doc => {
                     return <DoctorCard doctor={doc} key={doc.doctor.id} />
                 }) }
                 </Container>
+                <Container>
+                    {doctorsList.length > 0 && doctorsList.map(doc => {
+                        return <DoctorCard doctor={doc} key={doc.doctor.id} />
+                    })}
+                </Container>
+                </div>
             </Fragment>        
     )
 }

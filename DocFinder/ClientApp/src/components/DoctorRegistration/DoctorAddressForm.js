@@ -85,7 +85,7 @@ export function DoctorAddressForm(props) {
         console.log(placeInfo);
         if (!Array.isArray(placeInfo)) {
             let addressComponent = placeInfo["address_components"]; 
-            let address1 = getTypeFromaddress("street_number", addressComponent) + getTypeFromaddress("route", addressComponent); //        addressComponent[0]["long_name"] + " " + addressComponent[1]["long_name"];
+            let address1 = getTypeFromaddress("street_number", addressComponent) + " " + getTypeFromaddress("route", addressComponent); //        addressComponent[0]["long_name"] + " " + addressComponent[1]["long_name"];
             let address2 = getTypeFromaddress("neighborhood", addressComponent);
             let city = getTypeFromaddress("locality", addressComponent);
             let state = getTypeFromaddress("administrative_area_level_1", addressComponent);

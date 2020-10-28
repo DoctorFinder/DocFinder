@@ -1,4 +1,5 @@
 ﻿using DocFinder.Domain.Entities;
+using NetTopologySuite.Geometries;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -38,9 +39,7 @@ namespace DocFinder.Domain
         [MaxLength(10)]
         public string PhoneNumber { get; set; }
 
-        public Decimal? Latitude { get; set; }
-
-        public Decimal? Longitude { get; set; }
+        public Point Location { get; set; }
 
         public virtual HospitalTimings HospitalTimings  { get; set; }
 

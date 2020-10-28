@@ -45,7 +45,8 @@ namespace DocFinder
             services.AddSingleton(Log.Logger);
             services.AddDbContextPool<DocFinderDBContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("DocFinderDb"));
+                options.UseSqlServer(Configuration.GetConnectionString("DocFinderDb"),
+                    x => x.UseNetTopologySuite());
             });
             services.AddControllersWithViews();
             
