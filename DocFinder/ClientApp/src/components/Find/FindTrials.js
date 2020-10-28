@@ -53,17 +53,42 @@
 
 //export default FindTrialsComponent;
 
-import { GoogleMap, Marker, withGoogleMap, } from "react-google-maps"
+import {
+    withGoogleMap,
+    GoogleMap,
+    Marker,
+} from "react-google-maps";
 
-//withGoogleMap();
-const FindTrialsComponent = props =>
+const MapWithAMarker = withGoogleMap(props => {
+    console.log(props);
+    let marks = [{ lat: -34.597, lng: 150.644 }, { lat: -34.498, lng: 150.644 }, { lat: -34.797, lng: 150.644 }, { lat: -34.998, lng: 150.644 }]
+    return (
     <GoogleMap
-        defaultZoom={8}
-        defaultCenter={{ lat: -34.397, lng: 150.644 }}
-    >
-        <Marker position={{ lat: -34.397, lng: 150.644 }} />
-    </GoogleMap>
+            defaultZoom={14}
+            defaultCenter={{ lat: -34.397, lng: 150.644 }}>
+            {marks.map((mark, index) => {
 
+                return <Marker
+                    key={ index}
+                    position={mark}
+                />
+            })}
+
+        </GoogleMap>
+    )
+}
+ 
+);
+
+
+
+
+const FindTrialsComponent = (props) =>
+
+    <MapWithAMarker
+        test="src"
+        containerElement={<div style={{ height: `400px` }} />}
+        mapElement={<div style={{ height: `100%` }} />}
+    />
 
 export default FindTrialsComponent;
-

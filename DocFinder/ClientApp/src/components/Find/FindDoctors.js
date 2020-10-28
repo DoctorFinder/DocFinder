@@ -1,6 +1,7 @@
 ﻿import React, { useState, Fragment, useEffect } from 'react';
 import { Form, Row, Col, Button, Container, Card } from 'react-bootstrap';
 import { DoctorCard } from './DoctorCard';
+import MapWithAMarker from './DoctorAddressesMap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 
@@ -65,16 +66,20 @@ export function FindDoctorsComponent() {
                         </Row>
                 </Form.Group>
             </Container>
-            <div class="parent-container d-flex">
-            <Container fluid={true}>
-                {doctorsList.length > 0 && doctorsList.map(doc => {
-                    return <DoctorCard doctor={doc} key={doc.doctor.id} />
-                }) }
-                </Container>
-                <Container>
+            <div className="parent-container d-flex">
+                <Container fluid={true}>
                     {doctorsList.length > 0 && doctorsList.map(doc => {
                         return <DoctorCard doctor={doc} key={doc.doctor.id} />
                     })}
+                </Container>
+                <Container fluid={true}>
+                    {doctorsList.length > 0 &&
+                        <MapWithAMarker
+                        doctors={doctorsList }
+                            test="src"
+                            containerElement={<div style={{ height: `100%`, width: `100%` }} />}
+                            mapElement={<div style={{ height: `100%`, width: `100%` }} />}
+                        />}
                 </Container>
                 </div>
             </Fragment>        
