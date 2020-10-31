@@ -4,6 +4,7 @@ using DocFinder.Domain.Interfaces;
 using DocFinder.Domain.Service;
 using DocFinder.Service;
 using DocFinder.Service.ApplicationService;
+using DocFinder.Service.Config;
 using DocFinder.Service.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -52,6 +53,9 @@ namespace DocFinder
             
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+            var emailConfig = Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>();
+            services.AddSingleton(emailConfig);
+
             services.AddScoped<ILanguageApplicationService, LanguageApplicationService>();
             services.AddScoped<ISpecialityApplicationService, SpecialityApplicationService>();
             services.AddScoped<IDoctorApplicationService, DoctorApplicationService>();
@@ -60,6 +64,8 @@ namespace DocFinder
             services.AddScoped<IDoctorAddressesApplicationService, DoctorAddressesApplicationService>();
             services.AddScoped<IPasswordHasherApplicationService, PasswordHasherApplicationService>();
             services.AddScoped<IHospitalTimingsApplicationService, HospitalTimingsApplicationService>();
+            services.AddScoped<IPasswordResetApplicationService, PasswordResetApplicationService>();
+            services.AddScoped<IEmailApplicationService, EmailApplicationService>();
 
             services.AddScoped<ILanguageService,LanguageService>();
             services.AddScoped<ISpecialityService, SpecialityService>();
@@ -68,6 +74,7 @@ namespace DocFinder
             services.AddScoped<IDoctorSpecialityService, DoctorSpecialityService>();
             services.AddScoped<IDoctorAddressService, DoctorAddressService>();
             services.AddScoped<IHospitalTimingsService, HospitalTimingsService>();
+            services.AddScoped<IPasswordResetService, PasswordResetService>();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

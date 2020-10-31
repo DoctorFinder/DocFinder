@@ -20,6 +20,7 @@ namespace DocFinder.Infrastructure
                 cfg.AddProfile<DoctorSpecialitiesProfile>();
                 cfg.AddProfile<DoctorAddressesProfile>();
                 cfg.AddProfile<HospitalTimingsProfile>();
+                cfg.AddProfile<PasswordResetProfile>();
             });
             var mapper = config.CreateMapper();
             return mapper;

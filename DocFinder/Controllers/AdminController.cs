@@ -1,4 +1,5 @@
-﻿using DocFinder.Domain.DTO;
+﻿using DocFinder.Domain;
+using DocFinder.Domain.DTO;
 using DocFinder.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -16,10 +17,13 @@ namespace DocFinder.Controllers
         private ILogger<AdminController> _logger { get; set; }
 
         private IDoctorApplicationService _doctorApplicationService { get; set; }
-        public AdminController(ILogger<AdminController> logger, IDoctorApplicationService doctorApplicationService)
+
+        private IEmailApplicationService _emailApplicationService { get; set; }
+        public AdminController(ILogger<AdminController> logger, IDoctorApplicationService doctorApplicationService, IEmailApplicationService emailApplicationService)
         {
             this._logger = logger;
             this._doctorApplicationService = doctorApplicationService;
+            this._emailApplicationService = emailApplicationService;
         }
 
         [HttpPost]
@@ -39,6 +43,10 @@ namespace DocFinder.Controllers
         public ActionResult Put(DoctorForRetrieving doctor)
         {
             var doctorToReturn = this._doctorApplicationService.UpdateDoctorActivated(doctor.EmailAddress);
+            if (doctorToReturn.doctor.IsVerified)
+            {
+                this._emailApplicationService.AccountActivatedEmail(doctor.EmailAddress);             
+            }
             return Ok(doctorToReturn);
         }
     }

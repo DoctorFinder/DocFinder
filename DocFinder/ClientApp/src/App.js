@@ -9,13 +9,14 @@ import { ListHospitalsComponent } from "./components/ListHospitals";
 import { ListPhysicianComponent } from "./components/ListPhysicians";
 import { SearchLocationInput } from "./components/Find/FindHospitals";
 import { FindDoctorsComponent } from "./components/Find/FindDoctors";
-import  FindTrialsComponent  from "./components/Find/FindTrials";
+import FindTrialsComponent from "./components/Find/FindTrials";
 import { HelpComponent } from "./components/Help";
 import { EmailComponent } from "./components/Email";
 import { LegalComponent } from "./components/Legal";
 import { DoctorProfileComponent } from "./components/DoctorProfile/DoctorProfile";
 import { DoctorLoginComponent } from "./components/DoctorLogin/DoctorLogin";
-import  AdminDashboard from "./components/Admin/AdminDashboard";
+import { ForgotPasswordComponent } from "./components/DoctorLogin/ForgotPassWordComponent";
+import AdminDashboard from "./components/Admin/AdminDashboard";
 
 import "./custom.css";
 
@@ -31,6 +32,10 @@ export default class App extends Component {
           <Route path="/AboutUs" component={AboutUsComponent} />
           <Route path="/Services" component={ServicesComponent} />
           <Route path="/DoctorLogin" component={DoctorLoginComponent} />
+          <Route
+            path="/ForgotPasswordComponent"
+            component={ForgotPasswordComponent}
+          />
           <Route path="/List/Hospitals" component={ListHospitalsComponent} />
           <Route path="/List/physicians" component={ListPhysicianComponent} />
           <Route path="/Find/Hospitals" component={SearchLocationInput} />
@@ -41,8 +46,7 @@ export default class App extends Component {
           <Route path="/Legal" component={LegalComponent} />
           <Route path="/DoctorProfile" component={DoctorProfileComponent} />
           <Route path="/List/yourself" component={ListYourselfComponent} />
-          <Route path="/AdminDashboard" component={AdminDashboard}/>
-
+          <Route path="/AdminDashboard" component={AdminDashboard} />
         </Layout>
       </>
     );

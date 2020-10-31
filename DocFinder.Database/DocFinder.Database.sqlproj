@@ -66,5 +66,6 @@
     <Build Include="DoctorSpecialities.sql" />
     <Build Include="DoctorAddresses.sql" />
     <Build Include="HospitalTimings.sql" />
+    <Build Include="PasswordReset.sql" />
   </ItemGroup>
 </Project>
