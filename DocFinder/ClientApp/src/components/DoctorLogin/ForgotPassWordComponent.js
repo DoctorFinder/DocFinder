@@ -21,6 +21,7 @@ export function ForgotPasswordComponent() {
 
     let location = useLocation();
     let history = useHistory();
+    const [showMsg, setShowMsg] = useState(false);
     const [errorMsg, seterrorMsg] = useState("");
     const [isRequestProcessing, setRequestProcessingStatus] = useState(false);
 
@@ -45,7 +46,7 @@ export function ForgotPasswordComponent() {
             .then(async response => {
                 const data = await response.json();
                 console.log(data);
-
+                setShowMsg(true);
                 if (!response.ok) {
                     let error = (data && data.message) || response.status;
                     if (data.responseMessage) {
@@ -53,11 +54,13 @@ export function ForgotPasswordComponent() {
                     }
                     return Promise.reject(error);
                 }
+                seterrorMsg(data);
                 setRequestProcessingStatus(false);
             })
             .catch(error => {
+                setShowMsg(true);
                 setRequestProcessingStatus(false);
-                seterrorMsg(error);
+                seterrorMsg("Error in Processing request");
             });
     }
 
@@ -66,16 +69,15 @@ export function ForgotPasswordComponent() {
             <Modal show={true} onHide={handleClose}>
 
                 <Modal.Header closeButton>
-                    <Modal.Title> Login as a doctor </Modal.Title>
+                    <Modal.Title>Please Enter your Email Address</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Formik
+                    {!showMsg && <Formik
                         validationSchema={schema}
                         initialValues={emptyLoginData}
                         onSubmit={(values: FState, setSubmitting: any) => {
                             sendPasswordResetLink(values);
-                        }}
-                    >
+                        }} >
                         {({
                             handleSubmit,
                             handleChange,
@@ -120,10 +122,14 @@ export function ForgotPasswordComponent() {
                                     </Container>
                                 </Form>
                             )}
-                    </Formik> 
+                    </Formik>
+                    }
+                    {showMsg &&
+                        <Form.Label>{errorMsg}</Form.Label>
+                    }
                 </Modal.Body>
                 <Modal.Footer>
-                    <label> {errorMsg}</label>
+
                 </Modal.Footer>
                 {isRequestProcessing && <div className="spinner" />}
             </Modal>

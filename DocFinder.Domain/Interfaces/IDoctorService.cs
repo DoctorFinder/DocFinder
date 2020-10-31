@@ -16,7 +16,9 @@ namespace DocFinder.Domain.Interfaces
 
         public Doctor UpdateDoctor(Doctor doctor);
 
-        public IEnumerable<Doctor> GetDoctors();        
+        public IEnumerable<Doctor> GetDoctors();
+
+        public Doctor GetDoctorById(int doctorId);
 
         public int Commit();
     }

@@ -192,6 +192,14 @@ namespace DocFinder.Service.ApplicationService
             return doctorsList;
         }
 
+        public void UpdateDoctorPassword(int doctorId, string updatedPassword)
+        {
+            var doctor = this._doctorService.GetDoctorById(doctorId);
+            doctor.Password = updatedPassword;
+            this._doctorService.UpdateDoctor(doctor);
+            return; 
+        }
+
 
         private bool IsPasswordMatched(string hash, string password)
         {

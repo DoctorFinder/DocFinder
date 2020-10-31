@@ -20,11 +20,12 @@ namespace DocFinder.Service.ApplicationService
         }
         public void SendPasswordResetEmail(string resetToken, string emailAddress)
         {
+            var linkHref = "<a href='https://medicmundo.azurewebsites.net/ResetPasswordComponent?token=" + resetToken + ">Password reset link</a>";
             var emailMessage = new MimeMessage();
             emailMessage.From.Add(MailboxAddress.Parse(_emailConfig.From));
             emailMessage.To.Add(MailboxAddress.Parse(emailAddress));
             emailMessage.Subject = "Password Reset Link";
-            emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Text) { Text = "You requested for an email reset link" };
+            emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Text) { Text = linkHref };
             using (var client = new SmtpClient())
             {
                 try

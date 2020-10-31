@@ -16,6 +16,8 @@ import { LegalComponent } from "./components/Legal";
 import { DoctorProfileComponent } from "./components/DoctorProfile/DoctorProfile";
 import { DoctorLoginComponent } from "./components/DoctorLogin/DoctorLogin";
 import { ForgotPasswordComponent } from "./components/DoctorLogin/ForgotPassWordComponent";
+import { ResetPasswordComponent } from "./components/DoctorLogin/ResetPasswordComponent";
+import { DoctorInfoForUserComponent } from "./components/Find/DoctorInfoForUserComponent";
 import AdminDashboard from "./components/Admin/AdminDashboard";
 
 import "./custom.css";
@@ -35,7 +37,9 @@ export default class App extends Component {
           <Route
             path="/ForgotPasswordComponent"
             component={ForgotPasswordComponent}
-          />
+                />
+          <Route path="/ResetPasswordComponent"
+            component={ResetPasswordComponent}/>
           <Route path="/List/Hospitals" component={ListHospitalsComponent} />
           <Route path="/List/physicians" component={ListPhysicianComponent} />
           <Route path="/Find/Hospitals" component={SearchLocationInput} />
@@ -47,6 +51,7 @@ export default class App extends Component {
           <Route path="/DoctorProfile" component={DoctorProfileComponent} />
           <Route path="/List/yourself" component={ListYourselfComponent} />
           <Route path="/AdminDashboard" component={AdminDashboard} />
+          <Route path="/DoctorDetails" component={DoctorInfoForUserComponent} />
         </Layout>
       </>
     );

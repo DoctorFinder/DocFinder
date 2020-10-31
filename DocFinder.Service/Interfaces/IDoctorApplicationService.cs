@@ -23,6 +23,8 @@ namespace DocFinder.Service.Interfaces
 
         public DoctorToReturnResponse UpdateDoctorActivated(string emailAddress);
 
+        public void UpdateDoctorPassword(int doctorId, string updatedPassword);
+
         public List<DoctorToReturnResponse> GetDoctors();
 
     }

@@ -26,5 +26,7 @@ namespace DocFinder.Domain
         public DbSet<DoctorAddresses> DoctorAddresses  { get;set; }
 
         public DbSet<HospitalTimings> HospitalTimings { get; set; }
+
+        public DbSet<PasswordReset> PasswordReset { get; set; }
     }
 }

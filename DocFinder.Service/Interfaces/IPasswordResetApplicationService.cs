@@ -7,5 +7,7 @@ namespace DocFinder.Service.Interfaces
     public interface IPasswordResetApplicationService
     {
         public string AddPasswordResetRequest(string emailAddress);
+
+        public int GetDoctorIdFromPasswordToken(string resetToken);
     }
 }

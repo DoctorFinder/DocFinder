@@ -27,6 +27,12 @@ namespace DocFinder.Domain.Service
             return doctorAdded.Entity.Id;           
         }
 
+        public Doctor GetDoctorById(int doctorId)
+        {
+            var doctor = this._db.Doctor.Where(doc => doc.Id == doctorId).SingleOrDefault();
+            return doctor;
+        }
+
         public Doctor UpdateDoctor(Doctor doctor)
         {
             this._db.Doctor.Update(doctor);

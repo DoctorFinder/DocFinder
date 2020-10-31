@@ -8,5 +8,7 @@ namespace DocFinder.Domain.Interfaces
     public interface IPasswordResetService
     {
         public int AddPasswordResetRequest(PasswordReset passwordReset);
+
+        public int GetDoctorIdFromPasswordToken(string resetToken);
     }
 }

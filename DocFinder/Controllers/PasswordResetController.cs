@@ -17,10 +17,17 @@ namespace DocFinder.Controllers
         private ILogger<PasswordResetController> _logger { get; set; }
 
         private IDoctorApplicationService _doctorApplicationService { get; set; }
-        public PasswordResetController(ILogger<PasswordResetController> logger, IDoctorApplicationService doctorApplicationService)
+
+        private IPasswordResetApplicationService _passwordResetApplicationService { get; set; }
+
+        private IEmailApplicationService _emailApplicationService { get; set; }
+        public PasswordResetController(ILogger<PasswordResetController> logger, IDoctorApplicationService doctorApplicationService,
+            IPasswordResetApplicationService passwordResetApplicationService, IEmailApplicationService emailApplicationService)
         {
             this._logger = logger;
             this._doctorApplicationService = doctorApplicationService;
+            this._passwordResetApplicationService = passwordResetApplicationService;
+            this._emailApplicationService = emailApplicationService;
         }
 
 
@@ -28,12 +35,26 @@ namespace DocFinder.Controllers
         [Route("[action]")]
         public ActionResult ResetDoctorPassword(AdminForRetrieving doctor)
         {
-            if (doctor.EmailAddress == "admintestemailid@gmail.com" && doctor.Password == "Test@1234")
+            string result = "Successfully sent a password reset link to your email address";
+            var resetToken = this._passwordResetApplicationService.AddPasswordResetRequest(doctor.EmailAddress);
+
+            if (resetToken != null && resetToken != "")
             {
-                var doctors = this._doctorApplicationService.GetDoctors();
-                return Ok(doctors);
+                this._emailApplicationService.SendPasswordResetEmail(resetToken, doctor.EmailAddress);
+                
             }
-            return NotFound();
+            return new JsonResult(result);
+        }
+
+        [HttpPost]
+        [Route("[action]")]
+        public ActionResult UpdatePassword(UpdatePasswordDTO password)
+        {
+            string result = "Successfully updated the password";
+            var doctorId = this._passwordResetApplicationService.GetDoctorIdFromPasswordToken(password.ResetToken);
+            this._doctorApplicationService.UpdateDoctorPassword(doctorId, password.Password);
+
+            return new JsonResult(result);
         }
     }
 }

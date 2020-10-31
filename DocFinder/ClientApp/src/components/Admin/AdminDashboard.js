@@ -20,6 +20,12 @@ const StatusRenderer = props => {
     //return <span>Field: {props.colDef.field}, Value: {props.data.id}</span>
 };
 
+//const EmailRenderer = props => {
+
+
+
+//}
+
 const AdminDashboard = () =>{
 
     let location = useLocation();

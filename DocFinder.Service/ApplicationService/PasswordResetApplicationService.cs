@@ -23,14 +23,11 @@ namespace DocFinder.Service.ApplicationService
         }
 
         public string AddPasswordResetRequest(string emailAddress)
-        {
-
-  
+        { 
             var doctor = this._doctorApplicationService.GetDoctorByEmail(emailAddress);
             if (doctor != null) 
             {
-                string passwordResetToken = GenerateAPasswordReset();
-                
+                string passwordResetToken = GenerateAPasswordReset();                
                 PasswordResetDTO passwordResetDTO = new PasswordResetDTO();
                 passwordResetDTO.DoctorId = doctor.id;
                 passwordResetDTO.PasswordResetCode = GenerateAPasswordReset();
@@ -48,6 +45,12 @@ namespace DocFinder.Service.ApplicationService
 
             }
             return "";            
+        }
+
+        public int GetDoctorIdFromPasswordToken(string resetToken)
+        {
+            var doctorId = this._passwordResetService.GetDoctorIdFromPasswordToken(resetToken);
+            return doctorId;
         }
 
         private string GenerateAPasswordReset()

@@ -2,6 +2,7 @@
 using DocFinder.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DocFinder.Domain.Service
@@ -20,6 +21,12 @@ namespace DocFinder.Domain.Service
             var passwordResetRequestAdded = this._db.Add(passwordReset);
             this.Commit();
             return passwordReset.Id;
+        }
+
+        public int GetDoctorIdFromPasswordToken(string resetToken)
+        {
+            var passwordResetRequest = this._db.PasswordReset.Where(req => req.PasswordResetCode == resetToken).SingleOrDefault();
+            return passwordResetRequest.DoctorId;
         }
 
         public int Commit()

@@ -1,5 +1,6 @@
 ﻿import React, { useState, useContext } from "react";
 import Modal from "react-bootstrap/Modal";
+import { Link } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
@@ -98,7 +99,7 @@ export function LoginComponent(props) {
                             </Row>
                             <Row md={12}>
                                 <Col>
-                                    <Button>Forgot Password</Button>
+                                    <Link to="/ForgotPasswordComponent">Forgot Password</Link>
                                     </Col>
                                 </Row>
                         </Container>
