@@ -1,5 +1,6 @@
-﻿import React, { useState, Fragment,useContext, useRef } from "react";
-import { useLocation } from "react-router-dom";
+﻿import React, { useState, Fragment, useContext, useRef } from "react";
+import { Link } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import "../../Styles/Spinner.css";
 import "../../Styles/AdminDashBoard.css";
@@ -20,15 +21,20 @@ const StatusRenderer = props => {
     //return <span>Field: {props.colDef.field}, Value: {props.data.id}</span>
 };
 
-//const EmailRenderer = props => {
+const EmailRenderer = props => {
 
+    const invokeParentMethod = () => {
+        props.context.parentDetailsMethod(props.data.id);        
+    }
 
+    return <Button onClick={invokeParentMethod}>{props.data.emailaddress}</Button>
+};
 
-//}
 
 const AdminDashboard = () =>{
 
     let location = useLocation();
+    let history = useHistory();
     let doctors = location.state.doctordetails;
     let modifiedDoctors = doctors.map(doc => {
         let modifiedDoctor = {
@@ -50,9 +56,25 @@ const AdminDashboard = () =>{
         ActivateDoctor(cell);
     };
 
-    const onGridReady = (params) => {
-
+    const parentDetailsMethod = cell => {
+        GoToDoctorInfoPage(cell);
     };
+
+
+    function GoToDoctorInfoPage(doctorId) {
+
+        const selectedDoctor = doctors.filter((doc) => {
+            if (doc.doctor.id == doctorId) {
+                return true;
+            }
+            else
+                return false;
+        });
+
+        history.push("/DoctorInfo", { doctor: selectedDoctor})        
+
+    }
+
 
     function ActivateDoctor(doctorId) {   
          
@@ -120,10 +142,12 @@ const AdminDashboard = () =>{
                         params.api.setRowData(doctorsData);
                     }}
                 frameworkComponents={{
-                    statusRenderer: StatusRenderer
+                    statusRenderer: StatusRenderer,
+                    emailRenderer: EmailRenderer
                     }}
                 context={{
-                    methodFromParent
+                    methodFromParent,
+                    parentDetailsMethod
                     }}                    
             defaultColDef={{
                 sortable: true,
@@ -136,8 +160,8 @@ const AdminDashboard = () =>{
                     paginationPageSize={10}
                 >
                 <AgGridColumn field="id"/>
-                <AgGridColumn field="fullName"  />
-                <AgGridColumn field="emailaddress" />
+                    <AgGridColumn field="fullName" />
+                    <AgGridColumn field="emailaddress" cellRenderer="emailRenderer" />
                 <AgGridColumn cellRenderer="statusRenderer" field="status"/>
                 </AgGridReact>
             </fieldset>

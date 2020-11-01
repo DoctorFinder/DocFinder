@@ -19,6 +19,7 @@ import { ForgotPasswordComponent } from "./components/DoctorLogin/ForgotPassWord
 import { ResetPasswordComponent } from "./components/DoctorLogin/ResetPasswordComponent";
 import { DoctorInfoForUserComponent } from "./components/Find/DoctorInfoForUserComponent";
 import AdminDashboard from "./components/Admin/AdminDashboard";
+import { DoctorInfoComponent } from "./components/Admin/DoctorInfoComponent"
 
 import "./custom.css";
 
@@ -52,6 +53,7 @@ export default class App extends Component {
           <Route path="/List/yourself" component={ListYourselfComponent} />
           <Route path="/AdminDashboard" component={AdminDashboard} />
           <Route path="/DoctorDetails" component={DoctorInfoForUserComponent} />
+          <Route path="/DoctorInfo" component={DoctorInfoComponent} />
         </Layout>
       </>
     );

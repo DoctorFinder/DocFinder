@@ -29,7 +29,7 @@ export function DoctorCard(props) {
                         <Link to={{
                             pathname: '/DoctorDetails',
                             state: {
-                                fromNotifications: true
+                                Doctor: props.doctor
                             }
                         }}><h4 className="card-title">{"Dr." + doctor.firstName + " " + doctor.lastName + "," + doctor.degree}</h4></Link>
                         <p className="card-text">{ specialities.label}</p>
