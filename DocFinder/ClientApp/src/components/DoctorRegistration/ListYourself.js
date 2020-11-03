@@ -204,7 +204,6 @@ export function ListYourselfComponent(props) {
           });
           return newstate;
       });
-        console.log(values);
     }
 
     function saveDoctorRegistration() {
@@ -228,6 +227,8 @@ export function ListYourselfComponent(props) {
             EducationCountry: defaultProfessionalFormData.educationCountry,
             EducationState: defaultProfessionalFormData.educationState,
             YearOfGraduation: defaultProfessionalFormData.yearOfGraduation.toJSON(),
+            ClinicalInterests: defaultProfessionalFormData.clinicalInterest,
+            ResearchInterests: defaultProfessionalFormData.researchInterest,
             ResidencyFrom: defaultProfessionalFormData.residencyFrom,
             ResidencyCity: defaultProfessionalFormData.residencyCity,
             ResidencyCountry: defaultProfessionalFormData.residencyCountry,
@@ -237,7 +238,7 @@ export function ListYourselfComponent(props) {
             FellowshipCountry: defaultProfessionalFormData.fellowshipCountry,
             FellowshipState: defaultProfessionalFormData.fellowshipState,
             IsPaid: false,
-            IsVerified:false
+            IsVerified: false            
         };                           
 
         var DoctorForCreationDTO = new FormData();

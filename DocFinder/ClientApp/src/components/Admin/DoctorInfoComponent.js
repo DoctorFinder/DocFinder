@@ -14,17 +14,18 @@ export function DoctorInfoComponent() {
     const [key, setKey] = useState("personal");
 
     console.log(location.state);
+    let doctor = location.state.doctor[0];
     return (
         <Tabs activeKey={key}
             onSelect={(k) => setKey(k)} id="doctorProfile">
             <Tab eventKey="personal" title="Personal Info">
-                <DoctorInfoPersonalComponent/>
+                <DoctorInfoPersonalComponent Doctor={ doctor}/>
             </Tab>
             <Tab eventKey="professional" title="Professional Info">
-                <DoctorInfoProfessionalComponent />
+                <DoctorInfoProfessionalComponent Doctor={doctor}/>
             </Tab>
             <Tab eventKey="office" title="Office Info">
-                <DoctorInfoAddressComponent />
+                <DoctorInfoAddressComponent Doctor={doctor}/>
             </Tab>
         </Tabs>
 

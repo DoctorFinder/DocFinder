@@ -70,6 +70,10 @@ namespace DocFinder.Domain
         [Required]
         public DateTime YearOfGraduation  { get;set;}
 
+        public string ClinicalInterests { get; set; }
+
+        public string ResearchInterests { get; set; }
+
         [MaxLength(30)]
         public string FellowshipFrom { get; set; }
 

@@ -7,6 +7,7 @@ import { OfficeInfoEdit } from './OfficeInfoEdit';
 import { PersonalInfo } from './PersonalInfo';
 import { PersonalInfoEdit } from './PersonalInfoEdit';
 import { ProfessionalEditInfo } from './ProfessionalEditInfo';
+import { ProfessionalInfo } from './ProfessionalInfo';
 import "../../Styles/Spinner.css";
 import {  Button, Card,Row,Col,Image } from "react-bootstrap";
 
@@ -87,18 +88,15 @@ export function DoctorProfileComponent() {
             <Tab eventKey="personal" title="Personal Info">
                     {!updateModeState && <PersonalInfo DoctorDetails={doctor} />} 
                     {updateModeState && <PersonalInfoEdit DoctorDetails={doctor} SetReadOnlyMode={setReadOnlyMode} SaveDoctorPersonalData={saveDoctorPersonalData} />} 
-                </Tab>
-                    {
-                        updateModeState &&
-                        <Tab eventKey="professional" title="Professional Info">
-                            <ProfessionalEditInfo DoctorDetails={doctor} SetReadOnlyMode={setReadOnlyMode} SaveDoctorProfessionalData={saveDoctorProfessionalData} CancelProfessionalData={cancelProfessionalData} />
-                        </Tab>
-                    }
-                
+            </Tab>
+            <Tab eventKey="professional" title="Professional Info">
+                    {!updateModeState && <ProfessionalInfo DoctorDetails={doctor}/>}
+                    {updateModeState && <ProfessionalEditInfo DoctorDetails={doctor} SetReadOnlyMode={setReadOnlyMode} SaveDoctorProfessionalData={saveDoctorProfessionalData} CancelProfessionalData={cancelProfessionalData} />}
+            </Tab>                                    
             <Tab eventKey="office" title="Office Info">
                     {!updateModeState && <OfficeInfo DoctorDetails={doctor} />}
                     {updateModeState && <OfficeInfoEdit DoctorDetails={doctor} SetReadOnlyMode={setReadOnlyMode} SaveDoctorOfficeData={saveDoctorOfficeData}/>}
-                </Tab>
+            </Tab>
             </Tabs>
             {!updateModeState && <div><Button onClick={setEditMode}>Edit Profile</Button> </div>} 
               </fieldset>

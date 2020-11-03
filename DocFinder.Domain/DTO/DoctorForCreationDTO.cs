@@ -43,6 +43,10 @@ namespace DocFinder.Domain.DTO
 
         public DateTime YearOfGraduation { get; set; }
 
+        public string ClinicalInterests { get; set; }
+
+        public string ResearchInterests { get; set; }
+
         public string FellowshipFrom { get; set; }
 
         public string FellowshipCity { get; set; }

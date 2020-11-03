@@ -20,6 +20,8 @@
     [EducationCountry] VARCHAR(30) NULL,
     [EducationState] VARCHAR(30) NULL,
     [YearOfGraduation] Date NOT NULL,
+    [ClinicalInterests] VARCHAR(MAX) NULL,
+    [ResearchInterests] VARCHAR(MAX) NULL,
     [ResidencyFrom] VARCHAR(30) NULL,
     [ResidencyCity] VARCHAR(30) NULL,
     [ResidencyCountry] VARCHAR(30) NULL,
