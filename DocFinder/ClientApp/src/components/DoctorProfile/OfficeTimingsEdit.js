@@ -1,19 +1,34 @@
-﻿import React from 'react';
+﻿import React, { useState } from 'react';
 import Modal from "react-bootstrap/Modal";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 
+export function OfficeTimingsEdit(props) {
 
-export function DoctorInfoTimingscomponent(props) {
+    const [hospitalTimings, setHospitalTimings] = useState(props.Hospitaltimings);
     console.log(props);
+    let hospTimings = props.Hospitaltimings;
 
-    let hospitalTimings = props.Hospitaltimings;
+    function modifyTimings(dayToChange, date) {
+        let modifiedState = { ...hospitalTimings };
+        modifiedState[dayToChange] = date;
+        setHospitalTimings(modifiedState);
+    }
 
     function handleClose() {
         props.ToggleModal();
     }
+
+    function UpdateTimings() {
+        let modifiedState = { ...hospitalTimings };
+        modifiedState.UpdateHours = true;
+        setHospitalTimings(modifiedState);
+        props.UpdateHospitalTimings(modifiedState);
+        props.ToggleModal();
+    }
+
 
     return (
         <Modal show={props.DisplayModal} onHide={handleClose}>
@@ -43,8 +58,11 @@ export function DoctorInfoTimingscomponent(props) {
                             </Col>
                             <Col md={3}>
                                 <DatePicker
-                                    disabled={ true}
-                                    selected={new Date(Date.parse(hospitalTimings.sundayStart))}
+                                    disabled={!hospTimings.sunDayOpen}
+                                    selected={new Date(Date.parse(hospTimings.sundayStart))}
+                                    onChange={date => {
+                                        modifyTimings("sundayStart", date)
+                                    }}
                                     showTimeSelect
                                     showTimeSelectOnly
                                     timeIntervals={15}
@@ -55,8 +73,11 @@ export function DoctorInfoTimingscomponent(props) {
                             </Col>
                             <Col md={3}>
                                 <DatePicker
-                                    disabled={true}
-                                    selected={new Date(Date.parse(hospitalTimings.sundayEnd))}                               
+                                    disabled={!hospTimings.sunDayOpen}
+                                    selected={new Date(Date.parse(hospTimings.sundayEnd))}
+                                    onChange={date => {
+                                        modifyTimings("sundayEnd", date)
+                                    }}
                                     showTimeSelect
                                     showTimeSelectOnly
                                     timeIntervals={15}
@@ -66,7 +87,13 @@ export function DoctorInfoTimingscomponent(props) {
                                 />
                             </Col>
                             <Col md={3}>
-                                <Form.Check type='checkbox' label='Closed' defaultChecked={hospitalTimings.sunDayOpen} disabled={ true}                                    
+                                <Form.Check type='checkbox' label='Closed' defaultChecked={hospTimings.sunDayOpen}
+                                    onChange={() => {
+                                        const modifiedState = { ...hospitalTimings };
+                                        modifiedState.sunDayOpen = !hospitalTimings.sunDayOpen;
+                                        setHospitalTimings(modifiedState);
+                                    }
+                                    }
                                 />
                             </Col>
                         </Row>
@@ -76,8 +103,11 @@ export function DoctorInfoTimingscomponent(props) {
                             </Col>
                             <Col md={3}>
                                 <DatePicker
-                                    disabled={true}
-                                    selected={new Date(Date.parse(hospitalTimings.mondayStart))}                                    
+                                    disabled={!hospitalTimings.monDayOpen}
+                                    selected={new Date(Date.parse(hospTimings.mondayStart))}
+                                    onChange={date => {
+                                        modifyTimings("mondayStart", date)
+                                    }}
                                     showTimeSelect
                                     showTimeSelectOnly
                                     timeIntervals={15}
@@ -88,8 +118,11 @@ export function DoctorInfoTimingscomponent(props) {
                             </Col>
                             <Col md={3}>
                                 <DatePicker
-                                    disabled={true}
-                                    selected={new Date(Date.parse(hospitalTimings.mondayEnd))}
+                                    disabled={!hospitalTimings.monDayOpen}
+                                    selected={new Date(Date.parse(hospTimings.mondayEnd))}
+                                    onChange={date => {
+                                        modifyTimings("mondayEnd", date)
+                                    }}
                                     showTimeSelect
                                     showTimeSelectOnly
                                     timeIntervals={15}
@@ -99,7 +132,13 @@ export function DoctorInfoTimingscomponent(props) {
                                 />
                             </Col>
                             <Col md={3}>
-                                <Form.Check type='checkbox' label='Closed' defaultChecked={hospitalTimings.monDayOpen} disabled={true}                                    
+                                <Form.Check type='checkbox' label='Closed' defaultChecked={hospitalTimings.monDayOpen}
+                                    onChange={() => {
+                                        const modifiedState = { ...hospitalTimings };
+                                        modifiedState.monDayOpen = !hospitalTimings.monDayOpen;
+                                        setHospitalTimings(modifiedState);
+                                    }
+                                    }
                                 />
                             </Col>
                         </Row>
@@ -109,8 +148,11 @@ export function DoctorInfoTimingscomponent(props) {
                             </Col>
                             <Col md={3}>
                                 <DatePicker
-                                    disabled={true}
-                                    selected={new Date(Date.parse(hospitalTimings.tuesdayStart))}
+                                    disabled={!hospitalTimings.tuesDayOpen}
+                                    selected={new Date(Date.parse(hospTimings.tuesdayStart))}
+                                    onChange={date => {
+                                        modifyTimings("tuesdayStart", date)
+                                    }}
                                     showTimeSelect
                                     showTimeSelectOnly
                                     timeIntervals={15}
@@ -121,8 +163,11 @@ export function DoctorInfoTimingscomponent(props) {
                             </Col>
                             <Col md={3}>
                                 <DatePicker
-                                    disabled={true}
-                                    selected={new Date(Date.parse(hospitalTimings.tuesdayEnd))}
+                                    disabled={!hospitalTimings.tuesDayOpen}
+                                    selected={new Date(Date.parse(hospTimings.tuesdayEnd))}
+                                    onChange={date => {
+                                        modifyTimings("tuesdayEnd", date)
+                                    }}
                                     showTimeSelect
                                     showTimeSelectOnly
                                     timeIntervals={15}
@@ -132,7 +177,13 @@ export function DoctorInfoTimingscomponent(props) {
                                 />
                             </Col>
                             <Col md={3}>
-                                <Form.Check type='checkbox' label='Closed' defaultChecked={hospitalTimings.tuesDayOpen} disabled={true}                                   
+                                <Form.Check type='checkbox' label='Closed' defaultChecked={hospitalTimings.tuesDayOpen}
+                                    onChange={() => {
+                                        const modifiedState = { ...hospitalTimings };
+                                        modifiedState.tuesDayOpen = !hospitalTimings.tuesDayOpen;
+                                        setHospitalTimings(modifiedState);
+                                    }
+                                    }
                                 />
                             </Col>
                         </Row>
@@ -142,8 +193,11 @@ export function DoctorInfoTimingscomponent(props) {
                             </Col>
                             <Col md={3}>
                                 <DatePicker
-                                    disabled={true}
-                                    selected={new Date(Date.parse(hospitalTimings.wednesdayStart))}
+                                    disabled={!hospitalTimings.wednesDayOpen}
+                                    selected={new Date(Date.parse(hospTimings.wednesdayStart))}
+                                    onChange={date => {
+                                        modifyTimings("wednesdayStart", date)
+                                    }}
                                     showTimeSelect
                                     showTimeSelectOnly
                                     timeIntervals={15}
@@ -154,8 +208,11 @@ export function DoctorInfoTimingscomponent(props) {
                             </Col>
                             <Col md={3}>
                                 <DatePicker
-                                    disabled={true}
-                                    selected={new Date(Date.parse(hospitalTimings.wednesdayEnd))}
+                                    disabled={!hospitalTimings.wednesDayOpen}
+                                    selected={new Date(Date.parse(hospTimings.wednesdayEnd))}
+                                    onChange={date => {
+                                        modifyTimings("wednesdayEnd", date)
+                                    }}
                                     showTimeSelect
                                     showTimeSelectOnly
                                     timeIntervals={15}
@@ -165,8 +222,13 @@ export function DoctorInfoTimingscomponent(props) {
                                 />
                             </Col>
                             <Col md={3}>
-                                <Form.Check type='checkbox' label='Closed' defaultChecked={hospitalTimings.wednesDayOpen} disabled={true}
-                                   
+                                <Form.Check type='checkbox' label='Closed' defaultChecked={hospitalTimings.wednesDayOpen}
+                                    onChange={() => {
+                                        const modifiedState = { ...hospitalTimings };
+                                        modifiedState.wednesDayOpen = !hospitalTimings.wednesDayOpen;
+                                        setHospitalTimings(modifiedState);
+                                    }
+                                    }
                                 />
                             </Col>
                         </Row>
@@ -176,8 +238,12 @@ export function DoctorInfoTimingscomponent(props) {
                             </Col>
                             <Col md={3}>
                                 <DatePicker
-                                    disabled={true}
-                                    selected={new Date(Date.parse(hospitalTimings.thursdayStart))}
+                                    disabled={!hospitalTimings.thursDayOpen}
+                                    selected={new Date(Date.parse(hospTimings.thursdayStart))}
+                                    onChange={date => {
+                                        modifyTimings("thursdayStart", date)
+
+                                    }}
                                     showTimeSelect
                                     showTimeSelectOnly
                                     timeIntervals={15}
@@ -188,8 +254,12 @@ export function DoctorInfoTimingscomponent(props) {
                             </Col>
                             <Col md={3}>
                                 <DatePicker
-                                    disabled={true}
-                                    selected={new Date(Date.parse(hospitalTimings.thursdayEnd))}
+                                    disabled={!hospitalTimings.thursDayOpen}
+                                    selected={new Date(Date.parse(hospTimings.thursdayEnd))}
+                                    onChange={date => {
+                                        modifyTimings("thursdayEnd", date)
+
+                                    }}
                                     showTimeSelect
                                     showTimeSelectOnly
                                     timeIntervals={15}
@@ -199,8 +269,13 @@ export function DoctorInfoTimingscomponent(props) {
                                 />
                             </Col>
                             <Col md={3}>
-                                <Form.Check type='checkbox' label='Closed' defaultChecked={hospitalTimings.thursDayOpen} disabled={true}
-                                     
+                                <Form.Check type='checkbox' label='Closed' defaultChecked={hospitalTimings.thursDayOpen}
+                                    onChange={() => {
+                                        const modifiedState = { ...hospitalTimings };
+                                        modifiedState.thursDayOpen = !hospitalTimings.thursDayOpen;
+                                        setHospitalTimings(modifiedState);
+                                    }
+                                    }
                                 />
                             </Col>
                         </Row>
@@ -210,8 +285,11 @@ export function DoctorInfoTimingscomponent(props) {
                             </Col>
                             <Col md={3}>
                                 <DatePicker
-                                    disabled={true}
-                                    selected={new Date(Date.parse(hospitalTimings.fridayStart))}
+                                    disabled={!hospitalTimings.friDayOpen}
+                                    selected={new Date(Date.parse(hospTimings.fridayStart))}
+                                    onChange={date => {
+                                        modifyTimings("fridayStart", date)
+                                    }}
                                     showTimeSelect
                                     showTimeSelectOnly
                                     timeIntervals={15}
@@ -222,8 +300,11 @@ export function DoctorInfoTimingscomponent(props) {
                             </Col>
                             <Col md={3}>
                                 <DatePicker
-                                    disabled={true}
-                                    selected={new Date(Date.parse(hospitalTimings.fridayEnd))}
+                                    disabled={!hospitalTimings.friDayOpen}
+                                    selected={new Date(Date.parse(hospTimings.fridayEnd))}
+                                    onChange={date => {
+                                        modifyTimings("fridayEnd", date)
+                                    }}
                                     showTimeSelect
                                     showTimeSelectOnly
                                     timeIntervals={15}
@@ -233,8 +314,13 @@ export function DoctorInfoTimingscomponent(props) {
                                 />
                             </Col>
                             <Col md={3}>
-                                <Form.Check type='checkbox' label='Closed' defaultChecked={hospitalTimings.friDayOpen} disabled={true}
-                                     
+                                <Form.Check type='checkbox' label='Closed' defaultChecked={hospitalTimings.friDayOpen}
+                                    onChange={() => {
+                                        const modifiedState = { ...hospitalTimings };
+                                        modifiedState.FriDayOpen = !hospitalTimings.friDayOpen;
+                                        setHospitalTimings(modifiedState);
+                                    }
+                                    }
                                 />
                             </Col>
                         </Row>
@@ -244,8 +330,11 @@ export function DoctorInfoTimingscomponent(props) {
                             </Col>
                             <Col md={3}>
                                 <DatePicker
-                                    disabled={true}
-                                    selected={new Date(Date.parse(hospitalTimings.saturdayStart))}
+                                    disabled={!hospitalTimings.satDayOpen}
+                                    selected={new Date(Date.parse(hospTimings.saturdayStart))}
+                                    onChange={date => {
+                                        modifyTimings("saturdayStart", date)
+                                    }}
                                     showTimeSelect
                                     showTimeSelectOnly
                                     timeIntervals={15}
@@ -256,8 +345,11 @@ export function DoctorInfoTimingscomponent(props) {
                             </Col>
                             <Col md={3}>
                                 <DatePicker
-                                    disabled={true}
-                                    selected={new Date(Date.parse(hospitalTimings.saturdayEnd))}
+                                    disabled={!hospitalTimings.satDayOpen}
+                                    selected={new Date(Date.parse(hospTimings.saturdayEnd))}
+                                    onChange={date => {
+                                        modifyTimings("saturdayEnd", date)
+                                    }}
                                     showTimeSelect
                                     showTimeSelectOnly
                                     timeIntervals={15}
@@ -267,8 +359,13 @@ export function DoctorInfoTimingscomponent(props) {
                                 />
                             </Col>
                             <Col md={3}>
-                                <Form.Check type='checkbox' label='Closed' defaultChecked={hospitalTimings.satDayOpen} disabled={true}
-                                     
+                                <Form.Check type='checkbox' label='Closed' defaultChecked={hospitalTimings.satDayOpen}
+                                    onChange={() => {
+                                        const modifiedState = { ...hospitalTimings };
+                                        modifiedState.satDayOpen = !hospitalTimings.satDayOpen;
+                                        setHospitalTimings(modifiedState);
+                                    }
+                                    }
                                 />
                             </Col>
                         </Row>
@@ -276,8 +373,8 @@ export function DoctorInfoTimingscomponent(props) {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
+                <Button onClick={UpdateTimings}>Submit</Button>
             </Modal.Footer>
         </Modal>
     )
-
 }

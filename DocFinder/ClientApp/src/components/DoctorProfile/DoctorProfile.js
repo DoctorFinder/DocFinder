@@ -23,6 +23,7 @@ export function DoctorProfileComponent() {
         doctor.languages = location.state.doctordetails.languages;
     doctor.specialities = location.state.doctordetails.specialities;
     doctor.subspecialities = location.state.doctordetails.specialities;
+    doctor.addresses = location.state.doctordetails.addresses;
 
     useEffect(() => {
         getUserImage();
@@ -71,14 +72,7 @@ export function DoctorProfileComponent() {
         setRequestProcessingStatus(true);
         setRequestProcessingStatus(false);
         setReadOnlyMode();
-    }
-
-    function cancelProfessionalData() {
-        setReadOnlyMode();
-        setKey("personal");        
-    }
-
- 
+    } 
 
     return (
         <Fragment>
@@ -91,7 +85,7 @@ export function DoctorProfileComponent() {
             </Tab>
             <Tab eventKey="professional" title="Professional Info">
                     {!updateModeState && <ProfessionalInfo DoctorDetails={doctor}/>}
-                    {updateModeState && <ProfessionalEditInfo DoctorDetails={doctor} SetReadOnlyMode={setReadOnlyMode} SaveDoctorProfessionalData={saveDoctorProfessionalData} CancelProfessionalData={cancelProfessionalData} />}
+                    {updateModeState && <ProfessionalEditInfo DoctorDetails={doctor} SetReadOnlyMode={setReadOnlyMode} SaveDoctorProfessionalData={saveDoctorProfessionalData} />}
             </Tab>                                    
             <Tab eventKey="office" title="Office Info">
                     {!updateModeState && <OfficeInfo DoctorDetails={doctor} />}
@@ -101,26 +95,6 @@ export function DoctorProfileComponent() {
             {!updateModeState && <div><Button onClick={setEditMode}>Edit Profile</Button> </div>} 
               </fieldset>
             {isRequestProcessing && <div className="spinner" />}
-            <img id="ItemPreview" alt="nopes" />
-        
-                        <Row md={2}>
-                            <Col md={ 2}>
-                    <Image id="ItemPreview1" className="img-fluid" alt="nopes" roundedCircle/>
-                                    </Col>
-                <Col md={10}>
-                    <Row>
-                        <Col>
-                            testit is test tesing is testing i 
-                            </Col> 
-                    </Row>
-                    <Row>
-                        <Col>
-                            testit is test tesing is testing i jkuiopkl
-                            </Col>
-                    </Row>
-                                    </Col>
-                        </Row>
-      
             </Fragment>
     )
 }

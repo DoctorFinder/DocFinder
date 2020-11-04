@@ -36,7 +36,47 @@ const schema = Yup.object({
   subspecialities: Yup.array().required(
     errors.required.replace("{0}", "Sub Specialities")
   ),
-  languages: Yup.array().required(errors.required.replace("{0}", "Languages"))
+    languages: Yup.array().required(errors.required.replace("{0}", "Languages")),
+    educationCity: Yup.string()
+        .trim()
+        .max(30, errors.tooLong.replace("{0}", "City Graduated From").replace("{1}", "30")),
+    educationCountry: Yup.string()
+        .trim()
+        .max(30, errors.tooLong.replace("{0}", "Country Graduated From").replace("{1}", "30")),
+    educationState: Yup.string()
+        .trim()
+        .max(30, errors.tooLong.replace("{0}", "State Graduated From").replace("{1}", "30")),
+    residencyFrom: Yup.string()
+        .trim()
+        .max(30, errors.tooLong.replace("{0}", "Place Attended Residency").replace("{1}", "30")),
+    residencyCity: Yup.string()
+        .trim()
+        .max(30, errors.tooLong.replace("{0}", "City Attended Residency").replace("{1}", "30")),
+    residencyCountry: Yup.string()
+        .trim()
+        .max(30, errors.tooLong.replace("{0}", "Country Attended Residency").replace("{1}", "30")),
+    residencyState: Yup.string()
+        .trim()
+        .max(30, errors.tooLong.replace("{0}", "State Attended Residency").replace("{1}", "30")),
+    fellowshipFrom: Yup.string()
+        .trim()
+        .max(30, errors.tooLong.replace("{0}", "Place Attended Fellowship").replace("{1}", "30")),
+    fellowshipCity: Yup.string()
+        .trim()
+        .max(30, errors.tooLong.replace("{0}", "City Attended Fellowship").replace("{1}", "30")),
+    fellowshipCountry: Yup.string()
+        .trim()
+        .max(30, errors.tooLong.replace("{0}", "Country Attended Fellowship").replace("{1}", "30")),
+    fellowshipState: Yup.string()
+        .trim()
+        .max(30, errors.tooLong.replace("{0}", "State Attended Fellowship").replace("{1}", "30")),
+    clinicalInterests: Yup.string()
+        .trim()
+        .required(errors.required.replace("{0}", "Clinical Interests"))
+        .max(100, errors.tooLong.replace("{0}", "Clinical Interests").replace("{1}", "100")),
+    researchInterests: Yup.string()
+        .trim()
+        .max(100, errors.tooLong.replace("{0}", "Research Interest").replace("{1}", "100")),
 });
 
 export function ProfessionalEditInfo(props) {
@@ -116,7 +156,7 @@ export function ProfessionalEditInfo(props) {
                   }}>
           <Container>
             <Form.Group>
-              <Row md={6}>
+              <Row md={12}>
                 <Col>
                   <Form.Label>Education</Form.Label>
                 </Col>
@@ -139,7 +179,7 @@ export function ProfessionalEditInfo(props) {
                 )}
             </Form.Group>
             <Form.Group>
-              <Row md={6}>
+              <Row md={12}>
                 <Col>
                   <Form.Label>Degree</Form.Label>
                 </Col>
@@ -162,7 +202,7 @@ export function ProfessionalEditInfo(props) {
                 )}
             </Form.Group>
             <Form.Group>
-              <Row md={6}>
+              <Row md={12}>
                 <Col>
                   <Form.Label>Years In Practise</Form.Label>
                 </Col>
@@ -183,7 +223,306 @@ export function ProfessionalEditInfo(props) {
                 touched.experience && (
                   <div className="errorTxt">{errors.experience}</div>
                 )}
-            </Form.Group>
+                          </Form.Group>
+                          <Form.Group>
+                              <Row md={12}>
+                                  <Col>
+                                      <Form.Label>Graduated City</Form.Label>
+                                  </Col>
+                                  <Col>
+                                      <Form.Control
+                                          type="text"
+                                          name="educationCity"
+                                          value={values.educationCity}
+                                          placeholder="Enter City Graduated From"
+                                          onChange={e => {
+                                              setFieldTouched("educationCity");
+                                              handleChange(e);
+                                          }}
+                                      />
+                                  </Col>
+                              </Row>
+                              {errors.educationCity &&
+                                  touched.educationCity && (
+                                  <div className="errorTxt">{errors.educationCity}</div>
+                                  )}
+                          </Form.Group>
+                          <Form.Group>
+                              <Row md={12}>
+                                  <Col>
+                                      <Form.Label>Graduated Country</Form.Label>
+                                  </Col>
+                                  <Col>
+                                      <Form.Control
+                                          type="text"
+                                          name="educationCountry"
+                                          value={values.educationCountry}
+                                          placeholder="Enter Country Graduated From"
+                                          onChange={e => {
+                                              setFieldTouched("educationCountry");
+                                              handleChange(e);
+                                          }}
+                                      />
+                                  </Col>
+                              </Row>
+                              {errors.educationCountry &&
+                                  touched.educationCountry && (
+                                  <div className="errorTxt">{errors.educationCountry}</div>
+                                  )}
+                          </Form.Group>
+                          <Form.Group>
+                              <Row md={12}>
+                                  <Col>
+                                      <Form.Label>Graduated State</Form.Label>
+                                  </Col>
+                                  <Col>
+                                      <Form.Control
+                                          type="text"
+                                          name="educationState"
+                                          value={values.educationState}
+                                          placeholder="Enter State Graduated From"
+                                          onChange={e => {
+                                              setFieldTouched("educationState");
+                                              handleChange(e);
+                                          }}
+                                      />
+                                  </Col>
+                              </Row>
+                              {errors.educationState &&
+                                  touched.educationState && (
+                                  <div className="errorTxt">{errors.educationState}</div>
+                                  )}
+                          </Form.Group>
+                          <Form.Group>
+                              <Row md={12}>
+                                  <Col>
+                                      <Form.Label>Residency At</Form.Label>
+                                  </Col>
+                                  <Col>
+                                      <Form.Control
+                                          type="text"
+                                          name="residencyFrom"
+                                          value={values.residencyFrom}
+                                          placeholder="Enter Residency Attended At"
+                                          onChange={e => {
+                                              setFieldTouched("residencyFrom");
+                                              handleChange(e);
+                                          }}
+                                      />
+                                  </Col>
+                              </Row>
+                              {errors.residencyFrom &&
+                                  touched.residencyFrom && (
+                                  <div className="errorTxt">{errors.residencyFrom}</div>
+                                  )}
+                          </Form.Group>
+                          <Form.Group>
+                              <Row md={12}>
+                                  <Col>
+                                      <Form.Label>Residency City</Form.Label>
+                                  </Col>
+                                  <Col>
+                                      <Form.Control
+                                          type="text"
+                                          name="residencyCity"
+                                          value={values.residencyCity}
+                                          placeholder="Enter City Attended Residency "
+                                          onChange={e => {
+                                              setFieldTouched("residencyCity");
+                                              handleChange(e);
+                                          }}
+                                      />
+                                  </Col>
+                              </Row>
+                              {errors.residencyCity &&
+                                  touched.residencyCity && (
+                                  <div className="errorTxt">{errors.residencyCity}</div>
+                                  )}
+                          </Form.Group>
+                          <Form.Group>
+                              <Row md={12}>
+                                  <Col>
+                                      <Form.Label>Residency Country</Form.Label>
+                                  </Col>
+                                  <Col>
+                                      <Form.Control
+                                          type="text"
+                                          name="residencyCountry"
+                                          value={values.residencyCountry}
+                                          placeholder="Enter Country Attended Residency"
+                                          onChange={e => {
+                                              setFieldTouched("residencyCountry");
+                                              handleChange(e);
+                                          }}
+                                      />
+                                  </Col>
+                              </Row>
+                              {errors.residencyCountry &&
+                                  touched.residencyCountry && (
+                                  <div className="errorTxt">{errors.residencyCountry}</div>
+                                  )}
+                          </Form.Group>
+                          <Form.Group>
+                              <Row md={12}>
+                                  <Col>
+                                      <Form.Label>Residency State</Form.Label>
+                                  </Col>
+                                  <Col>
+                                      <Form.Control
+                                          type="text"
+                                          name="residencyState"
+                                          value={values.residencyState}
+                                          placeholder="Enter State Attended Residency"
+                                          onChange={e => {
+                                              setFieldTouched("residencyState");
+                                              handleChange(e);
+                                          }}
+                                      />
+                                  </Col>
+                              </Row>
+                              {errors.residencyState &&
+                                  touched.residencyState && (
+                                  <div className="errorTxt">{errors.residencyState}</div>
+                                  )}
+                          </Form.Group>
+                          <Form.Group>
+                              <Row md={12}>
+                                  <Col>
+                                      <Form.Label>Fellowship At</Form.Label>
+                                  </Col>
+                                  <Col>
+                                      <Form.Control
+                                          type="text"
+                                          name="fellowshipFrom"
+                                          value={values.fellowshipFrom}
+                                          placeholder="Enter Fellowship Place"
+                                          onChange={e => {
+                                              setFieldTouched("fellowshipFrom");
+                                              handleChange(e);
+                                          }}
+                                      />
+                                  </Col>
+                              </Row>
+                              {errors.fellowshipFrom &&
+                                  touched.fellowshipFrom && (
+                                  <div className="errorTxt">{errors.fellowshipFrom}</div>
+                                  )}
+                          </Form.Group>
+                          <Form.Group>
+                              <Row md={12}>
+                                  <Col>
+                                      <Form.Label>Fellowship City</Form.Label>
+                                  </Col>
+                                  <Col>
+                                      <Form.Control
+                                          type="text"
+                                          name="fellowshipCity"
+                                          value={values.fellowshipCity}
+                                          placeholder="Enter City Attended Fellowship"
+                                          onChange={e => {
+                                              setFieldTouched("fellowshipCity");
+                                              handleChange(e);
+                                          }}
+                                      />
+                                  </Col>
+                              </Row>
+                              {errors.fellowshipCity &&
+                                  touched.fellowshipCity && (
+                                  <div className="errorTxt">{errors.fellowshipCity}</div>
+                                  )}
+                          </Form.Group>
+                          <Form.Group>
+                              <Row md={12}>
+                                  <Col>
+                                      <Form.Label>Fellowship Country</Form.Label>
+                                  </Col>
+                                  <Col>
+                                      <Form.Control
+                                          type="text"
+                                          name="fellowshipCountry"
+                                          value={values.fellowshipCountry}
+                                          placeholder="Enter Country Attended Fellowship"
+                                          onChange={e => {
+                                              setFieldTouched("fellowshipCountry");
+                                              handleChange(e);
+                                          }}
+                                      />
+                                  </Col>
+                              </Row>
+                              {errors.fellowshipCountry &&
+                                  touched.fellowshipCountry && (
+                                  <div className="errorTxt">{errors.fellowshipCountry}</div>
+                                  )}
+                          </Form.Group>
+                          <Form.Group>
+                              <Row md={12}>
+                                  <Col>
+                                      <Form.Label>Fellowship State</Form.Label>
+                                  </Col>
+                                  <Col>
+                                      <Form.Control
+                                          type="text"
+                                          name="fellowshipState"
+                                          value={values.fellowshipState}
+                                          placeholder="Enter State Attended Fellowship"
+                                          onChange={e => {
+                                              setFieldTouched("fellowshipState");
+                                              handleChange(e);
+                                          }}
+                                      />
+                                  </Col>
+                              </Row>
+                              {errors.fellowshipState &&
+                                  touched.fellowshipState && (
+                                  <div className="errorTxt">{errors.fellowshipState}</div>
+                                  )}
+                          </Form.Group>
+                          <Form.Group>
+                              <Row md={12}>
+                                  <Col>
+                                      <Form.Label>Clinical Interests</Form.Label>
+                                  </Col>
+                                  <Col>
+                                      <Form.Control
+                                          type="text"
+                                          name="clinicalInterests"
+                                          value={values.clinicalInterests}
+                                          placeholder="Personality development;OCD;Mental illness etc"
+                                          onChange={e => {
+                                              setFieldTouched("clinicalInterests");
+                                              handleChange(e);
+                                          }}
+                                      />
+                                  </Col>
+                              </Row>
+                              {errors.clinicalInterests &&
+                                  touched.clinicalInterests && (
+                                  <div className="errorTxt">{errors.clinicalInterests}</div>
+                                  )}
+                          </Form.Group>
+                          <Form.Group>
+                              <Row md={12}>
+                                  <Col>
+                                      <Form.Label>Research Interests</Form.Label>
+                                  </Col>
+                                  <Col>
+                                      <Form.Control
+                                          type="text"
+                                          name="researchInterests"
+                                          value={values.researchInterests}
+                                          placeholder="Personality development;OCD;Mental illness etc"
+                                          onChange={e => {
+                                              setFieldTouched("researchInterests");
+                                              handleChange(e);
+                                          }}
+                                      />
+                                  </Col>
+                              </Row>
+                              {errors.researchInterests &&
+                                  touched.researchInterests && (
+                                  <div className="errorTxt">{errors.researchInterests}</div>
+                                  )}
+                          </Form.Group>
             <Form.Group>
               <Row>
                 <Col>
@@ -322,7 +661,7 @@ export function ProfessionalEditInfo(props) {
                                   <Button type="submit" className="submitBtn">
                                       Save
                                </Button>{" "}
-                                  <Button className="submitBtn" onClick={props.CancelProfessionalData}>
+                                  <Button className="submitBtn" onClick={props.SetReadOnlyMode}>
                                       Cancel
                                </Button>{" "}
                               </Col>

@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 
 
-export function DoctorInfoTimingscomponent(props) {
+export function OfficeTimings(props) {
     console.log(props);
 
     let hospitalTimings = props.Hospitaltimings;
@@ -43,7 +43,7 @@ export function DoctorInfoTimingscomponent(props) {
                             </Col>
                             <Col md={3}>
                                 <DatePicker
-                                    disabled={ true}
+                                    disabled={true}
                                     selected={new Date(Date.parse(hospitalTimings.sundayStart))}
                                     showTimeSelect
                                     showTimeSelectOnly
@@ -56,7 +56,7 @@ export function DoctorInfoTimingscomponent(props) {
                             <Col md={3}>
                                 <DatePicker
                                     disabled={true}
-                                    selected={new Date(Date.parse(hospitalTimings.sundayEnd))}                               
+                                    selected={new Date(Date.parse(hospitalTimings.sundayEnd))}
                                     showTimeSelect
                                     showTimeSelectOnly
                                     timeIntervals={15}
@@ -66,7 +66,7 @@ export function DoctorInfoTimingscomponent(props) {
                                 />
                             </Col>
                             <Col md={3}>
-                                <Form.Check type='checkbox' label='Closed' defaultChecked={hospitalTimings.sunDayOpen} disabled={ true}                                    
+                                <Form.Check type='checkbox' label='Closed' defaultChecked={hospitalTimings.sunDayOpen} disabled={true}
                                 />
                             </Col>
                         </Row>
@@ -77,7 +77,7 @@ export function DoctorInfoTimingscomponent(props) {
                             <Col md={3}>
                                 <DatePicker
                                     disabled={true}
-                                    selected={new Date(Date.parse(hospitalTimings.mondayStart))}                                    
+                                    selected={new Date(Date.parse(hospitalTimings.mondayStart))}
                                     showTimeSelect
                                     showTimeSelectOnly
                                     timeIntervals={15}
@@ -99,7 +99,7 @@ export function DoctorInfoTimingscomponent(props) {
                                 />
                             </Col>
                             <Col md={3}>
-                                <Form.Check type='checkbox' label='Closed' defaultChecked={hospitalTimings.monDayOpen} disabled={true}                                    
+                                <Form.Check type='checkbox' label='Closed' defaultChecked={hospitalTimings.monDayOpen} disabled={true}
                                 />
                             </Col>
                         </Row>
@@ -132,7 +132,7 @@ export function DoctorInfoTimingscomponent(props) {
                                 />
                             </Col>
                             <Col md={3}>
-                                <Form.Check type='checkbox' label='Closed' defaultChecked={hospitalTimings.tuesDayOpen} disabled={true}                                   
+                                <Form.Check type='checkbox' label='Closed' defaultChecked={hospitalTimings.tuesDayOpen} disabled={true}
                                 />
                             </Col>
                         </Row>
@@ -166,7 +166,7 @@ export function DoctorInfoTimingscomponent(props) {
                             </Col>
                             <Col md={3}>
                                 <Form.Check type='checkbox' label='Closed' defaultChecked={hospitalTimings.wednesDayOpen} disabled={true}
-                                   
+
                                 />
                             </Col>
                         </Row>
@@ -200,7 +200,7 @@ export function DoctorInfoTimingscomponent(props) {
                             </Col>
                             <Col md={3}>
                                 <Form.Check type='checkbox' label='Closed' defaultChecked={hospitalTimings.thursDayOpen} disabled={true}
-                                     
+
                                 />
                             </Col>
                         </Row>
@@ -234,7 +234,7 @@ export function DoctorInfoTimingscomponent(props) {
                             </Col>
                             <Col md={3}>
                                 <Form.Check type='checkbox' label='Closed' defaultChecked={hospitalTimings.friDayOpen} disabled={true}
-                                     
+
                                 />
                             </Col>
                         </Row>
@@ -268,7 +268,7 @@ export function DoctorInfoTimingscomponent(props) {
                             </Col>
                             <Col md={3}>
                                 <Form.Check type='checkbox' label='Closed' defaultChecked={hospitalTimings.satDayOpen} disabled={true}
-                                     
+
                                 />
                             </Col>
                         </Row>

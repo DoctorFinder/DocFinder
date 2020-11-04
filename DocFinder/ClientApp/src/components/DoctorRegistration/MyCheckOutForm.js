@@ -68,7 +68,7 @@ export function MyCheckOutForm(props) {
     console.log(props);
 
     function updateUserPaymentstatus() {
-        debugger;
+         
         const doctor = {
             EmailAddress: props.Doctor.email,
             Password: props.Doctor.password
