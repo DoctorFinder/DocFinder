@@ -15,7 +15,7 @@ export function DoctorCard(props) {
        const imageRef = useRef()
 
     useEffect(() => {
-//        document.getElementById("ItemPreview").src = "data:image/png;base64," + doctor.userImage;
+        if (doctor.userImage != "")
         imageRef.current.src = "data:image/png;base64," + doctor.userImage;
     },[])
     return (
@@ -23,7 +23,7 @@ export function DoctorCard(props) {
             <div className="card">
                 <div className="card-horizontal">
                     <div className="img-square-wrapper col col-md-2">
-                        <Image id="ItemPreview" className="img-fluid" alt="nopes" roundedCircle ref={imageRef}/>
+                        <Image id="ItemPreview" className="img-fluid" alt="nopes" src="../../Images/defaultimage.jpg" roundedCircle ref={imageRef}/>
                          </div>
                     <div className="card-body col col-md-10">
                         <Link to={{

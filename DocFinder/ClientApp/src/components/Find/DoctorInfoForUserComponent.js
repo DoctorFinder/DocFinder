@@ -20,6 +20,7 @@ export function DoctorInfoForUserComponent(props){
     const imageRef = useRef();
     
     useEffect(() => {
+        if (doctor.userImage != "")
         imageRef.current.src = "data:image/png;base64," + doctor.userImage;
     },[]);
 
@@ -31,7 +32,7 @@ export function DoctorInfoForUserComponent(props){
             <div className="card">
                 <div className="card-horizontal">
                     <div className="img-square-wrapper col col-md-2">
-                        <Image id="ItemPreview" className="img-fluid" alt="nopes" roundedCircle ref={imageRef} />
+                            <Image id="ItemPreview" className="img-fluid" alt="nopes" roundedCircle ref={imageRef} src="../../Images/defaultimage.jpg" />
                     </div>
                     <div className="card-body col col-md-10">
                         <h4 className="card-title">{"Dr." + doctor.firstName + " " + doctor.lastName + "," + doctor.degree}</h4>

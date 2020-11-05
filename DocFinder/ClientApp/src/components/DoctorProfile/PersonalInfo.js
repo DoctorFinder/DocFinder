@@ -31,6 +31,7 @@ export function PersonalInfo(props) {
     }
 
     useEffect(() => {
+        if (doctorDetails.userImage != "")
         imageRef.current.src = "data:image/png;base64," + doctorDetails.userImage;
     }, []);
 
@@ -40,7 +41,7 @@ export function PersonalInfo(props) {
       <Form>
           <Row md={2}>
               <Col md={2}>
-                  <Image id="ItemPreview1" className="img-fluid" alt="nopes" roundedCircle ref={imageRef}/>
+                  <Image className="img-fluid" alt="nopes" roundedCircle ref={imageRef} src="../../Images/defaultimage.jpg"/>
               </Col>
               <Col md={10}>
                   <Row md={6}>

@@ -35,6 +35,7 @@ export function DoctorInfoPersonalComponent(props) {
     }
 
     useEffect(() => {
+        if (doctor.userImage != "")
         imageRef.current.src = "data:image/png;base64," + doctor.userImage;
     },[]);
 
@@ -44,7 +45,7 @@ export function DoctorInfoPersonalComponent(props) {
             <Container fluid={true}>
                 <Row >
                     <Col>
-                        <Image className="img-fluid" alt="nopes" roundedCircle ref={imageRef} />
+                        <Image className="img-fluid" alt="nopes" roundedCircle ref={imageRef} src="../../Images/defaultimage.jpg" />
                     </Col>
                 </Row>
 

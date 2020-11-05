@@ -351,6 +351,9 @@ export function OfficeAddressEdit(props) {
                                 <Row className="justify-content-md-center">
                                     <Col>
                                         <Button type="submit">Save </Button>{" "}
+                                        <Button className="submitBtn" onClick={props.SetReadOnlyMode}>
+                                            Cancel
+                                        </Button>
                                     </Col>
                                 </Row>
                             </Container>
