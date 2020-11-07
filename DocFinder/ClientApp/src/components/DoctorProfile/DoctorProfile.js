@@ -25,9 +25,9 @@ export function DoctorProfileComponent() {
     doctor.subspecialities = location.state.doctordetails.specialities;
     doctor.addresses = location.state.doctordetails.addresses;
 
-    useEffect(() => {
-        getUserImage();
-    },[]);
+    //useEffect(() => {
+    //    getUserImage();
+    //},[]);
 
     async function getUserImage() {
         fetch('Doctor').then(async response => {

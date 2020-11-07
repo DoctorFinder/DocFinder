@@ -1,17 +1,26 @@
-﻿import React, { useState, Fragment, useEffect } from 'react';
+﻿import React, { useState, Fragment, useEffect, useRef } from 'react';
+import { Formik } from "formik";
+import * as Yup from "yup";
 import { Form, Row, Col, Button, Container, Card } from 'react-bootstrap';
 import { DoctorCard } from './DoctorCard';
 import MapWithAMarker from './DoctorAddressesMap';
+import useGeoCoder from "../useGeoCoder";
 import { Typeahead } from 'react-bootstrap-typeahead';
+import errors from "../../Config/errorMessages";
 import 'react-bootstrap-typeahead/css/Typeahead.css';
-
-
 
 
 export function FindDoctorsComponent() {
     const [singleSelections, setSingleSelections] = useState([]);
     const [options, setOptions] = useState([]);
     const [doctorsList, setDoctorsList] = useState([]);
+    const [addressforCode, setAddressforCode] = useState("");
+    const geoCodes = useGeoCoder(addressforCode);
+
+    const emptySearchData = {
+        doctorSpeciality: "",
+        zipcode:""
+    }
 
     function getSpecialitiesList() {
         fetch("Speciality")
@@ -24,7 +33,12 @@ export function FindDoctorsComponent() {
             });
     }
 
-    function getDoctors() {
+    function getDoctors(values) {
+        setAddressforCode(values.zipcode);      
+    }
+
+    function getNearByDoctors(geoCodes) {
+        console.log(geoCodes);
         fetch("Doctor/GetAllDoctors")
             .then(response => response.json())
             .then(data => {
@@ -35,10 +49,32 @@ export function FindDoctorsComponent() {
 
     useEffect(() => {
         getSpecialitiesList();
-    },[])
+    }, [])
+
+    useEffect(() => {
+        getNearByDoctors(geoCodes);
+    }, [geoCodes])
     
     return (
         <Fragment>
+            <Formik  
+                initialValues={emptySearchData}
+                onSubmit={(values: FState, setSubmitting: any) => {
+                    getDoctors(values);
+                    console.log(values);
+                }}>
+                {({
+                    handleSubmit,
+                    handleChange,
+                    handleBlur,
+                    values,
+                    touched,
+                    isValid,
+                    errors,
+                    setFieldValue,
+                    setFieldTouched
+                }) => (
+                        <Form noValidate onSubmit={handleSubmit}>
             <Container>                
                 <Form.Group>
                     <Row md={3}>
@@ -55,17 +91,24 @@ export function FindDoctorsComponent() {
                         <Col>
                             <Form.Control
                                 type="text"
-                                name="education"
+                                 name="zipcode"
+                                      value={values.zipcode}
+                                    onChange={e => {
+                                  handleChange(e);
+                                                }}
                                 placeholder="Enter Zipcode"/>
                         </Col>
                         <Col>
-                            <Button onClick={getDoctors}>
+                                            <Button type="submit" className="submitBtn">
                                 Search
                                 </Button>
                             </Col>
                         </Row>
                 </Form.Group>
-            </Container>
+                </Container>
+                        </Form>
+                    )}
+                </Formik>
             <div className="parent-container d-flex">
                 <Container fluid={true}>
                     {doctorsList.length > 0 && doctorsList.map(doc => {

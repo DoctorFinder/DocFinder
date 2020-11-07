@@ -22,8 +22,7 @@ export default function usePlaceDetails(placeaddress) {
                     let location = [];
                     location.push(results[0].geometry.location.lat());
                     location.push(results[0].geometry.location.lng());
-                    setPlaceInfo(location);                    
-                    console.log(results);
+                    setPlaceInfo(location);                                     
                 } else {
                     alert("Geocode was not successful for the following reason: " + status);
                 }
