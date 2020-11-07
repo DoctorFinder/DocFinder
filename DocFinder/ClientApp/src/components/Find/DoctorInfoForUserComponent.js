@@ -37,7 +37,7 @@ export function DoctorInfoForUserComponent(props){
                     <div className="card-body col col-md-10">
                         <h4 className="card-title">{"Dr." + doctor.firstName + " " + doctor.lastName + "," + doctor.degree}</h4>
                         <p className="card-text">{specialities[0].label}</p>
-                        <p className="card-text">{address.address1 + "," + address.address2 + "," + address.city + "," + address.state + "," + address.zipcode}</p>
+                        <p className="card-text">{address.address1 + "," + address.address2 + address.city + "," + address.state + "," + address.zipcode}</p>
                     </div>
                 </div>
                 <div className="card-footer">
