@@ -122,5 +122,13 @@ namespace DocFinder.Controllers
             string result = Convert.ToBase64String(doctorToRetun.UserImage);
             return new JsonResult(result);
         }
+
+        [HttpGet]
+        [Route("[action]")]
+        public ActionResult GetDoctorsByLocation(Double Latitude, Double Longitude, string speciality)
+        {
+            var doctors = this._doctorApplicationService.GetNearByDoctorsForSpeciality(Latitude, Longitude, speciality);
+            return Ok(doctors);
+        }
     } 
 }

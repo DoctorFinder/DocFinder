@@ -18,6 +18,8 @@ namespace DocFinder.Domain.Interfaces
 
         public IEnumerable<Doctor> GetDoctors();
 
+        public IEnumerable<Doctor> GetDoctorsBySpeciality(string speciality);
+
         public Doctor GetDoctorById(int doctorId);
 
         public int Commit();

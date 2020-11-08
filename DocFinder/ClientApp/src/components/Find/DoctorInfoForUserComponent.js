@@ -8,11 +8,8 @@ import "../../Styles/DoctorCard.css";
 export function DoctorInfoForUserComponent(props){
 
     const location = useLocation();
-
     let doctor = location.state.Doctor.doctor;
-
-    let address = location.state.Doctor.addresses[0];
-
+    let address = location.state.Doctor.addresses;
     let specialities = location.state.Doctor.specialities;
 
     let languages = location.state.Doctor.languages;
@@ -23,8 +20,6 @@ export function DoctorInfoForUserComponent(props){
         if (doctor.userImage != "")
         imageRef.current.src = "data:image/png;base64," + doctor.userImage;
     },[]);
-
-    console.log(location.state.Doctor.doctor);
 
     return (
         <Fragment>

@@ -1,30 +1,22 @@
-﻿import React from 'react';
-import {withGoogleMap,GoogleMap,Marker,} from "react-google-maps";
+﻿import React, { useState} from 'react';
+import { withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps";
+import { CustomMarker } from './CustomMarker';
 
 const MapWithAMarker = withGoogleMap(props => {
-    console.log(props);
-    //props.doctors
-  let markers = props.doctors.map(doc => {
-        let add = doc.addresses.map(add => {
-            return { lat: add.latitude, lng: add.longitude };
-        })
-        return add;
-  })
-    console.log(markers);
-    let merged = [].concat.apply([], markers);
-
-    console.log(merged);
-    let marks = [{ lat: -34.597, lng: 150.644 }, { lat: -34.498, lng: 150.644 }, { lat: -34.797, lng: 150.644 }, { lat: -34.998, lng: 150.644 }]
+    
+    let defaultMark = { lat: props.doctors[0].addresses.latitude, lng: props.doctors[0].addresses.longitude}
+   
     return (
         <GoogleMap
             defaultZoom={14}
-            defaultCenter={merged[0]}>
-            {merged.map((mark, index) => {
+            defaultCenter={defaultMark}>
+            {props.doctors.map((doc, index) => {
 
-                return <Marker
+                return <CustomMarker
                     key={index}
-                    position={mark}
-                />
+                    doctor={doc}
+                    hoveredDoctorId={props.hoveredDoctorId}>                   
+                </CustomMarker>
             })}
 
         </GoogleMap>
@@ -33,11 +25,5 @@ const MapWithAMarker = withGoogleMap(props => {
 
 );
 
-
-
-
-//const FindTrialsComponent = (props) =>
-
   
-
 export default MapWithAMarker;

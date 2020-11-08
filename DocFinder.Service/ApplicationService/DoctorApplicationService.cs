@@ -5,10 +5,12 @@ using DocFinder.Domain.ServiceResponse;
 using DocFinder.Infrastructure;
 using DocFinder.Service.Interfaces;
 using Microsoft.Extensions.Logging;
+using NetTopologySuite;
+using NetTopologySuite.Geometries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+
 
 namespace DocFinder.Service.ApplicationService
 {
@@ -37,24 +39,6 @@ namespace DocFinder.Service.ApplicationService
             var doctorDTO =  Mapping.Mapper.Map<DoctorForCreationDTO>(doctor);
             return doctorDTO;
         }
-
-        //public  DoctorForCreationDTO  GetDoctorByEmailandMobileNumber(string email, string mobileNumber)
-        //{
-        //    var doctor = this._doctorService.GetDoctorByEmailandMobileNumber(email, mobileNumber);
-        //    if (doctor is null)
-        //    {
-        //        return null;
-        //    }
-        //    var doctorDTO = Mapping.Mapper.Map<DoctorForCreationDTO>(doctor);
-        //    return doctorDTO;
-        //}
-
-        //public  DoctorForCreationDTO  GetDoctorByMobileNumber(string mobileNumber)
-        //{
-        //    var doctor = this._doctorService.GetDoctorByMobileNumber(mobileNumber);
-        //    var doctorDTO = Mapping.Mapper.Map<DoctorForCreationDTO>(doctor);
-        //    return doctorDTO;
-        //}
 
         public DoctorToReturnResponse RegisterDoctor(DoctorForCreationDTO doctorDTO)
         {
@@ -96,12 +80,6 @@ namespace DocFinder.Service.ApplicationService
                         doctorToResponse.responseMessage = "Please select a different email address. Email already exists";
                         return doctorToResponse;
                     }
-                    //else if (existngDoctor.PhoneNumber == existngDoctor.PhoneNumber)
-                    //{
-                    //    doctorToResponse.responseMessage = "Please select a different Phone Number. Phone Number already exists";
-                    //    return doctorToResponse;
-                    //}
-
                 }
                 return null;
             }
@@ -200,6 +178,98 @@ namespace DocFinder.Service.ApplicationService
             return; 
         }
 
+        public List<DoctorToReturnResponse> GetNearestDoctorsBySpeciality(Double Latitude, Double Longitude,string speciality)
+        {
+
+            var doctors = GetDoctorsBySpecialityAndDistance(Latitude,Longitude, speciality);
+            return doctors.ToList();
+        }
+
+        public IEnumerable<DoctorToReturnResponse> GetDoctorsBySpecialityAndDistance(Double Latitude, Double Longitude, string speciality)
+        {
+            var doctors = this._doctorService.GetDoctorsBySpeciality(speciality);
+            List<DoctorToReturnResponse> doctorsList = new List<DoctorToReturnResponse>();
+            List<DoctorAddressesToReturnDTO> doctorAddresses = new List<DoctorAddressesToReturnDTO>();
+            foreach (var doctor in doctors) 
+            {
+                var doctorResponse = new DoctorToReturnResponse();
+                var doctorAddress = this._doctorAddressesApplicationService.GetDoctorAddresses(doctor.Id).ToList();
+
+                doctorResponse.doctor = Mapping.Mapper.Map<DoctorToReturnDTO>(doctor);
+                var addressList = new List<DoctorAddressesToReturnDTO>();
+                foreach (var address in doctorAddress)
+                {
+                    address.distance = Math.Round(DistanceTo(address.Longitude, address.Latitude, Longitude, Latitude), 2).ToString();
+                    addressList.Add(address);
+                }
+
+                if (addressList.Count > 0)
+                {
+                    var doctorLanguagesToReturn = this._doctorLanguageApplicationService.GetDoctorLanguages(doctor.Id).ToList();
+                    var doctorSpecialitiesToReturn = this._doctorSpecialityApplicationService.GetDoctorSpecialities(doctor.Id).ToList();
+
+                    doctorResponse.addresses = addressList;
+                    doctorResponse.languages = doctorLanguagesToReturn;
+                    doctorResponse.specialities = doctorSpecialitiesToReturn;
+                    doctorsList.Add(doctorResponse);
+                }
+            }
+
+            return doctorsList;
+        }
+
+        public List<NearByDoctorsResponse> GetNearByDoctorsForSpeciality(Double Latitude, Double Longitude, string speciality)
+        {
+            List<NearByDoctorsResponse> doctorsList = new List<NearByDoctorsResponse>();
+            var doctorAddresses = this._doctorAddressesApplicationService.GetDoctorAddressesForSpeciality(speciality);
+
+            foreach (var doctoraddress in doctorAddresses)
+            {
+             doctoraddress.distance = Math.Round(DistanceTo(doctoraddress.Longitude, doctoraddress.Latitude, Longitude, Latitude), 2).ToString();
+
+             var nearestDoctor = new NearByDoctorsResponse();
+
+             var doctor = this._doctorService.GetDoctorById(doctoraddress.DoctorId);
+             var doctorLanguages =  this._doctorLanguageApplicationService.GetDoctorLanguages(doctoraddress.DoctorId);
+             var doctorSpecialities = this._doctorSpecialityApplicationService.GetDoctorSpecialities(doctoraddress.DoctorId);
+
+             nearestDoctor.addresses = doctoraddress;
+             nearestDoctor.doctor = Mapping.Mapper.Map<DoctorToReturnDTO>(doctor);
+             nearestDoctor.languages = Mapping.Mapper.Map<IEnumerable<DoctorLanguagesToReturnDTO>>(doctorLanguages).ToList();
+             nearestDoctor.specialities = Mapping.Mapper.Map<IEnumerable<DoctorSpecialitiesToReturnDTO>>(doctorSpecialities).ToList();
+             nearestDoctor.distance = Math.Round(DistanceTo(doctoraddress.Longitude, doctoraddress.Latitude, Longitude, Latitude), 2);
+             doctorsList.Add(nearestDoctor);
+            }
+
+            return doctorsList.OrderBy(doc => doc.distance).ToList();
+        }
+
+        public double GetDistance(double longitude, double latitude, double otherLongitude, double otherLatitude)
+        {
+            var d1 = latitude * (Math.PI / 180.0);
+            var num1 = longitude * (Math.PI / 180.0);
+            var d2 = otherLatitude * (Math.PI / 180.0);
+            var num2 = otherLongitude * (Math.PI / 180.0) - num1;
+            var d3 = Math.Pow(Math.Sin((d2 - d1) / 2.0), 2.0) + Math.Cos(d1) * Math.Cos(d2) * Math.Pow(Math.Sin(num2 / 2.0), 2.0);
+
+            return 6376500.0 * (2.0 * Math.Atan2(Math.Sqrt(d3), Math.Sqrt(1.0 - d3)));
+        }
+
+        public static double DistanceTo(double lat1, double lon1, double lat2, double lon2)
+        {
+            double rlat1 = Math.PI * lat1 / 180;
+            double rlat2 = Math.PI * lat2 / 180;
+            double theta = lon1 - lon2;
+            double rtheta = Math.PI * theta / 180;
+            double dist =
+                Math.Sin(rlat1) * Math.Sin(rlat2) + Math.Cos(rlat1) *
+                Math.Cos(rlat2) * Math.Cos(rtheta);
+            dist = Math.Acos(dist);
+            dist = dist * 180 / Math.PI;
+            dist = dist * 60 * 1.1515;
+
+            return dist;
+        }
 
         private bool IsPasswordMatched(string hash, string password)
         {

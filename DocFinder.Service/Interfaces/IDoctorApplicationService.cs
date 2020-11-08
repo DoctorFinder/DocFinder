@@ -27,5 +27,9 @@ namespace DocFinder.Service.Interfaces
 
         public List<DoctorToReturnResponse> GetDoctors();
 
+        public List<DoctorToReturnResponse> GetNearestDoctorsBySpeciality(Double Latitude,Double Longitude,string speciality);
+
+        public IEnumerable<DoctorToReturnResponse> GetDoctorsBySpecialityAndDistance(Double Latitude, Double Longitude, string speciality);
+        public List<NearByDoctorsResponse> GetNearByDoctorsForSpeciality(Double Latitude, Double Longitude, string speciality);
     }
 }

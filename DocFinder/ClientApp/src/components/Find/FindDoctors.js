@@ -11,6 +11,7 @@ import 'react-bootstrap-typeahead/css/Typeahead.css';
 
 
 export function FindDoctorsComponent() {
+    const [hoveredDoctorId, setHoveredDoctorId] = useState(0);
     const [singleSelections, setSingleSelections] = useState([]);
     const [options, setOptions] = useState([]);
     const [doctorsList, setDoctorsList] = useState([]);
@@ -33,18 +34,41 @@ export function FindDoctorsComponent() {
             });
     }
 
+    function setSelectedDoctorId(doctorId) {
+        setHoveredDoctorId(doctorId);
+    }
+
     function getDoctors(values) {
+        if (values.zipcode == "") {
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    let currentLocation = [];
+                    currentLocation.push(position.coords.latitude);
+                    currentLocation.push(position.coords.longitude);
+                    getNearByDoctors(currentLocation);
+                },
+                function (error) {
+                    console.error("Error Code = " + error.code + " - " + error.message);
+                }
+            );
+        }
         setAddressforCode(values.zipcode);      
     }
 
     function getNearByDoctors(geoCodes) {
-        console.log(geoCodes);
-        fetch("Doctor/GetAllDoctors")
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                setDoctorsList(data);
-            });
+        
+        if (addressforCode != "" || geoCodes.length != 0) {
+            var speciality = "";
+            if (singleSelections && singleSelections.length > 0) {
+                speciality = singleSelections[0].label;
+            }
+
+            fetch(`Doctor/GetDoctorsByLocation?Latitude=${geoCodes[0]}&Longitude=${geoCodes[1]}&speciality=${speciality}`)
+                .then(response => response.json())
+                .then(data => {
+                    setDoctorsList(data);
+                });
+        }
     }
 
     useEffect(() => {
@@ -108,23 +132,25 @@ export function FindDoctorsComponent() {
                 </Container>
                         </Form>
                     )}
-                </Formik>
+            </Formik>
             <div className="parent-container d-flex">
-                <Container fluid={true}>
-                    {doctorsList.length > 0 && doctorsList.map(doc => {
-                        return <DoctorCard doctor={doc} key={doc.doctor.id} />
-                    })}
+    <Container fluid={true}>
+        {doctorsList.length > 0 && doctorsList.map(doc => {
+            return <DoctorCard doctor={doc} key={doc.doctor.id} SetSelectedDoctorId={setSelectedDoctorId}/>
+        })}
                 </Container>
-                <Container fluid={true}>
-                    {doctorsList.length > 0 &&
-                        <MapWithAMarker
-                        doctors={doctorsList }
-                            test="src"
-                            containerElement={<div style={{ height: `100%`, width: `100%` }} />}
-                            mapElement={<div style={{ height: `100%`, width: `100%` }} />}
-                        />}
-                </Container>
-                </div>
+                    <Container fluid={true}>
+        {doctorsList.length > 0 &&
+            <MapWithAMarker
+                doctors={doctorsList}
+                test="src"
+                hoveredDoctorId={hoveredDoctorId}
+                containerElement={<div style={{ height: `100%`, width: `100%` }} />}
+                mapElement={<div style={{ height: `100%`, width: `100%` }} />}
+            />}
+    </Container>
+</div>
             </Fragment>        
     )
 }
+

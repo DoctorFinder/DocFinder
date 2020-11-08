@@ -51,6 +51,23 @@ namespace DocFinder.Domain.Service
             return this._db.Doctor.ToList();
         }
 
+        public IEnumerable<Doctor> GetDoctorsBySpeciality(string speciality)
+        {
+            if (String.IsNullOrEmpty(speciality))
+            {
+                return GetDoctors();
+            }
+            else 
+            {
+                var specialityId = this._db.Specialities.Where(spec => spec.Speciality == speciality).FirstOrDefault(); ;
+                var doctors = (from doc in this._db.Doctor
+                               join docspec in this._db.DoctorSpecialities on doc.Id equals docspec.DoctorId
+                               where docspec.SpecialityId == specialityId.ID
+                               select doc);
+                return doctors.ToList();
+            }   
+        }
+
         public int Commit()
         {
             return this._db.SaveChanges();

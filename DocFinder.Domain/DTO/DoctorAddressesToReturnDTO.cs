@@ -7,6 +7,8 @@ namespace DocFinder.Domain.DTO
     public class DoctorAddressesToReturnDTO
     {
         public int Id { get; set; }
+
+        public int DoctorId { get; set; }
         public string Address1 { get; set; }
 
         public string Address2 { get; set; }
@@ -19,8 +21,10 @@ namespace DocFinder.Domain.DTO
 
         public string PhoneNumber { get; set; }
 
-        public Decimal Latitude { get; set; }
+        public Double Latitude { get; set; }
 
-        public Decimal Longitude { get; set; }
+        public Double Longitude { get; set; }
+
+        public string distance { get; set; }
     }
 }

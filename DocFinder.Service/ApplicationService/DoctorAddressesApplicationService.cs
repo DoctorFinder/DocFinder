@@ -31,5 +31,18 @@ namespace DocFinder.Service.ApplicationService
             var doctorAddressesToReturn = Mapping.Mapper.Map<IEnumerable<DoctorAddressesToReturnDTO>>(doctorAddresses);
             return doctorAddressesToReturn;
         }
+
+        public IEnumerable<DoctorAddresses> GetDoctorAddressesEntities(int doctorId)
+        {
+            var doctorAddresses = this._doctorAddressService.GetDoctorAddress(doctorId);
+            return doctorAddresses;
+        }
+
+        public IEnumerable<DoctorAddressesToReturnDTO> GetDoctorAddressesForSpeciality(string speciality)
+        {
+            var doctorAddresses = this._doctorAddressService.GetDoctorAddressesForSpeciality(speciality);
+            var doctorAddressesToReturn = Mapping.Mapper.Map<IEnumerable<DoctorAddressesToReturnDTO>>(doctorAddresses);
+            return doctorAddressesToReturn;
+        }
     }
 }
